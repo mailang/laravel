@@ -49,8 +49,15 @@ class CreateCompanyTable extends Migration
             $table->integer('branch_num');
             //从业人员数数
             $table->integer('p_num');
-            $table->timestamps();
+            //uid为user表中id
+             $table->integer('uid')->unsigned();
+             $table->timestamps();
         });
+
+         Schema::table('company', function($table) {
+       $table->foreign('uid')->references('id')->on('users');
+   });
+
     }
 
     /**
