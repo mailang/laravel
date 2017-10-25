@@ -16,7 +16,7 @@ class CreateReportformTable extends Migration
         Schema::create('reportform', function (Blueprint $table) {
             $table->increments('id');
             //users表中id
-           $table->integer('uid')->unsigned();;
+            $table->integer('uid')->unsigned();
              //地区
             $table->string('areacode');
             //资产总额

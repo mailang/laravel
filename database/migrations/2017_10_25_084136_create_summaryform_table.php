@@ -17,7 +17,7 @@ class CreateSummaryformTable extends Migration
             $table->increments('id');
     
              //users表中id
-            $table->integer('uid')->unsigned();;
+            $table->integer('uid')->unsigned();
              //地区
             $table->string('areacode');
              //年初
