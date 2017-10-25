@@ -23,3 +23,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
       //  require base_path('routes/admin.php');
 	Route::get('/','IndexController@index');
  });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
