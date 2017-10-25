@@ -12,12 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('login');  //view('welcome');
+    return view('welcome');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+<<<<<<< HEAD
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
       //  require base_path('routes/admin.php');
@@ -26,3 +27,5 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+=======
+>>>>>>> parent of bc52795... 模板增加
