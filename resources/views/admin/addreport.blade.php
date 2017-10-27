@@ -116,17 +116,18 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" type="text" placeholder="正常贷款户数" id="normal_loan_family"/>
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div>
                   </div>
                   </div>
+
 
                   <div class="form-group">
                     <label for="month_loan_remainder" class="col-sm-4 control-label">逾期30天以下贷款余额:</label>
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" type="text" placeholder="逾期30天以下贷款户数" id="month_loan_remainder"/>
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div>
                   </div>
                   </div>
@@ -135,7 +136,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" type="text" placeholder="逾期30天以下贷款户数" id="month_loan_family"/>
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户元</span>
                   </div>
                   </div>
                   </div>
@@ -154,7 +155,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" type="text" placeholder="逾期30天-90天贷款户数" id="quarter_loan_family"/>
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div>
                   </div>
                   </div>
@@ -172,7 +173,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" type="text" placeholder="逾期30天以下贷款户数" id="ninety_loan_family"/>
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div>
                   </div>
                   </div>
@@ -446,14 +447,13 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" placeholder="贷款户数" type="text" id="loan_family">
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div></div></div>
                   <div class="form-group">
                     <label for="loan_num" class="col-sm-2 control-label">贷款笔数:</label>
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" placeholder="贷款笔数" type="text" id="loan_num">
-                    <span class="input-group-addon">万元</span>
                   </div>
                   </div>
                   </div>
@@ -481,14 +481,13 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" placeholder="本年内发放贷款户数" type="text" id="year_issuefamily">
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div></div></div>
                   <div class="form-group">
                     <label for="year_issuenum" class="col-sm-3 control-label">发放贷款笔数:</label>
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" placeholder="发放贷款笔数" type="text" id="year_issuenum">
-                    <span class="input-group-addon">万元</span>
                   </div></div></div>
 
                    <div class="form-group">
@@ -502,15 +501,15 @@
                     <label for="year_backfamily" class="col-sm-3 control-label">收回贷款户数:</label>
                     <div class="col-sm-6">
                     <div class="input-group">
-                    <input class="form-control" placeholder="本年发放贷款金额" type="text" id="year_backfamily">
-                    <span class="input-group-addon">万元</span>
+                    <input class="form-control" placeholder="收回贷款户数" type="text" id="year_backfamily">
+                    <span class="input-group-addon">户</span>
                   </div></div></div>
                   <div class="form-group">
                     <label for="year_backnum" class="col-sm-3 control-label">收回贷款笔数:</label>
                     <div class="col-sm-6">
                     <div class="input-group">
-                    <input class="form-control" placeholder="本年发放贷款金额" type="text" id="year_backnum">
-                    <span class="input-group-addon">万元</span>
+                    <input class="form-control" placeholder="收回贷款笔数" type="text" id="year_backnum">
+                    
                   </div></div></div>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
@@ -532,7 +531,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" placeholder="涉农贷款户数" type="text" id="farmer_loan_family">
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div></div></div>
 
                    <div class="form-group">
@@ -547,7 +546,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" placeholder="累计发放户数" type="text" id="farmer_backnum">
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div></div></div>
                 </div></div>
 
@@ -568,7 +567,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" placeholder="涉农贷款户数" type="text" id="company_loan_family">
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div></div></div>
 
                    <div class="form-group">
@@ -583,7 +582,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" placeholder="累计发放户数" type="text" id="company_backnum">
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div></div></div>
                 </div></div>
 
@@ -604,7 +603,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" placeholder="涉农贷款户数" type="text" id="total_loan_family">
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div></div></div>
 
                    <div class="form-group">
@@ -619,7 +618,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" placeholder="累计发放户数" type="text" id="total_backnum">
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div></div></div>
                 </div></div>
 
@@ -640,7 +639,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" placeholder="涉农贷款户数" type="text" id="person_loan_family">
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div></div></div>
 
                    <div class="form-group">
@@ -655,7 +654,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     <input class="form-control" placeholder="累计发放户数" type="text" id="person_backnum">
-                    <span class="input-group-addon">万元</span>
+                    <span class="input-group-addon">户</span>
                   </div></div></div>
                 </div></div>
 
