@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('login');//view('welcome');
-});
+//Route::get('/', function () {
+//    return view('login');//view('welcome');
+//});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
@@ -25,4 +25,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
  });
 
 
-
+Route::get('/', function () {
+    return redirect()->route('login');
+});
