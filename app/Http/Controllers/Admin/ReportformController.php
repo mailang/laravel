@@ -9,24 +9,30 @@ use App\Models\reportform;
 class ReportformController extends Controller
 {
 
-
     //get 请求报表页面
     public function addreport()
     {
     	 # code...
            return view('admin.addreport');
     }
-       // 一级审核显示的列表页
+      // 企业登录查看信息
+    public function company()
+    {
+         # code...
+           $report = new Reportform;
+           $report =$report->where('uid',1)->get()->first();
+           return view('admin.reportform', compact('report'));
+    }
+
+    // 一级审核显示的列表页
     public function firstverify()
     {
          # code...
-        
-           $report =$report->where('uid',$report->uid)->get();
+           $report = new Reportform;
+           $report =$report->where('areacode',"340000")->get();
            return view('admin.reportform');
     }
      
-
-
     /**
      * 根据id查询报表
      *
