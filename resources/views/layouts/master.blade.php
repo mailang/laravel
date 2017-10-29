@@ -173,11 +173,12 @@
               {{--</li>--}}
               {{--<!-- Control Sidebar Toggle Button -->--}}
               <li class="dropdown navbar-user">
-                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                   <span class="hidden-xs">{{ auth()->user()->name }}</span> <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu animated fadeInLeft">
                   <li class="arrow"></li>
+                  <li class="divider"></li>
                   <li><a href="{{ route('logout') }}"
                               onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">退出登录</a></li>
