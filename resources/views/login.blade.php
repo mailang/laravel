@@ -17,26 +17,63 @@
   <body class="login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="../../index2.html"><b>Admin</b>LTE</a>
+        小贷报表管理
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
-        <form action="/login" method="post">
+
+        <form action="{{ route('login') }}" method="post">
+          {{ csrf_field() }}
+          {{--<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">--}}
+            {{--<label for="name" class="col-md-4 control-label">Username</label>--}}
+
+            {{--<div class="col-md-6">--}}
+              {{--<input id="name" type="name" class="form-control" name="name" value="{{ old('name') }}" required autofocus>--}}
+
+              {{--@if ($errors->has('name'))--}}
+                {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $errors->first('name') }}</strong>--}}
+                                    {{--</span>--}}
+              {{--@endif--}}
+            {{--</div>--}}
+          {{--</div>--}}
+          {{--<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">--}}
+            {{--<label for="password" class="col-md-4 control-label">Password</label>--}}
+
+            {{--<div class="col-md-6">--}}
+              {{--<input id="password" type="password" class="form-control" name="password" required>--}}
+
+              {{--@if ($errors->has('password'))--}}
+                {{--<span class="help-block">--}}
+                                        {{--<strong>{{ $errors->first('password') }}</strong>--}}
+                                    {{--</span>--}}
+              {{--@endif--}}
+            {{--</div>--}}
+          {{--</div>--}}
+          @if(count($errors)>0)
+            <div class="alert alert-danger">
+              <ul>
+                @foreach($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
           <div class="form-group has-feedback">
-            <input type="email" class="form-control" placeholder="Email" />
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            <input id="name" type="name" name="name" class="form-control" placeholder="用户名" />
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password" />
+            <input id="password" name="password" type="password" class="form-control" placeholder="密码" />
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
 
+
         <div class="social-auth-links text-center">
-        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
         </div><!-- /.social-auth-links -->
             </form>
-        <a href="#">I forgot my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
+        {{--<a href="#">I forgot my password</a><br>--}}
+        {{--<a href="register.html" class="text-center">Register a new membership</a>--}}
 
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->

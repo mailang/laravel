@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             //$table->string('email')->unique();
             $table->string('password');
-            //类型:1、小贷公司,2、金融办
+            //类型:0、超级管理员，1、小贷公司,2、金融办
             $table->integer('type');
             //地区码
             $table->string('areacode');
