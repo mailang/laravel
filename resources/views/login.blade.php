@@ -17,10 +17,10 @@
   <body class="login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="../../index2.html"><b>Admin</b>LTE</a>
+        小贷报表管理
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+
         <form action="{{ route('login') }}" method="post">
           {{ csrf_field() }}
           {{--<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">--}}
@@ -49,26 +49,27 @@
               {{--@endif--}}
             {{--</div>--}}
           {{--</div>--}}
-          @if ($errors)
-          <span class="help-block">
-            {{--@foreach($errors as $error)--}}
-          {{--<strong>{{ $error }}</strong>--}}
-              {{--@endforeach--}}
-            {{$errors->first()}}
-          </span>
+          @if(count($errors)>0)
+            <div class="alert alert-danger">
+              <ul>
+                @foreach($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
           @endif
           <div class="form-group has-feedback">
-            <input id="name" type="name" name="name" class="form-control" placeholder="username" />
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            <input id="name" type="name" name="name" class="form-control" placeholder="用户名" />
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input id="password" name="password" type="password" class="form-control" placeholder="Password" />
+            <input id="password" name="password" type="password" class="form-control" placeholder="密码" />
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
 
 
         <div class="social-auth-links text-center">
-        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
         </div><!-- /.social-auth-links -->
             </form>
         {{--<a href="#">I forgot my password</a><br>--}}
