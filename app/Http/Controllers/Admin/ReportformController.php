@@ -16,6 +16,16 @@ class ReportformController extends Controller
     	 # code...
            return view('admin.addreport');
     }
+       // 一级审核显示的列表页
+    public function firstverify()
+    {
+         # code...
+        
+           $report =$report->where('uid',$report->uid)->get();
+           return view('admin.reportform');
+    }
+     
+
 
     /**
      * 根据id查询报表
@@ -47,16 +57,13 @@ class ReportformController extends Controller
         return $item;
     });
 
-      var_dump($req);
+      //var_dump($req);
   $report = new Reportform;      
   $report->uid=1;      
   $report->areacode='232353';     
   $result = $report->where('uid',$report->uid)->get();
   if ($result->isEmpty()) { 
     $report->total_capital=$req['total_capital']; 
-
-
-
   $report->money_capital=$req['money_capital'];       
   $report->other_capital=$req['other_capital']; 
   $report->total_debtcapital=$req['total_debtcapital'];    
@@ -130,14 +137,16 @@ class ReportformController extends Controller
   $report->saletax=$req['saletax'];        
   $report->incometax=$req['incometax'];   
   $report->description=$req['description'];  
-  if ($report->save()) {//return redirect('admin/addreport')->with('status', '上传成功！ :)');
-  json_or_dd($report);
+  if ($report->save()) {
+    echo '<script>alert("上传成功！");window.location.href="admin/addreport";</script>';
+  //json_or_dd($report);
 }
-   else {// return redirect()->back()->withInput()->withErrors('保存失败！');
+   else { echo '<script>alert("保存失败！");window.location.href="admin/addreport";</script>';
 }
 }
 else
-   { //return redirect()->back()->withInput()->withErrors('数据已提交');
+   {
+    echo '<script>alert("数据已提交");window.location.href="admin/addreport";</script>';
 }
 }
 

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Reportform extends Model
+class reportform extends Model
 {
    /**
      * 关联到模型的数据表
@@ -14,7 +14,7 @@ class Reportform extends Model
     protected $table = 'reportform';
     public $timestamps = true;//false;
     public $primaryKey = 'id';
-    
+
 
      /**
      * The attributes that are mass assignable.
