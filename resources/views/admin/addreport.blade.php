@@ -697,7 +697,7 @@
 
                 <div class="box-body">
               <div class="form-group">
-                      <label>注释及说明</label>
+                      <label for="description">注释及说明</label>
                       <textarea class="form-control" rows="3" id="description" name="description" placeholder="注释及说明"></textarea>
                     </div>
               <div class="box-footer">
