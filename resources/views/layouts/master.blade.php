@@ -178,6 +178,7 @@
                 </a>
                 <ul class="dropdown-menu animated fadeInLeft">
                   <li class="arrow"></li>
+                  <li><a href="{{ route('modifypassword') }}">修改密码</a></li>
                   <li class="divider"></li>
                   <li><a href="{{ route('logout') }}"
                               onclick="event.preventDefault();
@@ -210,6 +211,16 @@
         <!-- Main content -->
         <section class="content">
       <div class="box">
+        @if(count($errors)>0)
+          <div class="alert alert-danger">
+            <ul>
+              @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
+        @include('flash::message')
         @yield('content')
         </div>
         </section><!-- /.content -->
