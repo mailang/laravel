@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\reportform;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class ReportformController extends Controller
 {
@@ -24,11 +25,14 @@ class ReportformController extends Controller
     public function seereport($id=null)
     {
          # code...
+
+    
+    	$user = Auth::user();
     	$reportform = new Reportform;
     	if ($id) {
     		 $report =$reportform->where('id',$id)->get()->first();
     	}
-    	else $report =$reportform->where('uid',1)->get()->first();
+    	else $report =$reportform->where('uid',	$user['id'])->get()->first();
 
            if ($report) {
            	 return view('admin.reportform', compact('report'));
@@ -40,7 +44,8 @@ class ReportformController extends Controller
     public function reportlist()
     {
          #
-     $areacode="340102";   
+     $user = Auth::user();
+     $areacode=	$user['areacode'];   
      $field = ['reportform.id','reportform.updated_at','company.name','company.code'];
      $reports = DB::table('company')
             ->leftJoin('reportform', 'company.uid', '=', 'reportform.uid')
@@ -79,9 +84,11 @@ class ReportformController extends Controller
         return $item;
     });
 
-  $report = new Reportform;      
-  $report->uid=1;
-  $report->areacode="340102";   
+  $report = new Reportform;    
+   $user = Auth::user();
+   
+  $report->uid=	$user['id'];
+  $report->areacode=  $user['areacode'];  
 
   $result = $report->where('uid',$report->uid)->get();
   if ($result->isEmpty()) { 
