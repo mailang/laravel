@@ -28,8 +28,8 @@
                 <i class="fa fa-dashboard"></i> <span>报表管理</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="../../index.html"><i class="fa fa-circle-o"></i>上传报表</a></li>
-                <li><a href="../../index2.html"><i class="fa fa-circle-o"></i>审核报表</a></li>
+                <li><a href="{{route('reportform.addreport')}}"><i class="fa fa-circle-o"></i>上传报表</a></li>
+                <li><a href="{{route('reportform.submitreport')}}"><i class="fa fa-circle-o"></i>审核报表</a></li>
               </ul>
             </li>
           </ul>
