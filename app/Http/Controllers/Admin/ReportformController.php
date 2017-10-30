@@ -5,10 +5,15 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\reportform;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
 class ReportformController extends Controller
 {
-
+    function  __construct()
+    {
+  
+    }
     //get 请求报表页面
     public function addreport()
     {
@@ -16,21 +21,32 @@ class ReportformController extends Controller
            return view('admin.addreport');
     }
       // 企业登录查看信息
-    public function company()
+    public function seereport($id=null)
     {
          # code...
-           $report = new Reportform;
-           $report =$report->where('uid',1)->get()->first();
-           return view('admin.reportform', compact('report'));
+    	$reportform = new Reportform;
+    	if ($id) {
+    		 $report =$reportform->where('id',$id)->get()->first();
+    	}
+    	else $report =$reportform->where('uid',1)->get()->first();
+
+           if ($report) {
+           	 return view('admin.reportform', compact('report'));
+           }
+           else echo '<script>alert("数据未上传！请上传");window.location.href="/admin/addreport";</script>';
     }
 
     // 一级审核显示的列表页
-    public function firstverify()
+    public function reportlist()
     {
-         # code...
-           $report = new Reportform;
-           $report =$report->where('areacode',"340000")->get();
-           return view('admin.reportform');
+         #
+     $areacode="340102";   
+     $field = ['reportform.id','reportform.updated_at','company.name','company.code'];
+     $reports = DB::table('company')
+            ->leftJoin('reportform', 'company.uid', '=', 'reportform.uid')
+            ->where('reportform.areacode', $areacode)
+            ->get($field);
+     return view('admin.reportformlist',compact('reports'));
     }
      
     /**
@@ -63,10 +79,10 @@ class ReportformController extends Controller
         return $item;
     });
 
-      //var_dump($req);
   $report = new Reportform;      
-  $report->uid=1;      
-  $report->areacode='232353';     
+  $report->uid=1;
+  $report->areacode="340102";   
+
   $result = $report->where('uid',$report->uid)->get();
   if ($result->isEmpty()) { 
     $report->total_capital=$req['total_capital']; 
@@ -144,15 +160,15 @@ class ReportformController extends Controller
   $report->incometax=$req['incometax'];   
   $report->description=$req['description'];  
   if ($report->save()) {
-    echo '<script>alert("上传成功！");window.location.href="admin/addreport";</script>';
+    echo '<script>alert("上传成功！");window.location.href="/admin/addreport";</script>';
   //json_or_dd($report);
 }
-   else { echo '<script>alert("保存失败！");window.location.href="admin/addreport";</script>';
+   else { echo '<script>alert("保存失败！");window.location.href="/admin/addreport";</script>';
 }
 }
 else
    {
-    echo '<script>alert("数据已提交");window.location.href="admin/addreport";</script>';
+    echo '<script>alert("数据已提交");window.location.href="/admin/addreport";</script>';
 }
 }
 

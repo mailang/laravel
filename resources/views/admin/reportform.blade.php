@@ -31,7 +31,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     {{ $report->total_capital}}
-                    <span class="input-group-addon">万元</span>
+                   <span>万元</span>
                   </div>
                   </div>
                   </div>
@@ -40,14 +40,14 @@
                  <div class=" col-sm-4"> 
                   <div class="input-group ">
                     {{ $report->money_capital}}
-                    <span class="input-group-addon">万元</span>
+                    <span>万元</span>
                   </div>
                   </div>
                  <label for="other_capital" class="col-sm-2 control-label">其他资金:</label> 
                  <div class=" col-sm-4"> 
                   <div class="input-group ">
                     {{ $report->other_capital}}
-                    <span class="input-group-addon">万元</span>
+                    <span>万元</span>
                   </div>
                   </div>
                  </div>
@@ -56,9 +56,8 @@
                     <label for="total_debtcapital" class="col-sm-2 control-label">负债总额:</label>
                     <div class="col-sm-6">
                     <div class="input-group">
-                    <input class="form-control" type="text" placeholder="负债总额" name="total_debtcapital"  id="total_debtcapital">
-                     {{ $report->total_debtcapital}}
-                    <span class="input-group-addon">万元</span>
+                    {{ $report->total_debtcapital}}
+                    <span >万元</span>
                   </div>
                   </div>
                   </div>
@@ -68,7 +67,7 @@
                     <div class="input-group">
                   
                       {{ $report->paidup_capital}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div>
                   </div>
                   </div>
@@ -77,14 +76,14 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     {{ $report->income}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div>
                   </div>
                     <div class=" col-sm-4"> 
                   <div class="input-group ">
                    
                      {{ $report->loan_income}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div>
                   </div>
                   </div>
@@ -93,7 +92,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     {{ $report->profit_income}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div>
                   </div>
                   </div>
@@ -114,7 +113,7 @@
                     <div class="input-group">
                    
                      {{ $report->normal_loan_remainder}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div>
                   </div>
                   </div>
@@ -124,7 +123,7 @@
                     <div class="input-group">
                    
                      {{ $report->normal_loan_family}}
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div>
                   </div>
                   </div>
@@ -135,7 +134,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     {{ $report->month_loan_remainder}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div>
                   </div>
                   </div>
@@ -145,7 +144,7 @@
                     <div class="input-group">
                    
                      {{ $report->month_loan_family}}
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div>
                   </div>
                   </div>
@@ -155,7 +154,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     {{ $report->quarter_loan_remainder}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div>
                   </div>
                   </div>
@@ -165,7 +164,7 @@
                     <div class="input-group">
                    
                       {{ $report->quarter_loan_family}}
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div>
                   </div>
                   </div>
@@ -175,7 +174,7 @@
                     <div class="input-group">
                    
                     {{ $report->ninety_loan_remainder}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div>
                   </div>
                   </div>
@@ -185,7 +184,7 @@
                     <div class="input-group">
                    
                     {{ $report->ninety_loan_family}}
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div>
                   </div>
                   </div>
@@ -204,7 +203,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                       {{ $report->highest_interest}}
-                    <span class="input-group-addon">%</span>
+                    <span >%</span>
                   </div> </div></div>
 
                      <div class="form-group">
@@ -213,7 +212,7 @@
                     <div class="input-group">
                 
                       {{ $report->lowest_interest}}
-                    <span class="input-group-addon">%</span>
+                    <span >%</span>
                   </div>
                   </div>
                   </div>
@@ -223,7 +222,7 @@
                     <div class="input-group">
                  
                      {{ $report->Average_interest}}
-                    <span class="input-group-addon">%</span>
+                    <span >%</span>
                   </div>
                   </div>
                   </div>
@@ -239,7 +238,7 @@
                     <label for="normal_loan" class="col-sm-3 control-label">正常类贷款:</label>
                     <div class="col-sm-6">
                     <div class="input-group">
-                    {{ $report->normal_loan}} <span class="input-group-addon">万元</span>
+                    {{ $report->normal_loan}} <span >万元</span>
                   </div> </div></div>
 
                     <div class="form-group">
@@ -247,7 +246,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     {{ $report->follow_loan}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div> </div></div>
 
                     <div class="form-group">
@@ -255,7 +254,7 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                     {{ $report->second_loan}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div> </div></div>
                  
                    <div class="form-group">
@@ -263,13 +262,13 @@
                     <div class="col-sm-6">
                     <div class="input-group">
                    {{ $report->doubt_loan}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div> </div></div>
                     <div class="form-group">
                     <label for="noback_loan" class="col-sm-3 control-label">损失类贷款:</label>
                     <div class="col-sm-6">
                     <div class="input-group"> {{ $report->noback_loan}}
-                   <span class="input-group-addon">万元</span>
+                   <span >万元</span>
                   </div> </div></div>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
@@ -285,13 +284,13 @@
                     <div class="input-group">
                     {{ $report->credit_loan_remainder}}
                  
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div> </div>
                  <div class=" col-sm-5"> 
                   <div class="input-group ">
                 
                       {{ $report->credit_loan_family}}
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div>
                   </div>
               </div>
@@ -302,13 +301,13 @@
                     <div class="input-group">
                    
                      {{ $report->promise_loan_remainder}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div> </div>
                    <div class=" col-sm-5"> 
                   <div class="input-group ">
                
                          {{ $report->promise_loan_family}}
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div> </div>  </div>
 
                     <div class="form-group">
@@ -317,12 +316,12 @@
                     <div class="input-group">
             
                      {{ $report->mortgage_loan_remainder}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div> </div> <div class=" col-sm-5"> 
                   <div class="input-group ">
                    
                        {{ $report->mortgage_loan_family}}
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div> </div>  </div>
 
                    <div class="form-group">
@@ -331,13 +330,13 @@
                     <div class="input-group">
                  
                     {{ $report->pledge_loan_remainder}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div> </div>
                   <div class=" col-sm-5"> 
                   <div class="input-group ">
                     
                     {{ $report->pledge_loan_family}}
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div> </div>  </div>
 
                     <div class="form-group">
@@ -345,13 +344,13 @@
                     <div class="col-sm-5">
                     <div class="input-group">
                      {{ $report->other_loan_remainder}}
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div> </div><div class=" col-sm-5"> 
                   <div class="input-group ">
              
                     {{ $report->other_loan_family}}
 
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div> </div>  </div>
 
                 </div><!-- /.box-body -->
@@ -370,7 +369,7 @@
                     
                     {{ $report->bank_financing}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                 <div class="form-group">
                     <label for="shareholder_loan" class="col-sm-4 control-label">股东借款:</label>
@@ -379,7 +378,7 @@
                    
                      {{ $report->shareholder_loan}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
 
                  <div class="form-group">
@@ -389,7 +388,7 @@
                     
                     {{ $report->profit_transfer}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
 
               <div class="form-group">
@@ -399,7 +398,7 @@
                     
                     {{ $report->bond_bill}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
 
              <div class="form-group">
@@ -409,7 +408,7 @@
                   
                     {{ $report->parterner_loan}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
 
                <div class="form-group">
@@ -419,7 +418,7 @@
                     
                     {{ $report->securitisation}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
 
                  <div class="form-group">
@@ -429,7 +428,7 @@
                     
                     {{ $report->market_capital}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                   <div class="form-group">
                     <label for="othertype_capital" class="col-sm-4 control-label">其他融资类型:</label>
@@ -447,7 +446,7 @@
                     
                     {{ $report->othermoney}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
 
                   </div></div></div>
 
@@ -473,7 +472,7 @@
                    
                     {{ $report->loan_remainder}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div>
                   </div>
                   <div class=" col-sm-4"> 
@@ -481,7 +480,7 @@
                  
                     {{ $report->bad_remainder}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div>
                   </div>
                   </div>
@@ -493,7 +492,7 @@
                    
                     {{ $report->loan_family}}
 
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div></div></div>
                   <div class="form-group">
                     <label for="loan_num" class="col-sm-2 control-label">贷款笔数:</label>
@@ -523,7 +522,7 @@
                     
                     {{ $report->year_issueloan}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
 
                  <div class="form-group">
@@ -533,7 +532,7 @@
                    
                     {{ $report->year_issuefamily}}
 
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div></div></div>
                   <div class="form-group">
                     <label for="year_issuenum" class="col-sm-3 control-label">发放贷款笔数:</label>
@@ -551,7 +550,7 @@
                     
                     {{ $report->year_backloan}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                     <div class="form-group">
                     <label for="year_backfamily" class="col-sm-3 control-label">收回贷款户数:</label>
@@ -560,7 +559,7 @@
                     
                     {{ $report->year_backfamily}}
 
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div></div></div>
                   <div class="form-group">
                     <label for="year_backnum" class="col-sm-3 control-label">收回贷款笔数:</label>
@@ -586,7 +585,7 @@
                    
                     {{ $report->farmer_loan_remainder}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                       <div class="form-group">
                     <label for="farmer_loan_family" class="col-sm-3 control-label">贷款户数:</label>
@@ -595,7 +594,7 @@
                    
                     {{ $report->farmer_loan_family}}
 
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div></div></div>
 
                    <div class="form-group">
@@ -605,7 +604,7 @@
                    
                     {{ $report->farmer_issue}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                    <div class="form-group">
                     <label for="farmer_backnum" class="col-sm-3 control-label">累计发放户数:</label>
@@ -614,7 +613,7 @@
                     
                     {{ $report->farmer_backnum}}
 
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div></div></div>
                 </div></div>
 
@@ -630,7 +629,7 @@
                    
                     {{ $report->company_loan_remainder}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                       <div class="form-group">
                     <label for="company_loan_family" class="col-sm-3 control-label">贷款户数:</label>
@@ -639,7 +638,7 @@
                    
                     {{ $report->company_loan_family}}
 
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div></div></div>
 
                    <div class="form-group">
@@ -649,7 +648,7 @@
                    
                     {{ $report->company_issue}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                    <div class="form-group">
                     <label for="company_backnum" class="col-sm-3 control-label">累计发放户数:</label>
@@ -658,7 +657,7 @@
                     
                     {{ $report->company_backnum}}
 
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div></div></div>
                 </div></div>
 
@@ -674,7 +673,7 @@
                    
                     {{ $report->total_remainder}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                       <div class="form-group">
                     <label for="total_loan_family" class="col-sm-3 control-label">贷款户数:</label>
@@ -683,7 +682,7 @@
                     
                     {{ $report->total_loan_family}}
 
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div></div></div>
 
                    <div class="form-group">
@@ -693,7 +692,7 @@
                    
                     {{ $report->total_issue}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                    <div class="form-group">
                     <label for="total_backnum" class="col-sm-3 control-label">累计发放户数:</label>
@@ -702,7 +701,7 @@
                   
                     {{ $report->total_backnum}}
 
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div></div></div>
                 </div></div>
 
@@ -718,7 +717,7 @@
                     
                     {{ $report->person_loan_remainder}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                       <div class="form-group">
                     <label for="person_loan_family" class="col-sm-3 control-label">贷款户数:</label>
@@ -727,7 +726,7 @@
                    
                     {{ $report->person_loan_family}}
 
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div></div></div>
 
                    <div class="form-group">
@@ -737,7 +736,7 @@
                    
                     {{ $report->person_issue}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                    <div class="form-group">
                     <label for="person_backnum" class="col-sm-3 control-label">累计发放户数:</label>
@@ -746,7 +745,7 @@
                    
                     {{ $report->person_backnum}}
 
-                    <span class="input-group-addon">户</span>
+                    <span >户</span>
                   </div></div></div>
                 </div></div>
 
@@ -762,7 +761,7 @@
                    
                     {{ $report->paytaxes}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                       <div class="form-group">
                     <label for="saletax" class="col-sm-3 control-label">累计营业税金及附加支出:</label>
@@ -771,7 +770,7 @@
                    
                     {{ $report->saletax}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
 
                    <div class="form-group">
@@ -781,7 +780,7 @@
                     
                     {{ $report->incometax}}
 
-                    <span class="input-group-addon">万元</span>
+                    <span >万元</span>
                   </div></div></div>
                   </div></div>
 
@@ -793,11 +792,10 @@
                 <div class="box-body">
               <div class="form-group">
                       <label for="description">注释及说明</label>
-                      <textarea class="form-control" rows="3" id="description" name="description" placeholder="注释及说明"></textarea>
+                      <br/>
+                        {{ $report->description}}
+             
                     </div>
-              <div class="box-footer">
-                    <button type="submit" class="btn btn-primary">提交</button>
-                  </div>
             </div><!--/.col (right) -->
           </div>
 

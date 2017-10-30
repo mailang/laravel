@@ -29,6 +29,8 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="{{route('reportform.addreport')}}"><i class="fa fa-circle-o"></i>上传报表</a></li>
+                <li><a href="{{route('reportform.seereport')}}"><i class="fa fa-circle-o"></i>企业查看报表</a></li>
+                <li><a href="{{route('reportform.reportlist')}}"><i class="fa fa-circle-o"></i>查看区域报表</a></li>
                 <li><a href="{{route('reportform.submitreport')}}"><i class="fa fa-circle-o"></i>审核报表</a></li>
               </ul>
             </li>

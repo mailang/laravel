@@ -21,29 +21,24 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
+                        <th>id</th>
                         <th>企业名称</th>
-                        <th>区域</th>
-                        <th>法人</th>
+                        <th>信用代码</th>
                         <th>时间</th>
+                        <th>操作</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>{{ $report->areacode}}</td>
-                        <td>Win 95+</td>
-                        <td> 4</td>
-                        <td>X</td>
-                      </tr>
+                  <tbody>
+                        @foreach($reports as $report)
+                            <tr id="">
+                                <td>　<i class="{{ $report->id}}"></i>　{{ $report->id}}</td>
+                                <td>{{ $report->name}}</td>
+                                <td>{{ $report->code }}</td>
+                                <td>{{ $report->updated_at }}</td>
+                                <td> <a href="/admin/seereport/{{ $report->id}}">查看</a></td>
+                            </tr>
+                            @endforeach
                     </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
-                        <th>Engine version</th>
-                        <th>CSS grade</th>
-                      </tr>
-                    </tfoot>
                   </table>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
