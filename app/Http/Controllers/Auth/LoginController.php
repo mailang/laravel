@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -35,5 +36,27 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+
+    public function showLoginForm()
+    {
+        return view('login');
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        if($this->username() == "name")
+            $messages = [ 'name.required' => '用户名不能为空。'];
+        $this->validate($request, [
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+        ],$messages);
+    }
+
+    public function username()
+    {
+        //return 'email';
+        return 'name';
     }
 }
