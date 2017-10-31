@@ -12,7 +12,7 @@
           @endsection
 @section('content')
 
-<form id="form" action="/admin/addreport" method="post">
+<form id="form">
 <input type="hidden" name="_token" value="{{csrf_token()}}">
 <div class="row">
             <!-- left column -->

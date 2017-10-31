@@ -126,7 +126,7 @@ class CreateReportformTable extends Migration
               $table->float('securitisation');
               $table->float('market_capital');
               $table->string('othertype_capital')->nullable();
-              $table->float('othermoney')->default(0);
+              $table->float('othermoney')->nullable();
            //今年内累计纳税支出 
               $table->float('paytaxes');
            //年内累计营业税金及附加支出
