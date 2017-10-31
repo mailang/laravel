@@ -111,7 +111,7 @@ class CreateReportformTable extends Migration
            $table->integer('mortgage_loan_family'); 
 
             $table->float('pledge_loan_remainder'); 
-           $table->integer('pledge_loan_family'); 
+            $table->integer('pledge_loan_family'); 
 
             $table->float('other_loan_remainder'); 
             $table->integer('other_loan_family'); 
@@ -125,8 +125,8 @@ class CreateReportformTable extends Migration
            //资产证券化、资本市场挂牌、其他（分别填报类型及金额）
               $table->float('securitisation');
               $table->float('market_capital');
-              $table->string('othertype_capital');
-              $table->float('othermoney');
+              $table->string('othertype_capital')->nullable();
+              $table->float('othermoney')->default(0);
            //今年内累计纳税支出 
               $table->float('paytaxes');
            //年内累计营业税金及附加支出
@@ -134,7 +134,7 @@ class CreateReportformTable extends Migration
            //年内累计所得税支出
               $table->float("incometax");
              //注释及说明
-              $table->string('description');
+              $table->string('description')->nullable();;
               $table->timestamps();
         });
 
