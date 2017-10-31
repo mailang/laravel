@@ -40,7 +40,8 @@
     <script src="{{asset('dist/js/demo.js')}}" type="text/javascript"></script>
     <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js')}}"></script>
-
+    <script src="{{asset('js/jquery.linq.min.js')}}"></script>
+    <script src="{{asset('js/jquery.json.min.js')}}"></script>
   </head>
   <body class="skin-blue sidebar-mini">
     <!-- Site wrapper -->

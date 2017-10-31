@@ -1,0 +1,299 @@
+@extends('layouts.master')
+@section('title')
+    <h1>
+        公司管理
+        <small>it all starts here</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li class="active">公司管理</li>
+    </ol>
+@endsection
+@section('content')
+
+    <form id="form" action="/admin/company" method="post" onsubmit="return toVaild()">
+        <input type="hidden" name="_token" value="{{csrf_token()}}">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">公司基本信息</h3>
+                    </div><!-- /.box-header -->
+                    <!-- form start -->
+
+                    <div class="box-body form-horizontal">
+
+                        <div class="form-group">
+                            <label for="total_capital" class="col-sm-4 control-label">公司名称:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="name" name="name"
+                                       placeholder="公司名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="money_capital" class="col-sm-4 control-label">社会信用代码:</label>
+                            <div class=" col-sm-4">
+                                <input class="form-control" id="code" name="code"
+                                       placeholder="社会信用代码" type="text">
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="other_capital" class="col-sm-4 control-label">开业时间:</label>
+                            <div class=" col-sm-4">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar">
+                                        </i>
+                                    </div>
+                                    <input class="form-control pull-right" id="opening_at" name="opening_at"
+                                           placeholder="开业时间" type="text" data-date-end-date="0d">
+                                </div>
+                            </div>
+                        </div>
+                        <script language="JavaScript">
+                            $(function () {
+                                $('#opening_at').datepicker({
+                                    language: "zh-CN",
+                                    autoclose: true,
+                                    format: "yyyy-mm-dd",
+                                    todayBtn: true,
+                                    todayHighlight: true
+
+
+                                })
+                            });
+                        </script>
+
+
+                        <div class="form-group">
+                            <label for="total_debtcapital" class="col-sm-4 control-label">所属地区:</label>
+                            <div class="col-sm-4">
+
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <select class="form-control" name="areacode0" id="areacode0">
+                                            <option>--请选择--</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" name="areacode1" id="areacode1">
+                                            <option>--请选择--</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control" name="areacode2" id="areacode2">
+                                            <option>--请选择--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <script language="JavaScript">
+                                    $(function () {
+                                        var ac = eval('{!! $areacode !!}');
+
+                                        function refeshselect($o, pcode) {
+                                            var p = $.Enumerable.From(ac).Where("x=>x.pcode=='" + pcode + "'").ToArray();
+                                            $.each(p, function () {
+                                                // ...
+                                                $o.append("<option value='" + this.areacode + "'>" + this.name + "</option>");
+                                            });
+                                        }
+
+                                        refeshselect($("#areacode0"), "000000");
+                                        $("#areacode0").change(function () {
+                                            $("#areacode1 option:gt(0)").remove();
+                                            $("#areacode2 option:gt(0)").remove();
+                                            refeshselect($("#areacode1"), $("#areacode0").val());
+                                        });
+
+                                        $("#areacode1").change(function () {
+                                            $("#areacode2 option:gt(0)").remove();
+                                            refeshselect($("#areacode2"), $("#areacode1").val());
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="paidup_capital" class="col-sm-4 control-label">经营地址:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="经营地址" name="address"
+                                       id="address">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="paidup_capital" class="col-sm-4 control-label">联系电话:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="联系电话" name="tel"
+                                       id="tel">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profit_income" class="col-sm-4 control-label">手机号:</label>
+                            <div class="col-sm-4">
+
+                                <input class="form-control" type="text" placeholder="手机号" name="phone"
+                                       id="phone"/>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profit_income" class="col-sm-4 control-label">注册资本金:</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="注册资本金" name="reg_capital"
+                                           id="reg_capital"/>
+                                    <span class="input-group-addon">万元</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profit_income" class="col-sm-4 control-label">法人代表:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="法人代表" name="legal_person"
+                                       id="legal_person"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profit_income" class="col-sm-4 control-label">董事长:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="董事长" name="chairman"
+                                       id="chairman"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profit_income" class="col-sm-4 control-label">总经理:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" placeholder="总经理" name="manager"
+                                       id="manager"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profit_income" class="col-sm-4 control-label">业务范围:</label>
+                            <div class="col-sm-4">
+
+                                    <textarea class="form-control" type="text" placeholder="业务范围" name="scope"
+                                              id="scope"></textarea>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profit_income" class="col-sm-4 control-label">注册资本构成:</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="type" id="type">
+                                    <option>--请选择--</option>
+                                    <option value="0">国有控股</option>
+                                    <option value="1">民营控股</option>
+                                    <option value="2">外资控股</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profit_income" class="col-sm-4 control-label">业务开展范围:</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="bus_area" id="bus_area">
+                                    <option>--请选择--</option>
+                                    <option value="0">县区</option>
+                                    <option value="1">市</option>
+                                    <option value="2">省</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profit_income" class="col-sm-4 control-label">分支机构数量:</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="分支机构数量" name="branch_num"
+                                           id="branch_num"/>
+                                    <span class="input-group-addon">个</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profit_income" class="col-sm-4 control-label">从业人员数量:</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="从业人员数量" name="p_num"
+                                           id="p_num"/>
+                                    <span class="input-group-addon">个</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="profit_income" class="col-lg-4 control-label">股东情况：</label>
+                                <button type="button" class="btn btn-primary addlp">
+                                    <span class="glyphicon glyphicon-plus"></span>增加
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group lpcontent">
+
+                        </div>
+
+                        <script language="javascript">
+
+                            $(".addlp").click(function () {
+                                var html = '                       <div class="row margin lprow">\n' +
+                                    '                                <label for="profit_income" class="col-sm-3 control-label">姓名:</label>\n' +
+                                    '                                <div class="col-sm-2">\n' +
+                                    '                                    <div class="input-group">\n' +
+                                    '                                        <input class="form-control" type="text" placeholder="姓名" name="lp_name"\n' +
+                                    '                                               id="lp_name"/>\n' +
+                                    '                                    </div>\n' +
+                                    '                                </div>\n' +
+                                    '                                <label for="profit_income" class="col-sm-1 control-label">股份金额:</label>\n' +
+                                    '                                <div class="col-sm-2">\n' +
+                                    '                                    <div class="input-group">\n' +
+                                    '                                        <input class="form-control" type="text" placeholder="股份金额" name="lp_money"\n' +
+                                    '                                               id="lp_money"/>\n' +
+                                    '                                        <span class="input-group-addon">万元</span>\n' +
+                                    '                                    </div>\n' +
+                                    '                                </div>\n' +
+                                    '                                <div>\n' +
+                                    '                                    <button type="button" class="btn btn-primary sublp">\n' +
+                                    '                                        <span class="glyphicon glyphicon-minus"></span>删除\n' +
+                                    '                                    </button>\n' +
+                                    '                                </div>\n' +
+                                    '                            </div>';
+                                $(".lpcontent").append(html);
+                                $(".sublp").click(function () {
+                                    $(this).parents(".lprow").remove();
+
+                                });
+                            });
+                        </script>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+                <input type="hidden" name="areacode" id="areacode" />
+                <input type="hidden" name="shareholder" id="shareholder" />
+                <input type="hidden" name="uid" id="uid" value="{{Auth::user()->id}}" />
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </div><!--/.col (right) -->
+        </div>
+        <script language="javascript">
+            function toVaild() {
+                var areacode = $("#areacode2").val();
+                $("#areacode").val(areacode);
+
+                var arr = new Array();
+                $(".lprow").each(function () {
+                        var sh = new Object();
+                        sh.name = $(this).find("#lp_name").val();
+                        sh.money = $(this).find("#lp_money").val();
+                        arr.push(sh);
+                });
+
+                var jsonstr = $.toJSON(arr);
+                $("#shareholder").val(jsonstr);
+
+                return true;
+            }
+        </script>
+        </div>
+    </form>
+
+@endsection

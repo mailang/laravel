@@ -37,7 +37,7 @@ class CreateCompanyTable extends Migration
             $table->string('chairman');
             //总经理
             $table->string('manager');
-            //股东情况（用符号分割  name:money|name:money|name:money ）
+            //股东情况（json格式[{"name":"","money":""},{"name":"","money":""}]）
             $table->string('shareholder');
             //业务范围
             $table->string('scope');
