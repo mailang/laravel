@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\reportform;
+use App\Models\Area;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -18,22 +19,21 @@ class ReportformController extends Controller
     //get 请求报表页面
     public function addreport()
     {
-    	 # code...
+    	 # code..
+
            return view('admin.addreport');
     }
-      // 企业登录查看信息
+     
+     //根据报表id查看报表信息
     public function seereport($id=null)
     {
          # code...
-
-    
     	$user = Auth::user();
     	$reportform = new Reportform;
     	if ($id) {
     		 $report =$reportform->where('id',$id)->get()->first();
     	}
     	else $report =$reportform->where('uid',	$user['id'])->get()->first();
-
            if ($report) {
            	 return view('admin.reportform', compact('report'));
            }
@@ -45,12 +45,29 @@ class ReportformController extends Controller
     {
          #
      $user = Auth::user();
-     $areacode=	$user['areacode'];   
+     $areacode=	$user['areacode']; 
+     $type=  $user['type'];
      $field = ['reportform.id','reportform.updated_at','company.name','company.code'];
-     $reports = DB::table('company')
+     if ($type==1) {
+     	    //企业登录查看上传的报表
+            $reports = DB::table('company')
+            ->leftJoin('reportform', 'company.uid', '=', 'reportform.uid')
+            ->where('reportform.uid', $user['id'])
+            ->orderBy('reportform.updated_at','desc')
+            ->get($field);
+      } 
+      else
+      {
+      	   $isfirst=Area::where('pcode',$areacode)->get();
+           if ($isfirst->isEmpty()) {
+           	//区级审核者审核区以下企业报表
+        	$reports = DB::table('company')
             ->leftJoin('reportform', 'company.uid', '=', 'reportform.uid')
             ->where('reportform.areacode', $areacode)
+             ->orderBy('reportform.updated_at','desc')
             ->get($field);
+        }
+     }
      return view('admin.reportformlist',compact('reports'));
     }
      
@@ -73,7 +90,8 @@ class ReportformController extends Controller
         $reportform = reportform::create($data);
         $this->json_or_dd($reportform->toArray());
     }
-     //提交报表
+
+    //查看本月是否已提交报表，已提交则不可以继续添加
     public static function submitreport(Request $request)
     {
        // 过滤空值，并且trim
@@ -83,16 +101,17 @@ class ReportformController extends Controller
         }
         return $item;
     });
-
   $report = new Reportform;    
    $user = Auth::user();
    
   $report->uid=	$user['id'];
   $report->areacode=  $user['areacode'];  
 
-  $result = $report->where('uid',$report->uid)->get();
+  $result = $report->where('uid',$report->uid)
+  ->where('created_at','>=',date("Y-m",time()).'-01 00:00:00')
+  ->get();
   if ($result->isEmpty()) { 
-    $report->total_capital=$req['total_capital']; 
+  $report->total_capital=$req['total_capital']; 
   $report->money_capital=$req['money_capital'];       
   $report->other_capital=$req['other_capital']; 
   $report->total_debtcapital=$req['total_debtcapital'];    
@@ -167,15 +186,15 @@ class ReportformController extends Controller
   $report->incometax=$req['incometax'];   
   $report->description=$req['description'];  
   if ($report->save()) {
-    echo '<script>alert("上传成功！");window.location.href="/admin/addreport";</script>';
+    echo '<script>alert("上传成功！");window.location.href="/admin";</script>';
   //json_or_dd($report);
 }
-   else { echo '<script>alert("保存失败！");window.location.href="/admin/addreport";</script>';
+   else { echo '<script>alert("保存失败！");window.location.href="/admin";</script>';
 }
 }
 else
    {
-    echo '<script>alert("数据已提交");window.location.href="/admin/addreport";</script>';
+    echo '<script>alert("数据已提交");window.location.href="/admin";</script>';
 }
 }
 

@@ -24,7 +24,7 @@
                         <th>id</th>
                         <th>企业名称</th>
                         <th>信用代码</th>
-                        <th>时间</th>
+                        <th>上传报表时间</th>
                         <th>操作</th>
                       </tr>
                     </thead>
