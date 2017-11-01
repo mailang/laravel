@@ -22,6 +22,7 @@
           </form>-->
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
+          @if(auth()->user()->type=='1')
           <ul class="sidebar-menu">
             <li class="treeview">
               <a href="#">
@@ -30,12 +31,33 @@
               <ul class="treeview-menu">
                 <li><a href="{{route('reportform.addreport')}}"><i class="fa fa-circle-o"></i>上传报表</a></li>
                 <li><a href="{{route('reportform.reportlist')}}"><i class="fa fa-circle-o"></i>企业查看报表</a></li>
-                <li><a href="{{route('reportform.reportlist')}}"><i class="fa fa-circle-o"></i>查看区域报表</a></li>
-                <li><a href="{{route('reportform.submitreport')}}"><i class="fa fa-circle-o"></i>审核报表</a></li>
+              </ul>
+            </li>
+          </ul>  
+             <ul class="sidebar-menu">
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>企业管理</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{route('company.index')}}"><i class="fa fa-circle-o"></i>查看企业信息</a></li>
+              </ul>
+            </li>
+          </ul>  
+        @else 
+        @if(auth()->user()->type=='2')
+           <ul class="sidebar-menu">
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>报表管理</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{route('reportform.reportlist')}}"><i class="fa fa-circle-o"></i>审核报表</a></li>
               </ul>
             </li>
           </ul>
-
+     @endif
+   @endif
         </section>
         <!-- /.sidebar -->
       </aside>

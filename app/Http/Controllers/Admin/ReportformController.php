@@ -67,6 +67,8 @@ class ReportformController extends Controller
              ->orderBy('reportform.updated_at','desc')
             ->get($field);
         }
+        else
+        	return view('index');
      }
      return view('admin.reportformlist',compact('reports'));
     }
