@@ -11,7 +11,7 @@
 @endsection
 @section('content')
    <script src="{{asset('bootstrap/js/validation.js')}}" type="text/javascript"></script>
-    <form id="form" action="/admin/company" method="post" onsubmit="return toVaild()">
+    <form id="form" class="form-horizontal" action="/admin/company" method="post" onsubmit="return toVaild()">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <div class="row">
             <div class="col-md-12">
@@ -73,17 +73,17 @@
 
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <select class="form-control" name="areacode0" id="areacode0">
+                                        <select check-type="required" class="form-control" name="areacode0" id="areacode0">
                                             <option>--请选择--</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-4">
-                                        <select class="form-control" name="areacode1" id="areacode1">
+                                        <select check-type="required" class="form-control" name="areacode1" id="areacode1">
                                             <option>--请选择--</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-4">
-                                        <select class="form-control" name="areacode2" id="areacode2">
+                                        <select check-type="required" class="form-control" name="areacode2" id="areacode2">
                                             <option>--请选择--</option>
                                         </select>
                                     </div>
@@ -133,7 +133,7 @@
                             <label for="profit_income" class="col-sm-4 control-label">手机号:</label>
                             <div class="col-sm-4">
 
-                                <input check-type="mobile" class="form-control" type="text" placeholder="手机号" name="phone"
+                                <input check-type="mobile required" class="form-control" type="text" placeholder="手机号" name="phone"
                                        id="phone"/>
 
                             </div>
@@ -142,7 +142,7 @@
                             <label for="profit_income" class="col-sm-4 control-label">注册资本金:</label>
                             <div class="col-sm-4">
                                 <div class="input-group">
-                                    <input check-type="number" class="form-control" type="text" placeholder="注册资本金" name="reg_capital"
+                                    <input check-type="number required" class="form-control" type="text" placeholder="注册资本金" name="reg_capital"
                                            id="reg_capital"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
@@ -181,7 +181,7 @@
                         <div class="form-group">
                             <label for="profit_income" class="col-sm-4 control-label">注册资本构成:</label>
                             <div class="col-sm-4">
-                                <select class="form-control" name="type" id="type">
+                                <select class="form-control" name="type" id="type" check-type="required">
                                     <option>--请选择--</option>
                                     <option value="0">国有控股</option>
                                     <option value="1">民营控股</option>
@@ -192,7 +192,7 @@
                         <div class="form-group">
                             <label for="profit_income" class="col-sm-4 control-label">业务开展范围:</label>
                             <div class="col-sm-4">
-                                <select class="form-control" name="bus_area" id="bus_area">
+                                <select class="form-control" name="bus_area" id="bus_area" check-type="required">
                                     <option>--请选择--</option>
                                     <option value="0">县区</option>
                                     <option value="1">市</option>
@@ -204,7 +204,7 @@
                             <label for="profit_income" class="col-sm-4 control-label">分支机构数量:</label>
                             <div class="col-sm-4">
                                 <div class="input-group">
-                                    <input check-type="number" class="form-control" type="text" placeholder="分支机构数量" name="branch_num"
+                                    <input check-type="integer required" class="form-control" type="text" placeholder="分支机构数量" name="branch_num"
                                            id="branch_num"/>
                                     <span class="input-group-addon">个</span>
                                 </div>
@@ -214,7 +214,7 @@
                             <label for="profit_income" class="col-sm-4 control-label">从业人员数量:</label>
                             <div class="col-sm-4">
                                 <div class="input-group">
-                                    <input check-type="number" class="form-control" type="text" placeholder="从业人员数量" name="p_num"
+                                    <input check-type="integer required" class="form-control" type="text" placeholder="从业人员数量" name="p_num"
                                            id="p_num"/>
                                     <span class="input-group-addon">个</span>
                                 </div>
@@ -269,10 +269,10 @@
                 <input type="hidden" name="areacode" id="areacode" />
                 <input type="hidden" name="shareholder" id="shareholder" />
                 <input type="hidden" name="uid" id="uid" value="{{Auth::user()->id}}" />
-                <div class="box-footer">
+      <div class="box-footer"> <label class="col-lg-4 control-label">&nbsp;</label>
                     <button type="submit" id="btnsubmit" class="btn btn-primary">提交</button>
                 </div>
-            </div><!--/.col (right) -->
+          
         </div>
         <script language="javascript">
             function toVaild() {
@@ -305,13 +305,16 @@
        $("#btnsubmit").on('click',function(event){
       // 2.最后要调用 valid()方法。
       if ($("#form").valid()==false){
-        alert('请正确输入必填项');
+        $(".modal-body").text("请正确输入必填项");
+        $("#myModal").modal('show');
+        
         return false;
       }
       });
      });
         </script>
         </div>
-    </form>
+            </form>
+
 
 @endsection

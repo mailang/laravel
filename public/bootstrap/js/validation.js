@@ -115,11 +115,12 @@
         formState = true;
         var validationError = false; 
         //取出验证的
-        $('input, textarea', this).each(function () {
+        $('input, textarea,select', this).each(function () {
             var el = $(this), 
                 controlGroup = el.parents('.form-group'),
                 //check-type="required chinese"  //支持多个，以空格隔开。
                 valid = (el.attr('check-type')==undefined)?null:el.attr('check-type').split(' '); 
+
             if (!controlGroup.hasClass('has-success') && valid != null && valid.length > 0) {
                 if (!validateField(this, valid)) {
                     if (wFocus == false) {
@@ -238,6 +239,8 @@
                         }
                         break;
                     }
+                    else
+                         { if (el[0].type=="select-one"&&value.indexOf("请选择")>=0) {errorMsg="选择项不正确";  error =true;}}
                 }
             }
             if (error) {break;}
@@ -309,6 +312,7 @@
             var iconname = error==false?'glyphicon-ok':'glyphicon-remove';
             if(fstyle == 0){
                 controlGroup.find("#valierr").remove();
+                //hyl
                 el.parent().after('<span class="help-block" id="valierr">' + errorMsg +'</span>');
                 if (globalOptions.icon===true ){
                   if (el.find('option').length==0){
@@ -332,10 +336,12 @@
             }
             else if (fstyle == 2){
                 controlGroup.find("#valierr").remove();
-                el.parent().after('<span class="help-block" id="valierr">' + errorMsg +'</span>');
+                //hyl
+                el.parents(".form-group").append('<span class="help-block" id="valierr">' + errorMsg +'</span>');
+                //el.parent().after('<span class="help-block" id="valierr">' + errorMsg +'</span>');
                 if (globalOptions.icon===true ){
                   if (el.find('option').length==0){
-                    el.after('<span class="glyphicon '+ iconname +' form-control-feedback" aria-hidden="true"></span>');
+                   el.after('<span class="glyphicon '+ iconname +' form-control-feedback" aria-hidden="true"></span>');
                   }
                   else{
                     el.after('<span class="glyphicon '+ iconname +' form-control-feedback" aria-hidden="true" style="right: 25px;"></span>');  
@@ -397,7 +403,9 @@
                     valid = (el.attr('check-type')==undefined)?null:el.attr('check-type').split(' ');
                     if (valid){
                         if ($.inArray('required',valid)>=0){
-                            el.parent().after('<span class="help-block" id="valierr" style="color:#FF9966">*</span>');
+                            //hyl
+                           // el.parent().after('<span class="help-block" id="valierr" style="color:#FF9966">*</span>');
+                           el.parents(".form-group").append('<span class="help-block" id="valierr" style="color:#FF9966">*</span>');
                         }
                     };
                 }); 
