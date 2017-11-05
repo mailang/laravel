@@ -155,7 +155,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <input class="form-control" type="text" placeholder="注册资本金" name="reg_capital"
-                                           id="reg_capital" value="{{$company['reg_capital']}}" check-type="number"/>
+                                           id="reg_capital" value="{{$company['reg_capital']}}" check-type="required number"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -224,7 +224,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <input class="form-control" type="text" placeholder="分支机构数量" name="branch_num"
-                                           id="branch_num" value="{{$company['branch_num']}}" check-type="number"/>
+                                           id="branch_num" value="{{$company['branch_num']}}" check-type="required number"/>
                                     <span class="input-group-addon">个</span>
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <input class="form-control" type="text" placeholder="从业人员数量" name="p_num"
-                                           id="p_num" value="{{$company['p_num']}}" check-type="number"/>
+                                           id="p_num" value="{{$company['p_num']}}" check-type="required number"/>
                                     <span class="input-group-addon">个</span>
                                 </div>
                             </div>
@@ -264,7 +264,7 @@
                                 '                                <label for="profit_income" class="col-sm-1 control-label">股份金额:</label>\n' +
                                 '                                <div class="col-sm-2">\n' +
                                 '                                    <div class="input-group">\n' +
-                                '                                        <input check-type="number" class="form-control" type="text" placeholder="股份金额" name="lp_money"\n' +
+                                '                                        <input check-type="required number" class="form-control" type="text" placeholder="股份金额" name="lp_money"\n' +
                                 '                                               id="lp_money"/>\n' +
                                 '                                        <span class="input-group-addon">万元</span>\n' +
                                 '                                    </div>\n' +
@@ -308,7 +308,7 @@
 
                 function toVaild() {
                     var areacode = $("#areacode2").val();
-                     if (areacode=="--请选择--") {alert("请选择所在地区");return false;}
+                     if (areacode=="--请选择--") {$.alert("请选择所在地区");return false;}
                     $("#areacode").val(areacode);
                     var arr = new Array();
                     $(".lprow").each(function () {
@@ -319,11 +319,11 @@
                     });
                     var sltype=$("#type").val();
                     var slbus_area=$("#bus_area").val();
-                  if (sltype==null||sltype=="--请选择--") {alert("请选择注册资本构成"); return false;}
-                  if (slbus_area==null||slbus_area=="--请选择--") {alert("请选择业务开展范围"); return false;}
+                  if (sltype==null||sltype=="--请选择--") {$.alert("请选择注册资本构成"); return false;}
+                  if (slbus_area==null||slbus_area=="--请选择--") {$.alert("请选择业务开展范围"); return false;}
 
                     var jsonstr = $.toJSON(arr);
-                    if (jsonstr=="[]") {alert("请添加股东信息"); return false;}
+                    if (jsonstr=="[]") {$.alert("请添加股东信息"); return false;}
                     $("#shareholder").val(jsonstr);
                 
                 return true;
@@ -335,7 +335,7 @@
        $("#btnsubmit").on('click',function(event){
       // 2.最后要调用 valid()方法。
       if ($("#form").valid()==false){
-        alert('请正确输入必填项');
+        $.alert('请正确输入必填项');
         return false;
       }
      

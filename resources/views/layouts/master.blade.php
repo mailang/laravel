@@ -38,6 +38,7 @@
     <script src="{{asset('dist/js/app.min.js')}}" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('dist/js/demo.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/alert.js')}}" type="text/javascript"></script>
     <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js')}}"></script>
     <script src="{{asset('js/jquery.linq.min.js')}}"></script>
@@ -230,6 +231,7 @@
         <!-- Main content -->
         <section class="content">
       <div class="box">
+        <div class="info">
         @if(count($errors)>0)
           <div class="alert alert-danger">
             <ul>
@@ -239,6 +241,7 @@
             </ul>
           </div>
         @endif
+        </div>
         @include('flash::message')
         @yield('content')
         </div>
