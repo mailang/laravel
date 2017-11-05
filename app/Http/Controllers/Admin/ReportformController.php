@@ -9,6 +9,7 @@ use App\Models\Area;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class ReportformController extends Controller
 {
@@ -20,10 +21,9 @@ class ReportformController extends Controller
     public function addreport()
     {
     	 # code..
-
            return view('admin.addreport');
-    }
-     
+    
+     }
      //根据报表id查看报表信息
     public function seereport($id=null)
     {
@@ -33,11 +33,13 @@ class ReportformController extends Controller
     	if ($id) {
     		 $report =$reportform->where('id',$id)->get()->first();
     	}
-    	else $report =$reportform->where('uid',	$user['id'])->get()->first();
+    	else $report =$reportform->where('uid',	$user['id'])->orderBy('updated_at','desc')->get()->first();
            if ($report) {
            	 return view('admin.reportform', compact('report'));
            }
-           else echo '<script>alert("数据未上传！请上传");window.location.href="/admin/addreport";</script>';
+           else {
+           	flash("数据未上传！请上传!","error"); return view('admin.addreport');
+            }
     }
 
     // 一级审核显示的列表页
@@ -188,16 +190,14 @@ class ReportformController extends Controller
   $report->incometax=$req['incometax'];   
   $report->description=$req['description'];  
   if ($report->save()) {
-    echo '<script>alert("上传成功！");window.location.href="/admin";</script>';
-  //json_or_dd($report);
-}
-   else { echo '<script>alert("保存失败！");window.location.href="/admin";</script>';
-}
+      flash("报表上传成功!","success");
+           return redirect()->back();
+    }
+   else {return Redirect::back()->withErrors("报表上传失败！");}
 }
 else
-   {
-    echo '<script>alert("数据已提交");window.location.href="/admin";</script>';
-}
+   { flash("本月报表已提交!","success"); return redirect()->back();}
+
 }
 
 

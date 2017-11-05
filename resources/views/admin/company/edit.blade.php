@@ -11,7 +11,7 @@
 @endsection
 @section('content')
    <script src="{{asset('bootstrap/js/validation.js')}}" type="text/javascript"></script>
-    <form id="form" action="/admin/company" method="post" onsubmit="return toVaild()">
+    <form class="form-horizontal" id="form" action="/admin/company" method="post" onsubmit="return toVaild()">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <div class="row">
             <div class="col-md-12">
@@ -73,7 +73,7 @@
 
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <select class="form-control" name="areacode0" id="areacode0">
+                                        <select  class="form-control" name="areacode0" id="areacode0">
                                             <option>--请选择--</option>
                                         </select>
                                     </div>
@@ -83,7 +83,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-4">
-                                        <select class="form-control" name="areacode2" id="areacode2">
+                                        <select class="form-control" name="areacode2" id="areacode2" check-type="required">
                                             <option>--请选择--</option>
                                         </select>
                                     </div>
@@ -155,7 +155,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <input class="form-control" type="text" placeholder="注册资本金" name="reg_capital"
-                                           id="reg_capital" value="{{$company['reg_capital']}}" check-type="required number"/>
+                                           id="reg_capital" value="{{$company['reg_capital']}}" check-type="number required"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -224,7 +224,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <input class="form-control" type="text" placeholder="分支机构数量" name="branch_num"
-                                           id="branch_num" value="{{$company['branch_num']}}" check-type="required number"/>
+                                           id="branch_num" value="{{$company['branch_num']}}" check-type="integer required"/>
                                     <span class="input-group-addon">个</span>
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <input class="form-control" type="text" placeholder="从业人员数量" name="p_num"
-                                           id="p_num" value="{{$company['p_num']}}" check-type="required number"/>
+                                           id="p_num" value="{{$company['p_num']}}" check-type="integer required"/>
                                     <span class="input-group-addon">个</span>
                                 </div>
                             </div>
@@ -299,7 +299,7 @@
                 <input type="hidden" name="areacode" id="areacode" />
                 <input type="hidden" name="shareholder" id="shareholder" />
                 <input type="hidden" name="uid" id="uid" value="{{Auth::user()->id}}" />
-                <div class="box-footer">
+                <div class="box-footer"> <label class="col-lg-4 control-label">&nbsp;</label>
                     <button id="btnsubmit" type="submit" class="btn btn-primary">提交</button>
                 </div>
             </div><!--/.col (right) -->
@@ -335,7 +335,8 @@
        $("#btnsubmit").on('click',function(event){
       // 2.最后要调用 valid()方法。
       if ($("#form").valid()==false){
-        $.alert('请正确输入必填项');
+          $(".modal-body").text("请正确输入必填项");
+         $("#myModal").modal('show');
         return false;
       }
      
@@ -344,5 +345,4 @@
         </script>
         </div>
     </form>
-
 @endsection

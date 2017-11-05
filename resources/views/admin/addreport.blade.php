@@ -716,11 +716,15 @@
        $("#btnsubmit").on('click',function(event){
       // 2.最后要调用 valid()方法。
       if ($("#form1").valid()==false){
-        alert('请正确输入必填项');
+       alertmodal("请正确输入必填项");
         return false;
       }
     });
 });
-   
+   function alertmodal(msg)
+   {
+   $(".modal-body").text(msg);
+   $("#myModal").modal('show');
+   }
 </script>
  @endsection

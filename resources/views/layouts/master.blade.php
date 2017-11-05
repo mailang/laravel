@@ -260,6 +260,28 @@
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
 
-
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h5 class="modal-title" id="myModalLabel">
+                    友情提示！
+                </h5>
+            </div>
+            <div class="modal-body" tyle=" text-align:center;">
+                提示内容
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+<style type="text/css">
+.modal-dialog{-webkit-transform:translate(0,-50%);-ms-transform:translate(0,-50%);
+    -o-transform:translate(0,-50%);transform:translate(0,-50%);position:absolute;width: 280px; height:auto;left:40%;top:40%}
+    .modal-header{background-color: #3c8dbc;color:white;}
+    .modal-content{min-height: 200px;height: auto !important;}
+</style>
   </body>
 </html>
