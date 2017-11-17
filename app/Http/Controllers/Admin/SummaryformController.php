@@ -110,7 +110,7 @@ class SummaryformController extends Controller
         //dd(date('Y-m-01', strtotime('-1 mounth')));
 
         if ($isuploaded) {
-            return redirect()->route("summaryform.index");
+            return view("admin.isuploaded");
         }
 
 

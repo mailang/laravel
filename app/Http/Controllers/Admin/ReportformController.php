@@ -32,7 +32,7 @@ class ReportformController extends Controller
             $time = $dateold;
         } else {
             if ($isuploadednew) {
-                return "您本月已上传过报表";
+                return view("admin.isuploaded");
             } else {
                 $time = $datenew;
             }
