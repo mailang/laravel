@@ -21,9 +21,10 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>id</th>
+
                         <th>企业名称</th>
                         <th>信用代码</th>
+                          <th>报表记录时间</th>
                         <th>上传报表时间</th>
                         <th>操作</th>
                       </tr>
@@ -31,13 +32,14 @@
                   <tbody>
                         @foreach($reports as $report)
                             <tr id="">
-                                <td>　<i class="{{ $report->id}}"></i>　{{ $report->id}}</td>
+
                                 <td>{{ $report->name}}</td>
                                 <td>{{ $report->code }}</td>
+                                <td>{{ date('Y-m',strtotime($report->dtime))}}</td>
                                 <td>{{ $report->updated_at }}</td>
                                 <td> <a href="/admin/seereport/{{ $report->id}}">查看</a></td>
                             </tr>
-                            @endforeach
+                        @endforeach
                     </tbody>
                   </table>
                 </div><!-- /.box-body -->

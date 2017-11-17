@@ -10,7 +10,7 @@
     </ol>
 @endsection
 @section('content')
-   <script src="{{asset('bootstrap/js/validation.js')}}" type="text/javascript"></script>
+    <script src="{{asset('bootstrap/js/validation.js')}}" type="text/javascript"></script>
     <form class="form-horizontal" id="form" action="/admin/company" method="post" onsubmit="return toVaild()">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <div class="row">
@@ -18,24 +18,31 @@
                 <!-- general form elements -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">公司基本信息</h3>
+                        <h3 class="box-title">公司信息修改</h3>
                     </div><!-- /.box-header -->
                     <!-- form start -->
 
                     <div class="box-body form-horizontal">
-
                         <div class="form-group">
-                            <label for="total_capital" class="col-sm-4 control-label">公司名称:</label>
+                            <label for="total_capital" class="col-sm-4 control-label">公司名称（全称）:</label>
                             <div class="col-sm-4">
                                 <input class="form-control" type="text" id="name" name="name"
                                        placeholder="公司名称" value="{{$company['name']}}" check-type="required">
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="total_capital" class="col-sm-4 control-label">联系人:</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" id="contacts" name="contacts"
+                                       placeholder="联系人" value="{{$company['contacts']}}" check-type="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="money_capital" class="col-sm-4 control-label">社会信用代码:</label>
                             <div class=" col-sm-4">
                                 <input class="form-control" id="code" name="code"
-                                       placeholder="社会信用代码" type="text" value="{{$company['code']}}" check-type="required">
+                                       placeholder="社会信用代码" type="text" value="{{$company['code']}}"
+                                       check-type="required">
                             </div>
 
                         </div>
@@ -48,7 +55,9 @@
                                         </i>
                                     </div>
                                     <input class="form-control pull-right" id="opening_at" name="opening_at"
-                                           placeholder="开业时间" type="text" data-date-end-date="0d" value="{{date('Y-m-d',strtotime($company['opening_at']))}}" check-type="required" >
+                                           placeholder="开业时间" type="text" data-date-end-date="0d"
+                                           value="{{date('Y-m-d',strtotime($company['opening_at']))}}"
+                                           check-type="required">
                                 </div>
                             </div>
                         </div>
@@ -73,17 +82,20 @@
 
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <select  class="form-control" name="areacode0" id="areacode0">
+                                        <select class="form-control" name="areacode0" id="areacode0"
+                                                check-type="required number">
                                             <option>--请选择--</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-4">
-                                        <select class="form-control" name="areacode1" id="areacode1">
+                                        <select class="form-control" name="areacode1" id="areacode1"
+                                                check-type="required number">
                                             <option>--请选择--</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-4">
-                                        <select class="form-control" name="areacode2" id="areacode2" check-type="required">
+                                        <select class="form-control" name="areacode2" id="areacode2"
+                                                check-type="required number">
                                             <option>--请选择--</option>
                                         </select>
                                     </div>
@@ -91,6 +103,7 @@
                                 <script language="JavaScript">
                                     $(function () {
                                         var ac = eval({!! $areacode !!});
+
                                         function refeshselect($o, pcode) {
                                             var p = $.Enumerable.From(ac).Where("x=>x.pcode=='" + pcode + "'").ToArray();
                                             $.each(p, function () {
@@ -101,13 +114,12 @@
 
                                         refeshselect($("#areacode0"), "000000");
                                         var dataac = "{{$company['areacode']}}";
-                                        if(dataac != null && dataac != "" && dataac != undefined)
-                                        {
+                                        if (dataac != null && dataac != "" && dataac != undefined) {
                                             var pac = dataac[0] + dataac[1] + "0000";
-                                            var cac = dataac[0] + dataac[1] + dataac[2] + dataac[3] +"00";
+                                            var cac = dataac[0] + dataac[1] + dataac[2] + dataac[3] + "00";
 
-                                            refeshselect($("#areacode1"),pac);
-                                            refeshselect($("#areacode2"),cac);
+                                            refeshselect($("#areacode1"), pac);
+                                            refeshselect($("#areacode2"), cac);
 
                                             $("#areacode0").val(pac);
                                             $("#areacode1").val(cac);
@@ -155,7 +167,8 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <input class="form-control" type="text" placeholder="注册资本金" name="reg_capital"
-                                           id="reg_capital" value="{{$company['reg_capital']}}" check-type="number required"/>
+                                           id="reg_capital" value="{{$company['reg_capital']}}"
+                                           check-type="number required"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -182,10 +195,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="profit_income" class="col-sm-4 control-label">业务范围:</label>
+                            <label for="profit_income" class="col-sm-4 control-label">业务开展区域:</label>
                             <div class="col-sm-4">
 
-                                    <textarea check-type="required" class="form-control" type="text" placeholder="业务范围" name="scope"
+                                    <textarea check-type="required" class="form-control" type="text"
+                                              placeholder="业务开展区域" name="scope"
                                               id="scope">{{$company['scope']}}</textarea>
 
                             </div>
@@ -193,7 +207,7 @@
                         <div class="form-group">
                             <label for="profit_income" class="col-sm-4 control-label">注册资本构成:</label>
                             <div class="col-sm-4">
-                                <select class="form-control" name="type" id="type" check-type="required">
+                                <select class="form-control" name="type" id="type" check-type="required number">
                                     <option>--请选择--</option>
                                     <option value="0">国有控股</option>
                                     <option value="1">民营控股</option>
@@ -205,7 +219,7 @@
                         <div class="form-group">
                             <label for="profit_income" class="col-sm-4 control-label">业务开展范围:</label>
                             <div class="col-sm-4">
-                                <select class="form-control" name="bus_area" id="bus_area" check-type="required">
+                                <select class="form-control" name="bus_area" id="bus_area" check-type="required number">
                                     <option>--请选择--</option>
                                     <option value="0">县区</option>
                                     <option value="1">市</option>
@@ -224,7 +238,8 @@
                             <div class="col-sm-4">
                                 <div class="input-group">
                                     <input class="form-control" type="text" placeholder="分支机构数量" name="branch_num"
-                                           id="branch_num" value="{{$company['branch_num']}}" check-type="integer required"/>
+                                           id="branch_num" value="{{$company['branch_num']}}"
+                                           check-type="integer required"/>
                                     <span class="input-group-addon">个</span>
                                 </div>
                             </div>
@@ -253,95 +268,132 @@
 
                         <script language="javascript">
                             $(function () {
-                            var html = '                       <div class="row margin lprow">\n' +
-                                '                                <label for="profit_income" class="col-sm-3 control-label">姓名:</label>\n' +
-                                '                                <div class="col-sm-2">\n' +
-                                '                                    <div class="input-group">\n' +
-                                '                                        <input check-type="required"  class="form-control" type="text" placeholder="姓名" name="lp_name"\n' +
-                                '                                               id="lp_name"/>\n' +
-                                '                                    </div>\n' +
-                                '                                </div>\n' +
-                                '                                <label for="profit_income" class="col-sm-1 control-label">股份金额:</label>\n' +
-                                '                                <div class="col-sm-2">\n' +
-                                '                                    <div class="input-group">\n' +
-                                '                                        <input check-type="required number" class="form-control" type="text" placeholder="股份金额" name="lp_money"\n' +
-                                '                                               id="lp_money"/>\n' +
-                                '                                        <span class="input-group-addon">万元</span>\n' +
-                                '                                    </div>\n' +
-                                '                                </div>\n' +
-                                '                                <div>\n' +
-                                '                                    <button type="button" class="btn btn-primary sublp">\n' +
-                                '                                        <span class="glyphicon glyphicon-minus"></span>删除\n' +
-                                '                                    </button>\n' +
-                                '                                </div>\n' +
-                                '                            </div>';
-                            $(".addlp").click(function () {
-                                $(".lpcontent").append(html);
-                                $(".sublp").click(function () {
-                                    $(this).parents(".lprow").remove();
-
-                                });
-                            });
-                            var shareholderj = '{!! $company['shareholder'] !!}';
-                            if(shareholderj != null && shareholderj != "" && shareholderj != undefined)
-                            {
-                                var shareholder = eval(shareholderj);
-                                $.each(shareholder,function (idx,obj) {
+                                var html = '                       <div class="row margin lprow">\n' +
+                                    '                                <label for="profit_income" class="col-sm-3 control-label">姓名或公司名称:</label>\n' +
+                                    '                                <div class="col-sm-2">\n' +
+                                    '                                    <div class="input-group">\n' +
+                                    '                                        <input check-type="required"  class="form-control lp_name" type="text" placeholder="姓名" name="lp_name"\n' +
+                                    '                                               id="lp_name"/>\n' +
+                                    '                                    </div>\n' +
+                                    '                                </div>\n' +
+                                    '                                <label for="profit_income" class="col-sm-1 control-label">股本金额:</label>\n' +
+                                    '                                <div class="col-sm-2">\n' +
+                                    '                                    <div class="input-group">\n' +
+                                    '                                        <input check-type="required number" class="form-control lp_money" type="text" placeholder="股份金额" name="lp_money"\n' +
+                                    '                                               id="lp_money"/>\n' +
+                                    '                                        <span class="input-group-addon">万元</span>\n' +
+                                    '                                    </div>\n' +
+                                    '                                </div>\n' +
+                                    '                                <div>\n' +
+                                    '                                <label for="profit_income" class="col-sm-1 control-label">股权比例:</label>\n' +
+                                    '                                <div class="col-sm-2">\n' +
+                                    '                                    <div class="input-group">\n' +
+                                    '                                        <input check-type="required number" class="form-control lp_equity" type="text" placeholder="股权比例" name="lp_equity"\n' +
+                                    '                                               id="lp_equity"/>\n' +
+                                    '                                        <span class="input-group-addon">%</span>\n' +
+                                    '                                    </div>\n' +
+                                    '                                </div>\n' +
+                                    '                                <div>\n' +
+                                    '                                    <button type="button" class="btn btn-primary sublp">\n' +
+                                    '                                        <span class="glyphicon glyphicon-minus"></span>删除\n' +
+                                    '                                    </button>\n' +
+                                    '                                </div>\n' +
+                                    '                            </div>';
+                                $(".addlp").click(function () {
                                     $(".lpcontent").append(html);
-                                    $(".lpcontent #lp_name:last").val(obj.name);
-                                    $(".lpcontent #lp_money:last").val(obj.money);
+                                    $(".sublp").click(function () {
+                                        $(this).parents(".lprow").remove();
+
+                                    });
+                                    $(".lp_money").change(function () {
+                                        var equity = toDecimal($(this).val() * 100 / $("#reg_capital").val());
+                                        $(this).parents(".lprow").find(".lp_equity").val(equity);
+                                    });
                                 });
-                            }
+                                var shareholderj = '{!! $company['shareholder'] !!}';
+                                if (shareholderj != null && shareholderj != "" && shareholderj != undefined) {
+                                    var shareholder = eval(shareholderj);
+                                    $.each(shareholder, function (idx, obj) {
+                                        $(".lpcontent").append(html);
+                                        $(".lpcontent .lp_name:last").val(obj.name);
+                                        $(".lpcontent .lp_money:last").val(obj.money);
+                                        $(".lpcontent .lp_equity:last").val(obj.equity);
+                                    });
+                                }
                             });
                         </script>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
-                <input type="hidden" name="areacode" id="areacode" />
-                <input type="hidden" name="shareholder" id="shareholder" />
-                <input type="hidden" name="uid" id="uid" value="{{Auth::user()->id}}" />
-                <div class="box-footer"> <label class="col-lg-4 control-label">&nbsp;</label>
+                <input type="hidden" name="areacode" id="areacode"/>
+                <input type="hidden" name="shareholder" id="shareholder"/>
+                <input type="hidden" name="uid" id="uid" value="{{Auth::user()->id}}"/>
+                <div class="box-footer"><label class="col-lg-4 control-label">&nbsp;</label>
                     <button id="btnsubmit" type="submit" class="btn btn-primary">提交</button>
                 </div>
             </div><!--/.col (right) -->
         </div>
         <script language="javascript">
 
-                function toVaild() {
-                    var areacode = $("#areacode2").val();
-                     if (areacode=="--请选择--") {$.alert("请选择所在地区");return false;}
-                    $("#areacode").val(areacode);
-                    var arr = new Array();
-                    $(".lprow").each(function () {
-                        var sh = new Object();
-                        sh.name = $(this).find("#lp_name").val();
-                        sh.money = $(this).find("#lp_money").val();
-                        arr.push(sh);
-                    });
-                    var sltype=$("#type").val();
-                    var slbus_area=$("#bus_area").val();
-                  if (sltype==null||sltype=="--请选择--") {$.alert("请选择注册资本构成"); return false;}
-                  if (slbus_area==null||slbus_area=="--请选择--") {$.alert("请选择业务开展范围"); return false;}
-
-                    var jsonstr = $.toJSON(arr);
-                    if (jsonstr=="[]") {$.alert("请添加股东信息"); return false;}
-                    $("#shareholder").val(jsonstr);
-                
-                return true;
+            function toVaild() {
+                var areacode = $("#areacode2").val();
+                if (areacode == "--请选择--") {
+                    $.alert("请选择所在地区");
+                    return false;
                 }
-    $(function(){ 
-        $("#form").validation({
-             ignore:"#incometax"
-        });
-       $("#btnsubmit").on('click',function(event){
-      // 2.最后要调用 valid()方法。
-      if ($("#form").valid()==false){
-          $(".modal-body").text("请正确输入必填项");
-         $("#myModal").modal('show');
-        return false;
-      }
-     
-      });
-     });
+                $("#areacode").val(areacode);
+                var arr = new Array();
+                $(".lprow").each(function () {
+                    var sh = new Object();
+                    sh.name = $(this).find(".lp_name").val();
+                    sh.money = $(this).find(".lp_money").val();
+                    sh.equity = $(this).find(".lp_equity").val();
+                    arr.push(sh);
+                });
+                var sltype = $("#type").val();
+                var slbus_area = $("#bus_area").val();
+                if (sltype == null || sltype == "--请选择--") {
+                    $.alert("请选择注册资本构成");
+                    return false;
+                }
+                if (slbus_area == null || slbus_area == "--请选择--") {
+                    $.alert("请选择业务开展范围");
+                    return false;
+                }
+
+                var jsonstr = $.toJSON(arr);
+                if (jsonstr == "[]") {
+                    $.alert("请添加股东信息");
+                    return false;
+                }
+                $("#shareholder").val(jsonstr);
+
+                var alllp_money = 0;
+                $(".lp_money").each(function () {
+                    alllp_money += Number($(this).val());
+                });
+
+                if($("#reg_capital").val() != alllp_money)
+                {
+                    $.alert("股本金额填写错误！");
+                    return false;
+                }
+                return true;
+            }
+
+            $(function () {
+                $("#form").validation({
+                    ignore: "#incometax"
+                });
+                $("#btnsubmit").on('click', function (event) {
+                    // 2.最后要调用 valid()方法。
+                    if ($("#form").valid() == false) {
+                        //$(".modal-body").text("请正确输入必填项");
+                        //$("#myModal").modal('show');
+                        $.alert("请正确输入必填项");
+                        return false;
+                    }
+                });
+            });
         </script>
         </div>
     </form>

@@ -59,7 +59,7 @@
             </div>
           @endif
           <div class="form-group has-feedback">
-            <input id="name" type="name" name="name" class="form-control" placeholder="用户名" />
+            <input id="name" type="username" name="username" class="form-control" placeholder="用户名" />
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">

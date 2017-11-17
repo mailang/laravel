@@ -89,32 +89,32 @@ class CreateReportformTable extends Migration
            $table->float('ninety_loan_remainder'); 
            $table->integer('ninety_loan_family'); 
            //利率:最高、最低、平均
-           
-            $table->float('highest_interest'); 
-           $table->float('lowest_interest'); 
-           $table->float('Average_interest'); 
+
+            $table->float('highest_interest');
+           $table->float('lowest_interest');
+           $table->float('Average_interest');
 
             //贷款五级分类:正常、关注、次级类、可疑类、损失类
            $table->float('normal_loan'); 
            $table->float('follow_loan'); 
            $table->float('second_loan'); 
-           $table->float('doubt_loan'); 
+           $table->float('doubt_loan');
            $table->float('noback_loan'); 
                 // 贷款种类信用贷款、保证担保、抵押担保、质押担保、其他方式
-           $table->float('credit_loan_remainder'); 
-           $table->integer('credit_loan_family'); 
+           $table->float('credit_loan_remainder');
+           $table->integer('credit_loan_family');
 
-           $table->float('promise_loan_remainder'); 
-           $table->integer('promise_loan_family'); 
+           $table->float('promise_loan_remainder');
+           $table->integer('promise_loan_family');
 
-            $table->float('mortgage_loan_remainder'); 
-           $table->integer('mortgage_loan_family'); 
+            $table->float('mortgage_loan_remainder');
+           $table->integer('mortgage_loan_family');
 
-            $table->float('pledge_loan_remainder'); 
-            $table->integer('pledge_loan_family'); 
+            $table->float('pledge_loan_remainder');
+            $table->integer('pledge_loan_family');
 
-            $table->float('other_loan_remainder'); 
-            $table->integer('other_loan_family'); 
+            $table->float('other_loan_remainder');
+            $table->integer('other_loan_family');
           //银行融资、股东借款、收益权转让、债券票据、小贷公司同业拆借
               $table->float('bank_financing');
               $table->float('shareholder_loan');
@@ -130,11 +130,13 @@ class CreateReportformTable extends Migration
            //今年内累计纳税支出 
               $table->float('paytaxes');
            //年内累计营业税金及附加支出
-              $table->float('saletax');
+              $table->float('saletax')->default(0);
            //年内累计所得税支出
               $table->float("incometax");
              //注释及说明
-              $table->string('description')->nullable();;
+              $table->string('description')->nullable();
+              //上传几月的报表
+              $table->dateTime('dtime');
               $table->timestamps();
         });
 

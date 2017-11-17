@@ -8,8 +8,16 @@ $this->post('/modifypassword', 'ModifyPasswordController@update');
 Route::get('/company',['uses'=>'CompanyController@index','as' => 'company.index',]);
 Route::post('/company',['uses'=>'CompanyController@store','as' => 'company.store',]);
 
-Route::get('/addreport',['uses'=>'ReportformController@addreport','as' => 'reportform.addreport',]);
+Route::get('/addreport/{old?}',['uses'=>'ReportformController@addreport','as' => 'reportform.addreport',]);
 Route::post('/addreport',['uses'=>'ReportformController@submitreport','as' => 'reportform.submitreport',]);
 
 Route::get('/seereport/{id?}',['uses'=>'ReportformController@seereport','as' => 'reportform.seereport']);
-Route::get('/reportlist',['uses'=>'ReportformController@reportlist','as' => 'reportform.reportlist']);
+Route::get('/reportlist/{areacode?}',['uses'=>'ReportformController@reportlist','as' => 'reportform.reportlist']);
+
+
+Route::get('/summarylist',['uses'=>'SummaryformController@index','as' => 'summaryform.index']);
+Route::get('/summary/{id?}',['uses'=>'SummaryformController@show','as' => 'summaryform.show']);
+Route::get('/summaryadd',['uses'=>'SummaryformController@create','as' => 'summaryform.create']);
+Route::post('/summaryadd',['uses'=>'SummaryformController@store','as' => 'summaryform.store']);
+Route::get('/uploadlist/{id?}',['uses'=>'SummaryformController@uploadlist','as' => 'summaryform.uploadlist']);
+Route::get('/historylist/{id?}',['uses'=>'SummaryformController@historylist','as' => 'summaryform.historylist']);

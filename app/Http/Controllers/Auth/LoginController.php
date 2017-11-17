@@ -44,19 +44,9 @@ class LoginController extends Controller
         return view('login');
     }
 
-    protected function validateLogin(Request $request)
-    {
-        if($this->username() == "name")
-            $messages = [ 'name.required' => '用户名不能为空。'];
-        $this->validate($request, [
-            $this->username() => 'required|string',
-            'password' => 'required|string',
-        ],$messages);
-    }
-
     public function username()
     {
         //return 'email';
-        return 'name';
+        return 'username';
     }
 }

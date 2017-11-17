@@ -18,7 +18,7 @@
     <link href="{{ asset('dist/css/skins/_all-skins.min.css') }}" rel="stylesheet" type="text/css" />
 
     <link href="{{ asset('plugins/datepicker/datepicker3.css') }}" rel="stylesheet" type="text/css" />
-
+    <link href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -38,11 +38,18 @@
     <script src="{{asset('dist/js/app.min.js')}}" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('dist/js/demo.js')}}" type="text/javascript"></script>
+
+    <script src="{{asset('plugins/datatables/jquery.dataTables.js')}}" type="text/javascript"></script>
+
+
     <script src="{{asset('js/alert.js')}}" type="text/javascript"></script>
     <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
     <script src="{{asset('plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js')}}"></script>
     <script src="{{asset('js/jquery.linq.min.js')}}"></script>
     <script src="{{asset('js/jquery.json.min.js')}}"></script>
+    <script src="{{asset('js/xlsx.core.min.js')}}"></script>
+    <script src="{{asset('js/filesaver.min.js')}}"></script>
+    <script src="{{asset('js/tableExport.min.js')}}"></script>
   </head>
   <body class="skin-blue sidebar-mini">
     <!-- Site wrapper -->
@@ -194,7 +201,7 @@
               {{--<!-- Control Sidebar Toggle Button -->--}}
               <li class="dropdown navbar-user">
                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                  <span class="hidden-xs">{{ auth()->user()->name }}</span> <b class="caret"></b>
+                  <span class="hidden-xs">{{ auth()->user()->name != "" ? auth()->user()->name:auth()->user()->username}}</span> <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu animated fadeInLeft">
                   <li class="arrow"></li>
@@ -277,11 +284,48 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
+</div>
+
 <style type="text/css">
 .modal-dialog{-webkit-transform:translate(0,-50%);-ms-transform:translate(0,-50%);
     -o-transform:translate(0,-50%);transform:translate(0,-50%);position:absolute;width: 280px; height:auto;left:40%;top:40%}
     .modal-header{background-color: #3c8dbc;color:white;}
     .modal-content{min-height: 200px;height: auto !important;}
 </style>
+    <script>
+        $(function () {
+            $('.table').DataTable({
+                'paging'      : true,
+                'lengthChange': false,
+                'searching'   : false,
+                'ordering'    : true,
+                'info'        : true,
+                'autoWidth'   : false,
+                "oLanguage": {
+                    "sProcessing":   "处理中...",
+                    "sLengthMenu":   "_MENU_ 记录/页",
+                    "sZeroRecords":  "没有匹配的记录",
+                    "sInfo":         "显示第 _START_ 至 _END_ 项记录，共 _TOTAL_ 项",
+                    "sInfoEmpty":    "显示第 0 至 0 项记录，共 0 项",
+                    "sInfoFiltered": "(由 _MAX_ 项记录过滤)",
+                    "sInfoPostFix":  "",
+                    "sSearch":       "过滤:",
+                    "sUrl":          "",
+                    "oPaginate": {
+                        "sFirst":    "首页",
+                        "sPrevious": "上页",
+                        "sNext":     "下页",
+                        "sLast":     "末页"
+                    }
+                }
+            });
+            var modeltext = "{{ session('modeltext')}}";
+            if(modeltext != '')
+            {
+                $(".modal-body").text(modeltext);
+                $("#myModal").modal('show');
+            }
+        })
+    </script>
   </body>
 </html>

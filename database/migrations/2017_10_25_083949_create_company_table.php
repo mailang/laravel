@@ -17,6 +17,8 @@ class CreateCompanyTable extends Migration
             $table->increments('id');
             //公司名称
             $table->string('name');
+            //联系人
+            $table->string('contacts');
             //社会信用代码
             $table->string('code');
             //开业时间
@@ -37,7 +39,7 @@ class CreateCompanyTable extends Migration
             $table->string('chairman');
             //总经理
             $table->string('manager');
-            //股东情况（json格式[{"name":"","money":""},{"name":"","money":""}]）
+            //股东情况（json格式[{"name":"","money":""，"equity":""},{"name":"","money":"","equity":""}]）
             $table->string('shareholder');
             //业务范围
             $table->string('scope');

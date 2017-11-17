@@ -24,7 +24,7 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           @if(auth()->user()->type=='1')
           <ul class="sidebar-menu">
-            <li class="treeview">
+            <li class="treeview active">
               <a href="#">
                 <i class="fa fa-dashboard"></i> <span>报表管理</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -35,7 +35,7 @@
             </li>
           </ul>  
              <ul class="sidebar-menu">
-            <li class="treeview">
+            <li class="treeview active">
               <a href="#">
                 <i class="fa fa-dashboard"></i> <span>企业管理</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -47,12 +47,14 @@
         @else 
         @if(auth()->user()->type=='2')
            <ul class="sidebar-menu">
-            <li class="treeview">
+            <li class="treeview active">
               <a href="#">
                 <i class="fa fa-dashboard"></i> <span>报表管理</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{route('reportform.reportlist')}}"><i class="fa fa-circle-o"></i>审核报表</a></li>
+                  <li><a href="{{route('summaryform.uploadlist')}}"><i class="fa fa-circle-o"></i>查看上传报表</a></li>
+                  <li><a href="{{route('summaryform.create')}}"><i class="fa fa-circle-o"></i>上传报表</a></li>
+                  <li><a href="{{route('summaryform.index')}}"><i class="fa fa-circle-o"></i>查看历史报表</a></li>
               </ul>
             </li>
           </ul>

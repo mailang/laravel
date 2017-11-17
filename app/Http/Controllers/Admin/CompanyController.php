@@ -67,6 +67,10 @@ class CompanyController extends Controller
         }
         if($res)
         {
+            $user = Auth::user();
+            $user->areacode = $request->get("areacode");
+            $user->name = $request->get("name");
+            $user->save();
             flash("保存成功!","success");
             return redirect()->back();
         }
