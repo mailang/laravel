@@ -1641,27 +1641,9 @@
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-right-width: 0.5pt; border-right-color: rgb(0, 0, 0); border-bottom-width: 0.5pt; border-bottom-color: rgb(0, 0, 0); height: 27pt; width: 68.25pt;">
                                 82
                             </td>
-                            <td class="et31" colspan="3" width="469"
-                                style="font-size: 12pt; vertical-align: middle; border-left-width: 0.5pt; border-left-color: rgb(0, 0, 0); border-right-width: 0.5pt; border-right-color: rgb(0, 0, 0); border-top-width: 0.5pt; border-top-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
-                                &nbsp;&nbsp;6.1.1&nbsp;&nbsp;其中：营业税金及附加支出
-                            </td>
-                            <td class="et22" width="132"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"></td>
-                            <td class="et30" width="130"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;">
-                                <input type="text" class="text-center" name="new[saletax]" id="new[saletax]" value="{{$new->saletax}}" />
-                            </td>
-                            <td class="et48" width="131"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"></td>
-                        </tr>
-                        <tr>
-                            <td class="et64" width="91"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-right-width: 0.5pt; border-right-color: rgb(0, 0, 0); border-bottom-width: 0.5pt; border-bottom-color: rgb(0, 0, 0); height: 27pt; width: 68.25pt;">
-                                83
-                            </td>
                             <td class="et24" colspan="3" width="469"
                                 style="font-size: 12pt; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
-                                &nbsp;&nbsp;6.1.2&nbsp;&nbsp;其中：所得税支出
+                                &nbsp;&nbsp;6.1.1&nbsp;&nbsp;其中：所得税支出
                             </td>
                             <td class="et22" width="132"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"></td>
@@ -1675,7 +1657,7 @@
                         <tr>
                             <td class="et64" width="91"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-right-width: 0.5pt; border-right-color: rgb(0, 0, 0); border-bottom-width: 0.5pt; border-bottom-color: rgb(0, 0, 0); height: 56.25pt; width: 68.25pt;">
-                                84
+                                83
                             </td>
                             <td class="et8" width="68"
                                 style="font-size: 12pt; vertical-align: middle; border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 56.25pt; width: 51pt;">
