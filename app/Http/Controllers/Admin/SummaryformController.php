@@ -116,10 +116,11 @@ class SummaryformController extends Controller
 
         $isfirst = Area::where('pcode', $areacode)->get();
 
+        $datenew = date('Y-m-01', strtotime('-1 month'));
         $summary = new Summaryform();
         $old = $summary
             ->where("uid", $user->id)
-            ->whereDate('dtime', date('Y-12-01', strtotime('-1 year')))
+            ->whereDate('dtime', date('Y-12-01',strtotime('-1 year',strtotime($datenew))))
             ->get()
             ->first();
         if (!$old) {
@@ -241,7 +242,7 @@ class SummaryformController extends Controller
                 $reports = DB::table('area')
                     ->rightJoin('summaryform', 'summaryform.areacode', '=', 'area.areacode')
                     ->where('area.pcode', $areacode)
-                    ->whereDate('summaryform.dtime', date('Y-12-01', strtotime('-1 year')))->get();
+                    ->whereDate('summaryform.dtime', date('Y-12-01',strtotime('-1 year',strtotime($datenew))))->get();
                 $columns = Schema::getColumnListing('summaryform');
 
                 foreach ($columns as $key => $column){
@@ -431,20 +432,21 @@ class SummaryformController extends Controller
     public function store(Request $request)
     {
         //
+        $datenew = date('Y-m-01', strtotime('-1 month'));
         $user = Auth::user();
         $areacode = $user['areacode'];
         $all = $request->all();
 
         $old = DB::table('summaryform')
             ->where("uid", $user->id)
-            ->whereDate('dtime', date('Y-12-01', strtotime('-1 year')))
+            ->whereDate('dtime', date('Y-12-01',strtotime('-1 year',strtotime($datenew))))
             ->first();
         if (!$old) {
             //$old = new Summaryform();
             $oldr = $all["old"];
             $oldr["areacode"] = $areacode;
             $oldr["uid"] = Auth::user()->id;
-            $oldr["dtime"] = date('Y-12-01', strtotime('-1 year'));
+            $oldr["dtime"] = date('Y-12-01',strtotime('-1 year',strtotime($datenew)));
 
             $res0 = Summaryform::create($oldr);
 

@@ -48,7 +48,7 @@
     <script src="{{asset('js/jquery.linq.min.js')}}"></script>
     <script src="{{asset('js/jquery.json.min.js')}}"></script>
     <script src="{{asset('js/xlsx.core.min.js')}}"></script>
-    <script src="{{asset('js/filesaver.min.js')}}"></script>
+    <script src="{{asset('js/FileSaver.min.js')}}"></script>
     <script src="{{asset('js/tableExport.min.js')}}"></script>
   </head>
   <body class="skin-blue sidebar-mini">

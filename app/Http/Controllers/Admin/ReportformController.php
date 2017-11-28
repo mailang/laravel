@@ -23,8 +23,10 @@ class ReportformController extends Controller
     public function addreport(Request $request, $old = null)
     {
         $user = Auth::user();
-        $dateold = date('Y-12-01', strtotime('-1 year'));
+        //$dateold = date('Y-12-01', strtotime('-1 year'));
         $datenew = date('Y-m-01', strtotime('-1 month'));
+        $dateold = date('Y-12-01',strtotime('-1 year',strtotime($datenew)));
+
         $isuploadedold = Reportform::where("uid", $user->id)->whereDate('dtime', $dateold)->first();
         $isuploadednew = Reportform::where("uid", $user->id)->whereDate('dtime', $datenew)->first();
         if (!$isuploadedold) {
