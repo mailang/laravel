@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="money_capital" class="col-sm-2 control-label">货币资金:</label>
+                            <label for="money_capital" class="col-sm-3 control-label">其中货币资金:</label>
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" id="money_capital" name="money_capital"
@@ -45,6 +45,9 @@
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="other_capital" class="col-sm-3 control-label">其中其他资金:</label>
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" id="other_capital" name="other_capital"
@@ -92,6 +95,9 @@
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="loan_income" class="col-sm-3 control-label">其中贷款利息收入:</label>
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" check-type="number required" id="other_capital"
@@ -545,6 +551,9 @@
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bad_remainder" class="col-sm-3 control-label">其中不良贷款余额:</label>
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" check-type="number required" id="other_capital"
@@ -899,62 +908,62 @@
             });
             $("#btnsubmit").on('click', function (event) {
                 //实收资本金等于公司注册资金
-                if($("#paidup_capital").val() != "{{$data['reg_capital']}}"){
+                if($("#paidup_capital").val().replace(/,/g,'') != "{{$data['reg_capital']}}"){
                     $.alert("实收资本需和公司注册资本金相同！");
                     return false;
                 }
 
                 //货币资金不能大于资产总额
-                if(Number($("#total_capital").val()) < Number($("#money_capital").val()))
+                if(Number($("#total_capital").val().replace(/,/g,'')) < Number($("#money_capital").val().replace(/,/g,'')))
                 {
                     $.alert("货币资金不能大于资产总额！");
                     return false;
                 }
 
                 //其他资产不能大于资产总额
-                if(Number($("#total_capital").val()) < Number($("#other_capital").val()))
+                if(Number($("#total_capital").val().replace(/,/g,'')) < Number($("#other_capital").val().replace(/,/g,'')))
                 {
                     $.alert("其他资产不能大于资产总额！");
                     return false;
                 }
 
                 //货币资金不能大于实收资本
-                if(Number($("#paidup_capital").val()) < Number($("#money_capital").val()))
+                if(Number($("#paidup_capital").val().replace(/,/g,'')) < Number($("#money_capital").val().replace(/,/g,'')))
                 {
                     $.alert("货币资金不能大于实收资本！");
                     return false;
                 }
 
                 //不良贷款余额不能大于贷款余额
-                if(Number($("#loan_remainder").val()) < Number($("#bad_remainder").val()))
+                if(Number($("#loan_remainder").val().replace(/,/g,'')) < Number($("#bad_remainder").val().replace(/,/g,'')))
                 {
                     $.alert("不良贷款余额不能大于贷款余额！");
                     return false;
                 }
 
                 //贷款余额不能大于资产总额
-                if(Number($("#total_capital").val()) < Number($("#loan_remainder").val()))
+                if(Number($("#total_capital").val().replace(/,/g,'')) < Number($("#loan_remainder").val().replace(/,/g,'')))
                 {
                     $.alert("不良贷款余额不能大于贷款余额！");
                     return false;
                 }
 
-                total_capital = Number($("#total_capital").val());
-                loan_family = Number($("#loan_family").val());
-                year_issueloan = Number($("#year_issueloan").val());
-                year_issuefamily = Number($("#year_issuefamily").val());
+                loan_remainder = Number($("#loan_remainder").val().replace(/,/g,''));
+                loan_family = Number($("#loan_family").val().replace(/,/g,''));
+                year_issueloan = Number($("#year_issueloan").val().replace(/,/g,''));
+                year_issuefamily = Number($("#year_issuefamily").val().replace(/,/g,''));
 
-                total_capital_s1 = Number($("#farmer_loan_remainder").val()) +
-                    Number($("#company_loan_family").val()) +　Number($("#person_loan_remainder").val());
-                loan_family_s1 = Number($("#farmer_loan_family").val()) +
-                    Number($("#company_loan_family").val()) +　Number($("#person_loan_family").val());
-                year_issueloan_s1 = Number($("#farmer_issue").val()) +
-                    Number($("#company_issue").val()) +　Number($("#person_issue").val());
-                year_issuefamily_s1 = Number($("#farmer_backnum").val()) +
-                    Number($("#company_backnum").val()) +　Number($("#person_backnum").val());
+                loan_remainder_s1 = Number($("#farmer_loan_remainder").val().replace(/,/g,'')) +
+                    Number($("#company_loan_remainder").val().replace(/,/g,'')) +　Number($("#person_loan_remainder").val().replace(/,/g,''));
+                loan_family_s1 = Number($("#farmer_loan_family").val().replace(/,/g,'')) +
+                    Number($("#company_loan_family").val().replace(/,/g,'')) +　Number($("#person_loan_family").val().replace(/,/g,''));
+                year_issueloan_s1 = Number($("#farmer_issue").val().replace(/,/g,'')) +
+                    Number($("#company_issue").val().replace(/,/g,'')) +　Number($("#person_issue").val().replace(/,/g,''));
+                year_issuefamily_s1 = Number($("#farmer_backnum").val().replace(/,/g,'')) +
+                    Number($("#company_backnum").val().replace(/,/g,'')) +　Number($("#person_backnum").val().replace(/,/g,''));
 
-                if(total_capital != total_capital_s1){
-                    $.alert("贷款总额需等于涉农贷款、小微企业贷款、个人贷款余额的和");
+                if(loan_remainder != loan_remainder_s1){
+                    $.alert("贷款余额需等于涉农贷款、小微企业贷款、个人贷款余额的和");
                     return false;
                 }
                 if(loan_family != loan_family_s1){
@@ -970,13 +979,13 @@
                     return false;
                 }
 
-                total_capital_s2 = Number($("#normal_loan_remainder").val()) +  Number($("#month_loan_remainder").val()) +　
-                    Number($("#quarter_loan_remainder").val()) + Number($("#ninety_loan_remainder").val());
-                loan_family_s2 = Number($("#normal_loan_family").val()) +  Number($("#month_loan_family").val()) +
-                    Number($("#quarter_loan_family").val()) + Number($("#ninety_loan_family").val());
+                loan_remainder_s2 = Number($("#normal_loan_remainder").val().replace(/,/g,'')) +  Number($("#month_loan_remainder").val().replace(/,/g,'')) +　
+                    Number($("#quarter_loan_remainder").val().replace(/,/g,'')) + Number($("#ninety_loan_remainder").val().replace(/,/g,''));
+                loan_family_s2 = Number($("#normal_loan_family").val().replace(/,/g,'')) +  Number($("#month_loan_family").val().replace(/,/g,'')) +
+                    Number($("#quarter_loan_family").val().replace(/,/g,'')) + Number($("#ninety_loan_family").val().replace(/,/g,''));
 
-                if(total_capital != total_capital_s2){
-                    $.alert("贷款总额需等于按资产质量划分余额的和");
+                if(loan_remainder != loan_remainder_s2){
+                    $.alert("贷款余额需等于按资产质量划分余额的和");
                     return false;
                 }
                 if(loan_family != loan_family_s2){
@@ -984,21 +993,21 @@
                     return false;
                 }
 
-                total_capital_s3 = Number($("#normal_loan").val()) +  Number($("#follow_loan").val()) +
-                    Number($("#second_loan").val()) + Number($("#doubt_loan").val())+ Number($("#noback_loan").val());
+                loan_remainder_s3 = Number($("#normal_loan").val().replace(/,/g,'')) +  Number($("#follow_loan").val().replace(/,/g,'')) +
+                    Number($("#second_loan").val().replace(/,/g,'')) + Number($("#doubt_loan").val().replace(/,/g,''))+ Number($("#noback_loan").val().replace(/,/g,''));
 
-                if(total_capital != total_capital_s3){
-                    $.alert("贷款总额需等于贷款五级分类余额的和");
+                if(loan_remainder != loan_remainder_s3){
+                    $.alert("贷款余额需等于贷款五级分类余额的和");
                     return false;
                 }
 
-                total_capital_s4 = Number($("#credit_loan_remainder").val()) +  Number($("#promise_loan_remainder").val()) +
-                    Number($("#mortgage_loan_remainder").val()) + Number($("#pledge_loan_remainder").val())+ Number($("#other_loan_remainder").val());
-                loan_family_s4 = Number($("#credit_loan_family").val()) +  Number($("#promise_loan_family").val()) +
-                    Number($("#mortgage_loan_family").val()) + Number($("#pledge_loan_family").val())+ Number($("#other_loan_family").val());
+                loan_remainder_s4 = Number($("#credit_loan_remainder").val().replace(/,/g,'')) +  Number($("#promise_loan_remainder").val().replace(/,/g,'')) +
+                    Number($("#mortgage_loan_remainder").val().replace(/,/g,'')) + Number($("#pledge_loan_remainder").val().replace(/,/g,''))+ Number($("#other_loan_remainder").val().replace(/,/g,''));
+                loan_family_s4 = Number($("#credit_loan_family").val().replace(/,/g,'')) +  Number($("#promise_loan_family").val().replace(/,/g,'')) +
+                    Number($("#mortgage_loan_family").val().replace(/,/g,'')) + Number($("#pledge_loan_family").val().replace(/,/g,''))+ Number($("#other_loan_family").val().replace(/,/g,''));
 
-                if(total_capital != total_capital_s4){
-                    $.alert("贷款总额需等于贷款种类余额的和");
+                if(loan_remainder != loan_remainder_s4){
+                    $.alert("贷款余额需等于贷款种类余额的和");
                     return false;
                 }
                 if(loan_family != loan_family_s4){

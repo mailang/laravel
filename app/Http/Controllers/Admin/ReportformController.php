@@ -129,12 +129,13 @@ class ReportformController extends Controller
     public static function submitreport(Request $request)
     {
         // 过滤空值，并且trim
-        $req = collect($request)->map(function ($item) {
-            if (is_string($item)) {
-                $item = empty(trim($item)) ? null : trim($item);
-            }
-            return $item;
-        });
+//        $req = collect($request)->map(function ($item) {
+//            if (is_string($item)) {
+//                $item = empty(trim($item)) ? null : trim($item);
+//            }
+//            return $item;
+//        });
+        $req = $request;
         $report = new Reportform;
         $user = Auth::user();
 
@@ -144,6 +145,8 @@ class ReportformController extends Controller
         $result = $report->where('uid', $report->uid)
             ->whereDate('dtime', date('Y-m-01', strtotime('-1 month')))
             ->get();
+
+
         if ($result->isEmpty()) {
             $report->total_capital = $req['total_capital'];
             $report->money_capital = $req['money_capital'];
@@ -223,7 +226,14 @@ class ReportformController extends Controller
             $report->dtime = $req['dtime'];
 
             if ($report->save()) {
-                flash("报表上传成功!", "success");
+                $datenew = date('Y-m-01', strtotime('-1 month'));
+                if ($req['dtime'] == $datenew){
+                    flash("报表上传成功!", "success");
+                }
+                else{
+                    flash("历史报表上传成功，请上传当本月报表!", "success");
+                }
+
                 return redirect()->back();
             } else {
                 return Redirect::back()->withErrors("报表上传失败！");
