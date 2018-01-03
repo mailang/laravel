@@ -100,7 +100,7 @@
                             <label for="loan_income" class="col-sm-3 control-label">其中贷款利息收入:</label>
                             <div class=" col-sm-4">
                                 <div class="input-group ">
-                                    <input class="form-control" check-type="number required" id="other_capital"
+                                    <input class="form-control" check-type="number required"
                                            placeholder="贷款利息收入" name="loan_income" type="text" id="loan_income">
                                     <span class="input-group-addon">万元</span>
                                 </div>
@@ -556,7 +556,7 @@
                             <label for="bad_remainder" class="col-sm-3 control-label">其中不良贷款余额:</label>
                             <div class=" col-sm-4">
                                 <div class="input-group ">
-                                    <input class="form-control" check-type="number required" id="other_capital"
+                                    <input class="form-control" check-type="number required"
                                            placeholder="不良贷款余额" name="bad_remainder" type="text" id="bad_remainder">
                                     <span class="input-group-addon">万元</span>
                                 </div>
