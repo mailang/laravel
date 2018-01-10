@@ -131,8 +131,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required"
-                                           check-type="number required" type="text" placeholder="净利润"
-                                           name="normal_loan_remainder" id="normal_loan_remainder"/>
+                                            type="text" placeholder="净利润" name="normal_loan_remainder" id="normal_loan_remainder"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -142,8 +141,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required"
-                                           check-type="number required" type="text" placeholder="正常贷款户数"
-                                           name="normal_loan_family" id="normal_loan_family"/>
+                                         type="text" placeholder="正常贷款户数" name="normal_loan_family" id="normal_loan_family"/>
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -166,7 +164,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required"
-                                           check-type="number required" type="text" placeholder="逾期30天以下贷款户数"
+                                        type="text" placeholder="逾期30天以下贷款户数"
                                            name="month_loan_family" id="month_loan_family"/>
                                     <span class="input-group-addon">户</span>
                                 </div>
@@ -1020,7 +1018,7 @@
                     $.alert("请正确输入必填项");
                     return false;
                 }
-                return false;
+                return true;
             });
         });
 

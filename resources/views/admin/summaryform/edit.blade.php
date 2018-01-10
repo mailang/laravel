@@ -8,8 +8,8 @@
         $(function(){
             $(".daochu").click(function () {
                 $("#baobiaotable").tableExport({type:'excel',
-                    excelFileFormat:'xmlss',
-                    worksheetName: ['Table 1','Table 2', 'Table 3']});
+                    filename:'tableExport'
+                   });
             });
         });
     </script>
@@ -1720,10 +1720,10 @@
                         });
                         $("#btnsubmit").on('click', function (event) {
                             // 2.最后要调用 valid()方法。
-//      if ($("#form").valid()==false){
+   //if ($("#form").valid()==false){
 //        $(".modal-body").text("请正确输入必填项");
 //        $("#myModal").modal('show');
-//        return false;
+      // return false;
 //      }
                         });
                     });

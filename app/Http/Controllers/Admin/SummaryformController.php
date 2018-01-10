@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\oldsummaryform;
 use App\Models\Summaryform;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -36,14 +37,11 @@ class SummaryformController extends Controller
         return view('admin.summaryform.list', compact('reports','url'));
     }
 
-
     public function uploadlist($id = null)
     {
         //
 
-        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code'];
-
-
+        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid'];
         $url = "";
 
         if ($id == null) {
@@ -58,6 +56,7 @@ class SummaryformController extends Controller
         $isfirst = Area::where('pcode', $areacode)->get(['areacode']);
         //dd($isfirst);
         if ($isfirst->isEmpty()) {
+            //没有子级金融办
             //$url = route("reportform.reportlist");
             //dd($url);
             $reports = DB::table('company')
@@ -68,10 +67,21 @@ class SummaryformController extends Controller
                 ->orderBy('reportform.updated_at', 'desc')
                 ->get($field);
             //dd($reports);
-            return view('admin.reportformlist', compact('reports'));
-        } else {
+
+            //取出所有未提交报表的子公司
+            $userlist=DB::table("users")
+                ->leftJoin('company','users.id','=','company.uid')
+                ->where('users.type',1)
+                ->where('users.areacode', $areacode)
+                ->whereNotIn('users.id', array_column($reports->toArray(),"uid" ))
+                ->get(['users.id','users.name','company.code']);
+
+            return view('admin.reportformlist', compact('reports','userlist'));
+        }
+        else {
+            //有子级金融办机构
             $url = route("summaryform.uploadlist");
-            $field = ['summaryform.id', 'summaryform.updated_at', 'summaryform.dtime', 'users.name'];
+            $field = ['summaryform.id', 'summaryform.uid','summaryform.updated_at', 'summaryform.dtime', 'users.name'];
             $reports = DB::table('users')
                 ->rightJoin('summaryform', 'users.id', '=', 'summaryform.uid')
                 ->whereIn('summaryform.areacode',$isfirst)
@@ -83,10 +93,15 @@ class SummaryformController extends Controller
 //            foreach ($reports as $report) {
 //                $report->url = $url."/".$report->id;
 //            }
-            //dd($reports);
+            $uidlist= array_column($reports->toArray(),"uid");
             //dd($url);
-            return view('admin.summaryform.list', compact('reports','url'));
+            $userlist= DB::table("users")
+                ->where('type', 2)
+                ->whereIn('areacode', $isfirst)
+                ->whereNotIn('id',$uidlist )
+                ->get(["id","name"]);
 
+            return view('admin.summaryform.list', compact('reports','url','userlist'));
 
         }
 
@@ -113,18 +128,18 @@ class SummaryformController extends Controller
             return view("admin.isuploaded");
         }
 
-
         $isfirst = Area::where('pcode', $areacode)->get();
-
         $datenew = date('Y-m-01', strtotime('-1 month'));
-        $summary = new Summaryform();
-        $old = $summary
-            ->where("uid", $user->id)
-            ->whereDate('dtime', date('Y-12-01',strtotime('-1 year',strtotime($datenew))))
-            ->get()
-            ->first();
-        if (!$old) {
+        //$summary = new Summaryform();
+        //$old = $summary
+           // ->where("uid", $user->id)
+           // ->whereDate('dtime', date('Y-12-01',strtotime('-1 year',strtotime($datenew))))
+          //  ->get()
+          //  ->first();
+            //$old=new Summaryform();
+             $old=new oldsummaryform();
             if ($isfirst->isEmpty()) {
+
                 $table = DB::table("company")->where('areacode', $areacode)->get();
                 $old->lp_ins_num = $table->count();
                 $old->branch_ins_num = $table->sum('branch_num');
@@ -240,10 +255,13 @@ class SummaryformController extends Controller
             }
             else{
                 $reports = DB::table('area')
-                    ->rightJoin('summaryform', 'summaryform.areacode', '=', 'area.areacode')
+                    ->rightJoin('oldsummaryform', 'oldsummaryform.areacode', '=', 'area.areacode')
                     ->where('area.pcode', $areacode)
-                    ->whereDate('summaryform.dtime', date('Y-12-01',strtotime('-1 year',strtotime($datenew))))->get();
-                $columns = Schema::getColumnListing('summaryform');
+                    ->whereDate('oldsummaryform.dtime', date('Y-12-01',strtotime('-1 year',strtotime($datenew))))
+                    ->whereBetween('oldsummaryform.created_at',[date('Y-m-01 00:00:00',time()),date('Y-m-d H:i:s')])
+                    ->get();
+
+                $columns = Schema::getColumnListing('oldsummaryform');
 
                 foreach ($columns as $key => $column){
                     //if()
@@ -263,10 +281,7 @@ class SummaryformController extends Controller
                 $old->highest_interest = $reports->max('highest_interest');
                 $old->lowest_interest = $reports->max('lowest_interest');
             }
-        }
-
-        $new = new Summaryform();
-
+          $new = new Summaryform();
         if ($isfirst->isEmpty()) {
 
             //$new->lp_ins_num = DB::select("SELECT COUNT(id) FROM company WHERE areacode = ?", [$areacode])->value();
@@ -388,7 +403,8 @@ class SummaryformController extends Controller
 
             //dd($new);
 
-        } else {
+        }
+        else {
 
 
 
@@ -437,30 +453,29 @@ class SummaryformController extends Controller
         $areacode = $user['areacode'];
         $all = $request->all();
 
-        $old = DB::table('summaryform')
-            ->where("uid", $user->id)
-            ->whereDate('dtime', date('Y-12-01',strtotime('-1 year',strtotime($datenew))))
-            ->first();
-        if (!$old) {
-            //$old = new Summaryform();
-            $oldr = $all["old"];
-            $oldr["areacode"] = $areacode;
-            $oldr["uid"] = Auth::user()->id;
-            $oldr["dtime"] = date('Y-12-01',strtotime('-1 year',strtotime($datenew)));
-
-            $res0 = Summaryform::create($oldr);
-
-        } else {
-
-        }
-
-
+        //$old = DB::table('summaryform')
+          //  ->where("uid", $user->id)
+          //  ->whereDate('dtime', date('Y-12-01',strtotime('-1 year',strtotime($datenew))))
+            //->first();
         $newr = $all["new"];
         $newr["areacode"] = $areacode;
         $newr["uid"] = Auth::user()->id;
         $newr["dtime"] = date('Y-m-01', strtotime('-1 month'));
-        $res1 = Summaryform::create($newr);
+         $res1 = Summaryform::create($newr);
 
+         $summary=new Summaryform();
+         $id=  $summary
+            ->where('uid',Auth::user()->id)
+            ->whereDate('dtime', date('Y-m-01', strtotime('-1 month')))->get(['id'])->first();
+
+            $oldr = $all["old"];
+            $oldr["id"]= $id->id;
+            $oldr["areacode"] = $areacode;
+            $oldr["uid"] = Auth::user()->id;
+            $oldr["dtime"] = date('Y-12-01',strtotime('-1 year',strtotime($datenew)));
+
+            $res0 = oldsummaryform::create($oldr);
+       return view('admin.isuploaded');
         //dd($res0,$res1);
     }
 
@@ -481,11 +496,12 @@ class SummaryformController extends Controller
         $new = Summaryform::leftJoin('users','users.id','=','uid')->find($id,$field);
         //dd($new);
         //dd(strtotime("-1 year"));
-        $oldtime = date('Y-12-01', strtotime('-1 year', strtotime($new->dtime)));
-        $old = Summaryform::leftJoin('users','users.id','=','uid')
-            ->where('uid', $new->uid)
-            ->where('dtime', $oldtime)
-            ->first();
+        //$oldtime = date('Y-12-01', strtotime('-1 year', strtotime($new->dtime)));
+       // $old = Summaryform::leftJoin('users','users.id','=','uid')
+         //   ->where('uid', $new->uid)
+           // ->where('dtime', $oldtime)
+           // ->first();
+        $old = oldsummaryform::where('id',$id)->first();
         if ($old) {
             return view('admin.summaryform.edit', compact('old', 'new'));
         } else {
@@ -494,6 +510,7 @@ class SummaryformController extends Controller
 
 
     }
+
 
     /**
      * Show the form for editing the specified resource.
