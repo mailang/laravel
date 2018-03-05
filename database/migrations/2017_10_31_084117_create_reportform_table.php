@@ -137,6 +137,9 @@ class CreateReportformTable extends Migration
               $table->string('description')->nullable();
               //上传几月的报表
               $table->dateTime('dtime');
+              //0:可以修改；1不可以修改
+              $table->integer('edit')->default(0);
+
               $table->timestamps();
         });
 

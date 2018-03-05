@@ -475,6 +475,19 @@ class SummaryformController extends Controller
             $oldr["dtime"] = date('Y-12-01',strtotime('-1 year',strtotime($datenew)));
 
             $res0 = oldsummaryform::create($oldr);
+            //如果是一级审核机构，提交汇总报表后，则该区域内的企业提交的报表不可以更改
+
+        $user = Auth::user();
+        $areacode = $user['areacode'];
+        $isfirst = Area::where('pcode', $areacode)->get();
+        if($isfirst->isEmpty()&&$res0)
+        {
+          //edit值修改为1;不给企业修改
+           DB::table('reportform')->where('areacode',$areacode)
+               ->where('edit',0)
+                ->update(["edit"=>1]);
+
+        }
        return view('admin.isuploaded');
         //dd($res0,$res1);
     }

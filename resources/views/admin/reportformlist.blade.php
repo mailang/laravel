@@ -10,7 +10,7 @@
             <li class="active">企业报表列表</li>
           </ol>
           @endsection
-@section('content')
+  @section('content')
     <style type="text/css">
         #tab li{float: left; list-style: none; width: 100px; font-size: 15px; height: 41px; text-align: center;
             border-radius: 3px; border-top: 1px solid #d2d6de; display: inline-block;}
@@ -34,7 +34,6 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-
                         <th>企业名称</th>
                         <th>信用代码</th>
                           <th>报表记录时间</th>
@@ -50,7 +49,13 @@
                                 <td>{{ $report->code }}</td>
                                 <td>{{ date('Y-m',strtotime($report->dtime))}}</td>
                                 <td>{{ $report->updated_at }}</td>
-                                <td> <a href="/admin/seereport/{{ $report->id}}">查看</a></td>
+                                <td>
+                                    @if($report->edit>0)
+                                    <a href="{{route('reportform.seereport',$report->id)}}">查看</a>
+                                    @else
+                                        <a href="{{route('reportform.edit',$report->id)}}">编辑</a>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                         @if(isset($userlist))
