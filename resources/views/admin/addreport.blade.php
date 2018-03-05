@@ -11,10 +11,10 @@
 @endsection
 @section('content')
     <script src="{{asset('bootstrap/js/validation.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/localStorage.js')}}" type="text/javascript"></script>
     <form id="form1" action="/admin/addreport" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
-
-        <div class="row">
+        <div id="print" class="row">
             <!-- left column -->
             <div class="col-md-6">
                 <!-- general form elements -->
@@ -890,16 +890,28 @@
                             <textarea class="form-control" rows="3" id="description" name="description"
                                       placeholder="注释及说明"></textarea>
                         </div>
-                        <div class="box-footer">
-                            <button type="submit" id="btnsubmit" class="btn btn-primary">提交</button>
-                        </div>
                     </div>
                 </div>
             </div><!--/.col (right) -->
         </div>
+
+        <div  style="text-align: center">
+            <div class="box-footer">
+                <button type="submit" id="btnsubmit" class="btn btn-primary">提交</button> &nbsp;&nbsp;
+                <a onclick="javascript:webprint();"  href="#" class="btn btn-primary">打印</a>
+            </div>
+        </div>
         <input type="hidden" name="dtime" id="dtime" value="{{$data['dtime']}}" >
     </form>
+    <script src="{{asset('js/printThis.js')}}" type="text/javascript"></script>
     <script>
+        function webprint() {
+            $('#print').printThis({
+                importStyle:"true",
+                pageTitle:  "{{$data["timetitle"]}}",
+                loadCss:"/dist/css/AdminLTE.min.css"
+            });
+        }
         $(function () {
             $("#form1").validation({
                 ignore: "#incometax"

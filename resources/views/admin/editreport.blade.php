@@ -11,11 +11,9 @@
 @endsection
 @section('content')
     <script src="{{asset('bootstrap/js/validation.js')}}" type="text/javascript"></script>
-    <link href="{{ asset('css/print-preview.css') }}" rel="stylesheet" type="text/css" />
-    <script src="{{asset('js/jquery.print-preview.js')}}" type="text/javascript"></script>
     <form id="form1" action="{{route('reportform.update',$report->id)}}" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
-        <div class="row">
+      <div id="print" class="row">
             <!-- left column -->
             <div class="col-md-6">
                 <!-- general form elements -->
@@ -878,7 +876,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="box box-warning">
                     <div class="box-header with-border">
                         <h3 class="box-title">注释及说明</h3>
@@ -890,22 +887,30 @@
                             <textarea class="form-control" rows="3" id="description" name="description"
                                       placeholder="注释及说明" >{{$report->description}}</textarea>
                         </div>
-                        <div class="box-footer">
-                            <button type="submit" id="btnsubmit" class="btn btn-primary">提交</button>
-                        </div>
+
                     </div>
                 </div>
             </div><!--/.col (right) -->
+            </div>
+        <div  style="text-align: center">
+            <div class="box-footer">
+                <button type="submit" id="btnsubmit" class="btn btn-primary">提交</button> &nbsp;&nbsp;
+                <a onclick="javascript:webprint();"  href="#" class="btn btn-primary">打印</a>
+            </div>
         </div>
-        <a href="#" onclick="dd();" rel="external nofollow" target="_self">打印</a>
         <input type="hidden" name="dtime" id="dtime" value="{{$data['dtime']}}" >
     </form>
-
-
+    <script src="{{asset('js/printThis.js')}}" type="text/javascript"></script>
 
     <script>
-        function dd() {
-            $('#form1').printPreview();
+        
+        function webprint() {
+                $('#print').printThis({
+                    importStyle:"true",
+                    pageTitle:  "{{$data["timetitle"]}}",
+                    loadCss:"/dist/css/AdminLTE.min.css"
+                });
+
         }
         $(function () {
             $("#form1").validation({
