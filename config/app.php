@@ -174,6 +174,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -235,7 +236,7 @@ return [
 
         //other alias
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
 
 

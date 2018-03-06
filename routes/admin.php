@@ -13,6 +13,7 @@ Route::post('/addreport',['uses'=>'ReportformController@submitreport','as' => 'r
 
 Route::get('/seereport/{id?}',['uses'=>'ReportformController@seereport','as' => 'reportform.seereport']);
 Route::get('/report/edit/{id}',['uses'=>'ReportformController@edit','as' => 'reportform.edit']);
+Route::get('/report/export/{id}',['uses'=>'ReportformController@export','as' => 'reportform.export']);
 Route::post('/report/edit/{id}',['uses'=>'ReportformController@update','as' => 'reportform.update']);
 Route::get('/reportlist/{areacode?}',['uses'=>'ReportformController@reportlist','as' => 'reportform.reportlist']);
 

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title')
     <h1>
-        {{$data["timetitle"]}}
+        {{$data["timetitle"]}} <span> &nbsp;&nbsp;</span><a href="{{route('reportform.export',$report->id)}}"> 报表导出 </a>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
