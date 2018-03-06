@@ -12,6 +12,8 @@ Route::get('/addreport/{old?}',['uses'=>'ReportformController@addreport','as' =>
 Route::post('/addreport',['uses'=>'ReportformController@submitreport','as' => 'reportform.submitreport',]);
 
 Route::get('/seereport/{id?}',['uses'=>'ReportformController@seereport','as' => 'reportform.seereport']);
+Route::get('/report/edit/{id}',['uses'=>'ReportformController@edit','as' => 'reportform.edit']);
+Route::post('/report/edit/{id}',['uses'=>'ReportformController@update','as' => 'reportform.update']);
 Route::get('/reportlist/{areacode?}',['uses'=>'ReportformController@reportlist','as' => 'reportform.reportlist']);
 
 

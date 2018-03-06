@@ -11,10 +11,9 @@
 @endsection
 @section('content')
     <script src="{{asset('bootstrap/js/validation.js')}}" type="text/javascript"></script>
-    <script src="{{asset('js/localStorage.js')}}" type="text/javascript"></script>
-    <form id="form1" action="/admin/addreport" method="post">
+    <form id="form1" action="{{route('reportform.update',$report->id)}}" method="post">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
-        <div id="print" class="row">
+      <div id="print" class="row">
             <!-- left column -->
             <div class="col-md-6">
                 <!-- general form elements -->
@@ -31,7 +30,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input class="form-control" type="text" id="total_capital" name="total_capital"
-                                           check-type="number required" placeholder="资产总额">
+                                           check-type="number required" placeholder="资产总额" value="{{ $report->total_capital}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -41,7 +40,7 @@
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" id="money_capital" name="money_capital"
-                                           placeholder="货币资金" type="text" check-type="number required">
+                                           placeholder="货币资金" type="text" check-type="number required" value="{{ $report->money_capital}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -51,18 +50,17 @@
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" id="other_capital" name="other_capital"
-                                           placeholder="其他资金" type="text" check-type="number required">
+                                           placeholder="其他资金" type="text" check-type="number required" value="{{ $report->other_capital}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label for="total_debtcapital" class="col-sm-2 control-label">负债总额:</label>
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input check-type="number required" class="form-control" type="text"
-                                           placeholder="负债总额" name="total_debtcapital" id="total_debtcapital">
+                                           placeholder="负债总额" name="total_debtcapital" id="total_debtcapital" value="{{ $report->total_debtcapital}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -72,7 +70,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="实收资本" name="paidup_capital" id="paidup_capital">
+                                           placeholder="实收资本" name="paidup_capital" id="paidup_capital" value="{{ $report->paidup_capital}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -91,7 +89,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="营业收入" name="income" id="income">
+                                           placeholder="营业收入" name="income" id="income" value="{{$report->income}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -101,7 +99,7 @@
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" check-type="number required"
-                                           placeholder="贷款利息收入" name="loan_income" type="text" id="loan_income">
+                                           placeholder="贷款利息收入" name="loan_income" type="text" id="loan_income" value="{{$report->loan_income}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -111,7 +109,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="净利润" name="profit_income" id="profit_income"/>
+                                           placeholder="净利润" name="profit_income" id="profit_income" value="{{$report->profit_income}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -131,7 +129,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required"
-                                            type="text" placeholder="净利润" name="normal_loan_remainder" id="normal_loan_remainder"/>
+                                           type="text" placeholder="净利润" name="normal_loan_remainder" id="normal_loan_remainder" value="{{$report->normal_loan_remainder}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -141,7 +139,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required"
-                                         type="text" placeholder="正常贷款户数" name="normal_loan_family" id="normal_loan_family"/>
+                                           type="text" placeholder="正常贷款户数" name="normal_loan_family" id="normal_loan_family" value="{{$report->normal_loan_family}}"/>
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -154,7 +152,7 @@
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required"
                                            check-type="number required" type="text" placeholder="逾期30天以下贷款余额"
-                                           name="month_loan_remainder" id="month_loan_remainder"/>
+                                           name="month_loan_remainder" id="month_loan_remainder" value="{{$report->month_loan_remainder}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -164,8 +162,8 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required"
-                                        type="text" placeholder="逾期30天以下贷款户数"
-                                           name="month_loan_family" id="month_loan_family"/>
+                                           type="text" placeholder="逾期30天以下贷款户数"
+                                           name="month_loan_family" id="month_loan_family" value="{{$report->month_loan_family}}" />
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -177,7 +175,7 @@
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
                                            placeholder="逾期30天-90天贷款金额" name="quarter_loan_remainder"
-                                           id="quarter_loan_remainder"/>
+                                           id="quarter_loan_remainder" value="{{$report->quarter_loan_remainder}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -188,7 +186,7 @@
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" type="text"
                                            placeholder="逾期30天-90天贷款户数" name="quarter_loan_family"
-                                           id="quarter_loan_family"/>
+                                           id="quarter_loan_family" value="{{$report->quarter_loan_family}}"/>
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -199,7 +197,7 @@
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
                                            placeholder="逾期30天以下贷款户数" name="ninety_loan_remainder"
-                                           id="ninety_loan_remainder"/>
+                                           id="ninety_loan_remainder" value="{{$report->ninety_loan_remainder}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -209,7 +207,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" type="text"
-                                           placeholder="逾期30天以下贷款户数" name="ninety_loan_family" id="ninety_loan_family"/>
+                                           placeholder="逾期30天以下贷款户数" name="ninety_loan_family" id="ninety_loan_family" value="{{$report->ninety_loan_family}}"/>
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -229,7 +227,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="最高利率" name="highest_interest" id="highest_interest"/>
+                                           placeholder="最高利率" name="highest_interest" id="highest_interest" value="{{$report->highest_interest}}"/>
                                     <span class="input-group-addon">%</span>
                                 </div>
                             </div>
@@ -240,7 +238,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="最低利率" name="lowest_interest" id="lowest_interest"/>
+                                           placeholder="最低利率" name="lowest_interest" id="lowest_interest" value="{{$report->lowest_interest}}"/>
                                     <span class="input-group-addon">%</span>
                                 </div>
                             </div>
@@ -250,7 +248,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="加权平均利率" name="Average_interest" id="Average_interest"/>
+                                           placeholder="加权平均利率" name="Average_interest" id="Average_interest" value="{{$report->Average_interest}}"/>
                                     <span class="input-group-addon">%</span>
                                 </div>
                             </div>
@@ -268,7 +266,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="正常类贷款" name="normal_loan" id="normal_loan"/>
+                                           placeholder="正常类贷款" name="normal_loan" id="normal_loan" value="{{$report->normal_loan}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -279,7 +277,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="关注类贷款" name="follow_loan" id="follow_loan"/>
+                                           placeholder="关注类贷款" name="follow_loan" id="follow_loan" value="{{$report->follow_loan}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -290,7 +288,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="次级类贷款" name="second_loan" id="second_loan"/>
+                                           placeholder="次级类贷款" name="second_loan" id="second_loan" value="{{$report->second_loan}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -301,7 +299,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="可疑类贷款" name="doubt_loan" id="doubt_loan"/>
+                                           placeholder="可疑类贷款" name="doubt_loan" id="doubt_loan" value="{{$report->doubt_loan}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -311,7 +309,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="损失类贷款" name="noback_loan" id="noback_loan"/>
+                                           placeholder="损失类贷款" name="noback_loan" id="noback_loan" value="{{$report->noback_loan}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -330,14 +328,14 @@
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
                                            placeholder="信用贷款金额" name="credit_loan_remainder"
-                                           id="credit_loan_remainder"/>
+                                           id="credit_loan_remainder" value="{{$report->credit_loan_remainder}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" check-type="integer required" id="credit_loan_family"
-                                           name="credit_loan_family" placeholder="信用贷款户数" type="text">
+                                           name="credit_loan_family" placeholder="信用贷款户数" type="text" value="{{$report->credit_loan_family}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -349,14 +347,14 @@
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
                                            placeholder="保证担保金额" name="promise_loan_remainder"
-                                           id="promise_loan_remainder"/>
+                                           id="promise_loan_remainder" value="{{$report->promise_loan_remainder}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" check-type="integer required" id="promise_loan_family"
-                                           placeholder="保证担保户数" name="promise_loan_family" type="text">
+                                           placeholder="保证担保户数" name="promise_loan_family" value="{{$report->promise_loan_family}}" type="text">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -368,14 +366,14 @@
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
                                            placeholder="抵押担保金额" name="mortgage_loan_remainder"
-                                           id="mortgage_loan_remainder"/>
+                                           id="mortgage_loan_remainder" value="{{$report->mortgage_loan_remainder}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" check-type="integer required" id="mortgage_loan_family"
-                                           name="mortgage_loan_family" placeholder="抵押担保户数" type="text">
+                                           name="mortgage_loan_family" placeholder="抵押担保户数" type="text" value="{{$report->mortgage_loan_family}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -386,7 +384,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="质押担保金额" name="pledge_loan_remainder"
+                                           placeholder="质押担保金额" name="pledge_loan_remainder" value="{{$report->pledge_loan_remainder}}"
                                            id="pledge_loan_remainder"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
@@ -394,7 +392,7 @@
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" check-type="integer required" id="pledge_loan_family"
-                                           name="pledge_loan_family" placeholder="质押担保户数" type="text">
+                                           name="pledge_loan_family" placeholder="质押担保户数" type="text" value="{{$report->pledge_loan_family}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -405,14 +403,14 @@
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" type="text"
-                                           placeholder="其他方式" name="other_loan_remainder" id="other_loan_remainder"/>
+                                           placeholder="其他方式" name="other_loan_remainder" id="other_loan_remainder" value="{{$report->other_loan_remainder}}"/>
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" check-type="integer required" id="other_loan_family"
-                                           name="other_loan_family" placeholder="其他方式户数" type="text">
+                                           name="other_loan_family" placeholder="其他方式户数" type="text" value="{{$report->other_loan_family}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -432,7 +430,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="银行融资"
-                                           name="bank_financing" type="text" id="bank_financing">
+                                           name="bank_financing" type="text" id="bank_financing" value="{{$report->bank_financing}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -442,7 +440,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="股东借款"
-                                           type="text" name="shareholder_loan" id="shareholder_loan">
+                                           type="text" name="shareholder_loan" id="shareholder_loan" value="{{$report->shareholder_loan}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -453,7 +451,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="资产、资产收益权转让"
-                                           name="profit_transfer" type="text" id="profit_transfer">
+                                           name="profit_transfer" type="text" id="profit_transfer" value="{{$report->profit_transfer}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -464,7 +462,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="债券、票据(包括私募债)"
-                                           type="text" name="bond_bill" id="bond_bill">
+                                           type="text" name="bond_bill" id="bond_bill" value="{{$report->bond_bill}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -475,7 +473,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required"
-                                           placeholder="小贷公司同业拆借、小额再贷款" type="text" name="parterner_loan"
+                                           placeholder="小贷公司同业拆借、小额再贷款" type="text" name="parterner_loan" value="{{$report->parterner_loan}}"
                                            id="parterner_loan">
                                     <span class="input-group-addon">万元</span>
                                 </div>
@@ -487,7 +485,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="资产证券化"
-                                           type="text" name="securitisation" id="securitisation">
+                                           type="text" name="securitisation" id="securitisation" value="{{$report->securitisation}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -498,7 +496,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="资本市场挂牌"
-                                           type="text" name="market_capital" id="market_capital">
+                                           type="text" name="market_capital" id="market_capital" value="{{$report->market_capital}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -508,7 +506,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" placeholder="其他融资类型" type="text"
-                                           name="othertype_capital" id="othertype_capital">
+                                           name="othertype_capital" id="othertype_capital" value="{{$report->othertype_capital}}">
                                 </div>
                             </div>
                         </div>
@@ -518,7 +516,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" placeholder="其他融资金额" type="text" name="othermoney"
-                                           id="othermoney">
+                                           id="othermoney" value="{{$report->othermoney}}">
                                     <span class="input-group-addon">万元</span>
 
                                 </div>
@@ -545,7 +543,7 @@
                             <div class="col-sm-5">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="贷款余额"
-                                           type="text" name="loan_remainder" id="loan_remainder">
+                                           type="text" name="loan_remainder" id="loan_remainder" value="{{$report->loan_remainder}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -555,7 +553,7 @@
                             <div class=" col-sm-4">
                                 <div class="input-group ">
                                     <input class="form-control" check-type="number required"
-                                           placeholder="不良贷款余额" name="bad_remainder" type="text" id="bad_remainder">
+                                           placeholder="不良贷款余额" name="bad_remainder" type="text" id="bad_remainder" value="{{$report->bad_remainder}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -566,7 +564,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" placeholder="贷款户数"
-                                           type="text" name="loan_family" id="loan_family">
+                                           type="text" name="loan_family" id="loan_family" value="{{$report->loan_family}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -575,7 +573,7 @@
                             <label for="loan_num" class="col-sm-2 control-label">贷款笔数:</label>
                             <div class="col-sm-6">
                                 <div class="input-group">
-                                    <input class="form-control" check-type="integer required" placeholder="贷款笔数"
+                                    <input class="form-control" check-type="integer required" placeholder="贷款笔数" value="{{$report->loan_num}}"
                                            type="text" name="loan_num" id="loan_num">
                                 </div>
                             </div>
@@ -596,7 +594,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="本年发放贷款金额"
-                                           type="text" name="year_issueloan" id="year_issueloan">
+                                           type="text" name="year_issueloan" id="year_issueloan" value="{{$report->year_issueloan}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -607,7 +605,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" placeholder="本年内发放贷款户数"
-                                           type="text" name="year_issuefamily" id="year_issuefamily">
+                                           type="text" name="year_issuefamily" id="year_issuefamily" value="{{$report->year_issuefamily}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -617,7 +615,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" placeholder="发放贷款笔数"
-                                           type="text" name="year_issuenum" id="year_issuenum">
+                                           type="text" name="year_issuenum" id="year_issuenum" value="{{$report->year_issuenum}}">
                                 </div>
                             </div>
                         </div>
@@ -627,7 +625,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="本年收回贷款金额"
-                                           type="text" name="year_backloan" id="year_backloan">
+                                           type="text" name="year_backloan" id="year_backloan" value="{{$report->year_backloan}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -637,7 +635,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" placeholder="收回贷款户数"
-                                           type="text" name="year_backfamily" id="year_backfamily">
+                                           type="text" name="year_backfamily" id="year_backfamily" value="{{$report->year_backfamily}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -647,7 +645,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" placeholder="收回贷款笔数"
-                                           type="text" name="year_backnum" id="year_backnum">
+                                           type="text" name="year_backnum" id="year_backnum" value="{{$report->year_backnum}}">
 
                                 </div>
                             </div>
@@ -665,7 +663,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="涉农贷款金额"
-                                           type="text" name="farmer_loan_remainder" id="farmer_loan_remainder">
+                                           type="text" name="farmer_loan_remainder" id="farmer_loan_remainder" value="{{$report->farmer_loan_remainder}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -675,7 +673,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" placeholder="涉农贷款户数"
-                                           type="text" name="farmer_loan_family" id="farmer_loan_family">
+                                           type="text" name="farmer_loan_family" id="farmer_loan_family" value="{{$report->farmer_loan_family}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -686,7 +684,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="累计发放金额"
-                                           type="text" name="farmer_issue" id="farmer_issue">
+                                           type="text" name="farmer_issue" id="farmer_issue" value="{{$report->farmer_issue}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -696,7 +694,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" placeholder="累计发放户数"
-                                           type="text" name="farmer_backnum" id="farmer_backnum">
+                                           type="text" name="farmer_backnum" id="farmer_backnum" value="{{$report->farmer_backnum}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -714,7 +712,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="涉农贷款金额"
-                                           type="text" name="company_loan_remainder" id="company_loan_remainder">
+                                           type="text" name="company_loan_remainder" id="company_loan_remainder" value="{{$report->company_loan_remainder}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -724,7 +722,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type=" required" placeholder="涉农贷款户数" type="text"
-                                           name="company_loan_family" id="company_loan_family">
+                                           name="company_loan_family" id="company_loan_family" value="{{$report->company_loan_family}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -735,7 +733,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="累计发放金额"
-                                           type="text" name="company_issue" id="company_issue">
+                                           type="text" name="company_issue" id="company_issue" value="{{$report->company_issue}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -745,7 +743,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="required" placeholder="累计发放户数" type="text"
-                                           name="company_backnum" id="company_backnum">
+                                           name="company_backnum" id="company_backnum" value="{{$report->company_backnum}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -763,7 +761,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="涉农贷款金额"
-                                           type="text" name="total_remainder" id="total_remainder">
+                                           type="text" name="total_remainder" id="total_remainder" value="{{$report->total_remainder}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -773,7 +771,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" placeholder="涉农贷款户数"
-                                           type="text" name="total_loan_family" id="total_loan_family">
+                                           type="text" name="total_loan_family" id="total_loan_family" value="{{$report->total_loan_family}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -784,7 +782,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="累计发放金额"
-                                           type="text" name="total_issue" id="total_issue">
+                                           type="text" name="total_issue" id="total_issue" value="{{$report->total_issue}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -794,7 +792,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" placeholder="累计发放户数"
-                                           type="text" name="total_backnum" id="total_backnum">
+                                           type="text" name="total_backnum" id="total_backnum" value="{{$report->total_backnum}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -812,7 +810,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="涉农贷款金额"
-                                           type="text" name="person_loan_remainder" id="person_loan_remainder">
+                                           type="text" name="person_loan_remainder" id="person_loan_remainder" value="{{$report->person_loan_remainder}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -822,7 +820,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" placeholder="涉农贷款户数"
-                                           type="text" name="person_loan_family" id="person_loan_family">
+                                           type="text" name="person_loan_family" id="person_loan_family" value="{{$report->person_loan_family}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -833,7 +831,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="累计发放金额"
-                                           type="text" name="person_issue" id="person_issue">
+                                           type="text" name="person_issue" id="person_issue" value="{{$report->person_issue}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -843,7 +841,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="integer required" placeholder="累计发放户数"
-                                           type="text" name="person_backnum" id="person_backnum">
+                                           type="text" name="person_backnum" id="person_backnum" value="{{$report->person_backnum}}">
                                     <span class="input-group-addon">户</span>
                                 </div>
                             </div>
@@ -861,7 +859,7 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="今年内累计纳税支出"
-                                           type="text" name="paytaxes" id="paytaxes">
+                                           type="text" name="paytaxes" id="paytaxes" value="{{$report->paytaxes}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
@@ -871,14 +869,13 @@
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="累计所得税支出"
-                                           type="text" name="incometax" id="incometax">
+                                           type="text" name="incometax" id="incometax"  value="{{$report->incometax}}">
                                     <span class="input-group-addon">万元</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="box box-warning">
                     <div class="box-header with-border">
                         <h3 class="box-title">注释及说明</h3>
@@ -888,13 +885,13 @@
                         <div class="form-group">
                             <label for="description">注释及说明</label>
                             <textarea class="form-control" rows="3" id="description" name="description"
-                                      placeholder="注释及说明"></textarea>
+                                      placeholder="注释及说明" >{{$report->description}}</textarea>
                         </div>
+
                     </div>
                 </div>
             </div><!--/.col (right) -->
-        </div>
-
+            </div>
         <div  style="text-align: center">
             <div class="box-footer">
                 <button type="submit" id="btnsubmit" class="btn btn-primary">提交</button> &nbsp;&nbsp;
@@ -904,13 +901,16 @@
         <input type="hidden" name="dtime" id="dtime" value="{{$data['dtime']}}" >
     </form>
     <script src="{{asset('js/printThis.js')}}" type="text/javascript"></script>
+
     <script>
+        
         function webprint() {
-            $('#print').printThis({
-                importStyle:"true",
-                pageTitle:  "{{$data["timetitle"]}}",
-                loadCss:"/dist/css/AdminLTE.min.css"
-            });
+                $('#print').printThis({
+                    importStyle:"true",
+                    pageTitle:  "{{$data["timetitle"]}}",
+                    loadCss:"/dist/css/AdminLTE.min.css"
+                });
+
         }
         $(function () {
             $("#form1").validation({
@@ -989,7 +989,7 @@
                     return false;
                 }
 
-                loan_remainder_s2 = Number($("#normal_loan_remainder").val().replace(/,/g,'')) +  Number($("#month_loan_remainder").val().replace(/,/g,'')) +　
+                loan_remainder_s2 = Number($("#normal_loan_remainder").val().replace(/,/g,'')) +  Number($("#month_loan_remainder").val().replace(/,/g,'')) +
                     Number($("#quarter_loan_remainder").val().replace(/,/g,'')) + Number($("#ninety_loan_remainder").val().replace(/,/g,''));
                 loan_family_s2 = Number($("#normal_loan_family").val().replace(/,/g,'')) +  Number($("#month_loan_family").val().replace(/,/g,'')) +
                     Number($("#quarter_loan_family").val().replace(/,/g,'')) + Number($("#ninety_loan_family").val().replace(/,/g,''));

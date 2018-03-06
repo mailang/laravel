@@ -37,14 +37,6 @@
                                        placeholder="联系人">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="total_capital" class="col-sm-4 control-label">联系人:</label>
-                            <div class="col-sm-4">
-                                <input check-type="required" class="form-control" type="text" id="contacts"
-                                       name="contacts"
-                                       placeholder="联系人" check-type="required">
-                            </div>
-                        </div>
 
                         <div class="form-group">
                             <label for="money_capital" class="col-sm-4 control-label">社会信用代码:</label>

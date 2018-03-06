@@ -315,11 +315,11 @@
                                 1.1.10&nbsp;&nbsp;开展网络小贷业务的
                             </td>
                             <td class="et22" width="132"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[net_num]" id="old[net_num]" value="{{$old->net_num}}" /></td>
+                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" check-type="integer required" class="text-center" name="old[net_num]" id="old[net_num]" value="{{$old->net_num}}" /></td>
                             <td class="et22" width="130"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
                             <td class="et47" width="131"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text" class="text-center" name="new[net_num]" id="new[net_num]" value="{{$new->net_num}}" /></td>
+                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text" check-type="integer required"  class="text-center" name="new[net_num]" id="new[net_num]" value="{{$new->net_num}}" /></td>
                         </tr>
                         <tr>
                             <td class="et20" width="91"
@@ -337,7 +337,7 @@
                             <td class="et22" width="132"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"></td>
                             <td class="et22" width="130"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"><input type="text" class="text-center" name="new[add_num]" id="new[add_num]" value="{{$new->add_num}}" /></td>
+                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"><input type="text" check-type="integer required" class="text-center" name="new[add_num]" id="new[add_num]" value="{{$new->add_num}}" /></td>
                             <td class="et47" width="131"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"></td>
                         </tr>
@@ -353,7 +353,7 @@
                             <td class="et22" width="132"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"></td>
                             <td class="et22" width="130"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"><input type="text" class="text-center" name="new[del_num]" id="new[del_num]" value="{{$new->del_num}}" /></td>
+                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"><input type="text" check-type="integer required" class="text-center" name="new[del_num]" id="new[del_num]" value="{{$new->del_num}}" /></td>
                             <td class="et47" width="131"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"></td>
                         </tr>
@@ -383,11 +383,11 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.2.1&nbsp;&nbsp;其中：跨省（自治区、直辖市）在本辖区设立的
                             </td>
                             <td class="et22" width="132"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[op_num]" id="old[op_num]" value="{{$old->op_num}}" /></td>
+                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" check-type="integer required" class="text-center" name="old[op_num]" id="old[op_num]" value="{{$old->op_num}}" /></td>
                             <td class="et22" width="130"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
                             <td class="et47" width="131"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text" class="text-center" name="new[op_num]" id="new[op_num]" value="{{$new->op_num}}" /></td>
+                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text"  check-type="integer required" class="text-center" name="new[op_num]" id="new[op_num]" value="{{$new->op_num}}" /></td>
                         </tr>
                         <tr>
                             <td class="et20" width="91"
@@ -1125,7 +1125,7 @@
                             <td class="et22" width="132"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"></td>
                             <td class="et22" width="130"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"><input type="text" class="text-center" name="new[Average_interest]" id="new[Average_interest]" value="{{$new->Average_interest}}" /></td>
+                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"><input type="text" check-type="integer required" class="text-center" name="new[Average_interest]" id="new[Average_interest]" value="{{$new->Average_interest}}" /></td>
                             <td class="et48" width="131"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"></td>
                         </tr>
@@ -1667,7 +1667,7 @@
                                 style="font-size: 12pt; vertical-align: middle; border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 56.25pt; width: 141pt;"></td>
                             <td class="et69" colspan="6" width="866"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-left-width: 0.5pt; border-left-color: rgb(0, 0, 0); border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); border-right-width: 1.2pt; border-right-color: rgb(0, 0, 0); height: 56.25pt; width: 649.5pt;">
-                                <textarea check-type="required" class="form-control" type="text"  name="new[description]"
+                                <textarea  type="text"  name="new[description]"
                                           id="new[description]">{{$new->description}}</textarea>
                             </td>
                         </tr>
@@ -1711,11 +1711,12 @@
                     });
                     $("#btnsubmit").on('click', function (event) {
                         // 2.最后要调用 valid()方法。
-//      if ($("#form").valid()==false){
+      if ($("#form").valid()==false){
 //        $(".modal-body").text("请正确输入必填项");
 //        $("#myModal").modal('show');
-//        return false;
-//      }
+          $.alert("存有未填写项");
+           return false;
+        }
                     });
                 });
             </script>
