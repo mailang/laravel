@@ -899,6 +899,7 @@
             <div class="box-footer">
                 <button type="submit" id="btnsubmit" class="btn btn-primary">提交</button> &nbsp;&nbsp;
                 <a onclick="javascript:webprint();"  href="#" class="btn btn-primary">打印</a>
+                <a onclick="reset();"  href="#" class="btn btn-primary">重置</a>
             </div>
         </div>
         <input type="hidden" name="dtime" id="dtime" value="{{$data['dtime']}}" >
@@ -907,10 +908,14 @@
     <script>
         function webprint() {
             $('#print').printThis({
-                importStyle:"true",
+                importStyle: true,
                 pageTitle:  "{{$data["timetitle"]}}",
                 loadCss:"/dist/css/AdminLTE.min.css"
             });
+        }
+        function reset() {
+            $("input").val("");
+            clearstorage();
         }
         $(function () {
             $("#form1").validation({
