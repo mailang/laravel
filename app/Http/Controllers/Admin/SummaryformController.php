@@ -76,7 +76,7 @@ class SummaryformController extends Controller
                 ->whereNotIn('users.id', array_column($reports->toArray(),"uid" ))
                 ->get(['users.id','users.name','company.code']);
 
-            return view('admin.reportformlist', compact('reports','userlist'));
+            return view('admin.report.reportformlist', compact('reports','userlist'));
         }
         else {
             //有子级金融办机构
@@ -125,7 +125,7 @@ class SummaryformController extends Controller
         //dd(date('Y-m-01', strtotime('-1 mounth')));
 
         if ($isuploaded) {
-            return view("admin.isuploaded");
+            return view("admin.report.isuploaded");
         }
 
         $isfirst = Area::where('pcode', $areacode)->get();
@@ -488,7 +488,7 @@ class SummaryformController extends Controller
                 ->update(["edit"=>1]);
 
         }
-       return view('admin.isuploaded');
+       return view('admin.report.isuploaded');
         //dd($res0,$res1);
     }
 

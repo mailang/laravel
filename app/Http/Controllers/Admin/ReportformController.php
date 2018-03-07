@@ -12,8 +12,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Excel;
+use PHPExcel;
+use PHPExcel_IOFactory;
 
-
+define('base_path',str_replace('\\','/',realpath(dirname(__FILE__).'/../../'))."/");
 class ReportformController extends Controller
 {
     function __construct()
@@ -27,100 +29,110 @@ class ReportformController extends Controller
      */
     public function export($id)
     {
-         $inputFileName='app/Http/excel/'.iconv('UTF-8', 'GBK//IGNORE','template' ).'.xls';
-        //$objReader = PHPExcel_IOFactory::createReader($inputFileType);
-        //$objPHPExcel = $objReader->load($inputFileName);
-         $exportexcel=Excel::load($inputFileName,null,'utf-8')->get();
-         $report=reportform::find($id);
-         $user = Auth::user();
-         $company=DB::table('company')->where('uid',$user->id)->first();
-         $exportexcel[0][3]='安徽省小额贷款公司基本报表';
-         $exportexcel[1][1]=$company->name;
-        $exportexcel[3][6]=$report->total_capital;
-        $exportexcel[4][6]=$report->money_capital;
-        $exportexcel[5][6]=$report->other_capital;
-        $exportexcel[6][6]=$report->total_debtcapital;
-        $exportexcel[7][6]=$report->paidup_capital;
-        $exportexcel[8][6]=$report->income;
-        $exportexcel[9][6]=$report->loan_income;
-        $exportexcel[10][6]=$report->profit_income;
-        $exportexcel[11][6]=$report->loan_remainder;
-        $exportexcel[12][6]=$report->bad_remainder;
-        $exportexcel[13][6]=$report->loan_family;
-        $exportexcel[14][6]=$report->loan_num;
-        $exportexcel[15][6]=$report->year_issueloan;
-        $exportexcel[16][6]=$report->year_issuefamily;
-        $exportexcel[17][6]=$report->year_issuenum;
-        $exportexcel[18][6]=$report->year_backfamily;
-        $exportexcel[19][6]=$report->year_backnum;
-        $exportexcel[20][6]=$report->farmer_loan_remainder;
-        $exportexcel[21][6]=$report->farmer_loan_family;
-        $exportexcel[22][6]=$report->farmer_issue;
-        $exportexcel[23][6]=$report->farmer_backnum;
-        $exportexcel[24][6]=$report->company_loan_remainder;
-        $exportexcel[25][6]=$report->company_loan_family;
-        $exportexcel[26][6]=$report->company_issue;
-        $exportexcel[27][6]=$report->company_backnum;
-        $exportexcel[28][6]=$report->total_remainder;
-        $exportexcel[29][6]=$report->total_loan_family;
-        $exportexcel[30][6]=$report->total_issue;
-        $exportexcel[31][6]=$report->total_backnum;
-        $exportexcel[32][6]=$report->person_loan_remainder;
-        $exportexcel[33][6]=$report->person_loan_family;
-        $exportexcel[34][6]=$report->person_issue;
-        $exportexcel[35][6]=$report->person_backnum;
-        $exportexcel[36][6]=$report->normal_loan_remainder;
-        $exportexcel[37][6]=$report->normal_loan_family;
-        $exportexcel[38][6]=$report->month_loan_remainder;
-        $exportexcel[39][6]=$report->month_loan_family;
-        $exportexcel[40][6]=$report->quarter_loan_remainder;
-        $exportexcel[41][6]=$report->quarter_loan_family;
-        $exportexcel[42][6]=$report->ninety_loan_remainder;
-        $exportexcel[43][6]=$report->ninety_loan_family;
-        $exportexcel[44][6]=$report->highest_interest;
-        $exportexcel[45][6]=$report->lowest_interest;
-        $exportexcel[46][6]=$report->Average_interest;
-        $exportexcel[47][6]=$report->normal_loan;
-        $exportexcel[48][6]=$report->follow_loan;
-        $exportexcel[49][6]=$report->second_loan;
-        $exportexcel[50][6]=$report->doubt_loan;
-        $exportexcel[51][6]=$report->noback_loan;
-        $exportexcel[52][6]=$report->credit_loan_remainder;
-        $exportexcel[53][6]=$report->credit_loan_family;
-        $exportexcel[54][6]=$report->promise_loan_remainder;
-        $exportexcel[55][6]=$report->promise_loan_family;
-        $exportexcel[56][6]=$report->mortgage_loan_remainder;
-        $exportexcel[57][6]=$report->mortgage_loan_family;
-        $exportexcel[58][6]=$report->pledge_loan_remainder;
-        $exportexcel[59][6]=$report->pledge_loan_family;
-        $exportexcel[60][6]=$report->other_loan_remainder;
-        $exportexcel[61][6]=$report->other_loan_family;
-        $exportexcel[62][6]=$report->bank_financing;
-        $exportexcel[63][6]=$report->shareholder_loan;
-        $exportexcel[64][6]=$report->profit_transfer;
-        $exportexcel[65][6]=$report->bond_bill;
-        $exportexcel[66][6]=$report->parterner_loan;
-        $exportexcel[67][6]=$report->securitisation;
-        $exportexcel[68][6]=$report->market_capital;
-        $exportexcel[69][6]=$report->othertype_capital;
-        $exportexcel[70][6]=$report->othermoney;
-        $exportexcel[71][6]=$report->paytaxes;
-        $exportexcel[72][6]=$report->saletax;
-        $exportexcel[73][6]=$report->incometax;
-        $exportexcel[74][6]=$report->description;
-        Excel::create('企业报表', function($excel) use ($exportexcel){
-            $excel->sheet('汇总简表', function($sheet) use ($exportexcel){
-                     $sheet->rows($exportexcel->toArray());
-            });
-        })->export('xls');
+        $inputFileName=base_path.'excel/'.iconv('UTF-8', 'GBK//IGNORE','template' ).'.xls';
+        $inputFileType='Excel5';
+        $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+        $excel=$objReader->load($inputFileName);
+        $report=reportform::find($id);
+        $user = Auth::user();
+        $company=DB::table('company')->where('uid',$user->id)->first();
 
-        //$importexcel-> setActiveSheetIndex(0);
-     //   $objWriter =PHPExcel_IOFactory :: createWriter($excel, 'Excel5');
-      //  header('Content-Type:application/vnd.ms-excel');
-      //  header('Content-Disposition:attachment;filename="Brand_' .date('Y-m-d') . '.xls"');
-       // header('Cache-Control:max-age=0');
-       // $objWriter-> save('php://output');
+        $excel->getActiveSheet()->setCellValue('A3', $company->name);
+        $excel->getActiveSheet()->setCellValue('D3', $report->created_at);
 
+        $excel->getActiveSheet()->setCellValue('G5', $report->total_capital);
+        $excel->getActiveSheet()->setCellValue('G6', $report->money_capital);
+        $excel->getActiveSheet()->setCellValue('G7', $report->other_capital);
+        $excel->getActiveSheet()->setCellValue('G8', $report->total_debtcapital);
+
+        $excel->getActiveSheet()->setCellValue('G9', $report->paidup_capital);
+        $excel->getActiveSheet()->setCellValue('G10', $report->income);
+        $excel->getActiveSheet()->setCellValue('G11', $report->loan_income);
+        $excel->getActiveSheet()->setCellValue('G12', $report->profit_income);
+        $excel->getActiveSheet()->setCellValue('G13', $report->loan_remainder);
+        $excel->getActiveSheet()->setCellValue('G14', $report->bad_remainder);
+        $excel->getActiveSheet()->setCellValue('G15', $report->loan_family);
+        $excel->getActiveSheet()->setCellValue('G16', $report->loan_num);
+        $excel->getActiveSheet()->setCellValue('G17', $report->year_issueloan);
+        $excel->getActiveSheet()->setCellValue('G18', $report->year_issuefamily);
+        $excel->getActiveSheet()->setCellValue('G19', $report->year_issuenum);
+
+        $excel->getActiveSheet()->setCellValue('G20', $report->year_backloan);
+        $excel->getActiveSheet()->setCellValue('G21', $report->year_backfamily);
+        $excel->getActiveSheet()->setCellValue('G22', $report->year_backnum);
+
+        $excel->getActiveSheet()->setCellValue('G23', $report->farmer_loan_remainder);
+        $excel->getActiveSheet()->setCellValue('G24', $report->farmer_loan_family);
+        $excel->getActiveSheet()->setCellValue('G25', $report->farmer_issue);
+        $excel->getActiveSheet()->setCellValue('G26', $report->farmer_backnum);
+
+        $excel->getActiveSheet()->setCellValue('G27', $report->company_loan_remainder);
+        $excel->getActiveSheet()->setCellValue('G28', $report->company_loan_family);
+        $excel->getActiveSheet()->setCellValue('G29', $report->company_issue);
+        $excel->getActiveSheet()->setCellValue('G30', $report->company_backnum);
+
+        $excel->getActiveSheet()->setCellValue('G31', $report->total_remainder);
+        $excel->getActiveSheet()->setCellValue('G32', $report->total_loan_family);
+        $excel->getActiveSheet()->setCellValue('G33', $report->total_issue);
+        $excel->getActiveSheet()->setCellValue('G34', $report->total_backnum);
+
+        $excel->getActiveSheet()->setCellValue('G35', $report->person_loan_remainder);
+        $excel->getActiveSheet()->setCellValue('G36', $report->person_loan_family);
+        $excel->getActiveSheet()->setCellValue('G37', $report->person_issue);
+        $excel->getActiveSheet()->setCellValue('G38', $report->person_backnum);
+
+        $excel->getActiveSheet()->setCellValue('G39', $report->normal_loan_remainder);
+        $excel->getActiveSheet()->setCellValue('G40', $report->normal_loan_family);
+
+        $excel->getActiveSheet()->setCellValue('G41', $report->month_loan_remainder);
+        $excel->getActiveSheet()->setCellValue('G42', $report->month_loan_family);
+        $excel->getActiveSheet()->setCellValue('G43', $report->quarter_loan_remainde);
+        $excel->getActiveSheet()->setCellValue('G44', $report->quarter_loan_family);
+
+        $excel->getActiveSheet()->setCellValue('G45', $report->ninety_loan_remainder);
+        $excel->getActiveSheet()->setCellValue('G46', $report->ninety_loan_family);
+
+        $excel->getActiveSheet()->setCellValue('G47', $report->highest_interest);
+        $excel->getActiveSheet()->setCellValue('G48', $report->lowest_interest);
+        $excel->getActiveSheet()->setCellValue('G49', $report->Average_interest);
+
+        $excel->getActiveSheet()->setCellValue('G50', $report->normal_loan);
+        $excel->getActiveSheet()->setCellValue('G51', $report->follow_loan);
+        $excel->getActiveSheet()->setCellValue('G52', $report->second_loan);
+        $excel->getActiveSheet()->setCellValue('G53', $report->doubt_loan);
+        $excel->getActiveSheet()->setCellValue('G54', $report->noback_loan);
+
+        $excel->getActiveSheet()->setCellValue('G55', $report->credit_loan_remainder);
+        $excel->getActiveSheet()->setCellValue('G56', $report->credit_loan_family);
+        $excel->getActiveSheet()->setCellValue('G57', $report->promise_loan_remainder);
+        $excel->getActiveSheet()->setCellValue('G58', $report->promise_loan_family);
+        $excel->getActiveSheet()->setCellValue('G59', $report->mortgage_loan_remainder);
+        $excel->getActiveSheet()->setCellValue('G60', $report->mortgage_loan_family);
+        $excel->getActiveSheet()->setCellValue('G61', $report->pledge_loan_remainder);
+        $excel->getActiveSheet()->setCellValue('G62', $report->pledge_loan_family);
+        $excel->getActiveSheet()->setCellValue('G63', $report->other_loan_remainder);
+        $excel->getActiveSheet()->setCellValue('G64', $report->other_loan_family);
+
+        $excel->getActiveSheet()->setCellValue('G65', $report->bank_financing);
+        $excel->getActiveSheet()->setCellValue('G66', $report->shareholder_loan);
+        $excel->getActiveSheet()->setCellValue('G67', $report->profit_transfer);
+        $excel->getActiveSheet()->setCellValue('G68', $report->bond_bill);
+        $excel->getActiveSheet()->setCellValue('G69', $report->parterner_loan);
+
+        $excel->getActiveSheet()->setCellValue('G70', $report->securitisation);
+        $excel->getActiveSheet()->setCellValue('G71', $report->market_capital);
+        $excel->getActiveSheet()->setCellValue('G72', $report->othermoney);
+        $excel->getActiveSheet()->setCellValue('G73', $report->paytaxes);
+        $excel->getActiveSheet()->setCellValue('G74', $report->saletax);
+        $excel->getActiveSheet()->setCellValue('G75', $report->incometax);
+        $excel->getActiveSheet()->setCellValue('D76',$report->description);
+        $excel-> setActiveSheetIndex(0);
+        $objWriter =PHPExcel_IOFactory :: createWriter($excel, 'Excel5');
+
+        header('Content-Type:application/vnd.ms-excel');
+        header('Content-Disposition:attachment;filename="'.$company->name. date('Y-m',strtotime($report->dtime)). '.xls"');
+        header('Cache-Control:max-age=0');
+        $objWriter-> save('php://output');
     }
 
     //get 请求报表页面
@@ -138,7 +150,7 @@ class ReportformController extends Controller
             $time = $dateold;
         } else {
             if ($isuploadednew) {
-                return view("admin.isuploaded");
+                return view("admin.report.isuploaded");
             } else {
                 $time = $datenew;
             }
@@ -157,7 +169,7 @@ class ReportformController extends Controller
         $company = Company::where('uid','=',$user->id)->first();
         $data['reg_capital'] = $company->reg_capital;
         //dd($data);
-        return view('admin.addreport')->with("data", $data);
+        return view('admin.report.addreport')->with("data", $data);
 
     }
 
@@ -171,10 +183,10 @@ class ReportformController extends Controller
             $report = $reportform->where('id', $id)->get()->first();
         } else $report = $reportform->where('uid', $user['id'])->orderBy('updated_at', 'desc')->get()->first();
         if ($report) {
-            return view('admin.reportform', compact('report'));
+            return view('admin.report.reportform', compact('report'));
         } else {
             flash("数据未上传！请上传!", "error");
-            return view('admin.addreport');
+            return view('admin.report.addreport');
         }
     }
 
@@ -206,7 +218,7 @@ class ReportformController extends Controller
             } else
                 return view('index');
         }
-        return view('admin.reportformlist', compact('reports'));
+        return view('admin.report.reportformlist', compact('reports'));
     }
 
     /**
@@ -365,7 +377,7 @@ class ReportformController extends Controller
         $user = Auth::user();
         $company = Company::where('uid','=',$user->id)->first();
         $data['reg_capital'] = $company->reg_capital;
-        return view('admin.editreport',compact('report','data'));
+        return view('admin.report.editreport',compact('report','data'));
 
     }
     public function  update(Request $request,$id)
