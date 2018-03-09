@@ -912,6 +912,9 @@
                 });
 
         }
+        function equal(numa,numb){
+            return Math.abs(numa - numb) < 0.0000001;
+        }
         $(function () {
             $("#form1").validation({
                 ignore: "#incometax"
@@ -972,19 +975,19 @@
                 year_issuefamily_s1 = Number($("#farmer_backnum").val().replace(/,/g,'')) +
                     Number($("#company_backnum").val().replace(/,/g,'')) +　Number($("#person_backnum").val().replace(/,/g,''));
 
-                if(loan_remainder != loan_remainder_s1){
+                if(!equal(loan_remainder,loan_remainder_s1)){
                     $.alert("贷款余额需等于涉农贷款、小微企业贷款、个人贷款余额的和");
                     return false;
                 }
-                if(loan_family != loan_family_s1){
+                if(!equal(loan_family,loan_family_s1)){
                     $.alert("贷款户数需等于涉农贷款、小微企业贷款、个人贷款户数的和");
                     return false;
                 }
-                if(year_issueloan != year_issueloan_s1){
+                if(!equal(year_issueloan,year_issueloan_s1)){
                     $.alert("本年内累计发放贷款余额需等于涉农贷款、小微企业贷款、个人贷款累计发放金额的和");
                     return false;
                 }
-                if(year_issuefamily != year_issuefamily_s1){
+                if(!equal(year_issuefamily,year_issuefamily_s1)){
                     $.alert("本年内累计发放贷款户数需等于涉农贷款、小微企业贷款、个人贷款累计发放户数的和");
                     return false;
                 }
@@ -994,11 +997,11 @@
                 loan_family_s2 = Number($("#normal_loan_family").val().replace(/,/g,'')) +  Number($("#month_loan_family").val().replace(/,/g,'')) +
                     Number($("#quarter_loan_family").val().replace(/,/g,'')) + Number($("#ninety_loan_family").val().replace(/,/g,''));
 
-                if(loan_remainder != loan_remainder_s2){
+                if(!equal(loan_remainder,loan_remainder_s2)){
                     $.alert("贷款余额需等于按资产质量划分余额的和");
                     return false;
                 }
-                if(loan_family != loan_family_s2){
+                if(!equal(loan_family,loan_family_s2)){
                     $.alert("贷款户数需等于按资产质量划分户数的和");
                     return false;
                 }
@@ -1006,7 +1009,7 @@
                 loan_remainder_s3 = Number($("#normal_loan").val().replace(/,/g,'')) +  Number($("#follow_loan").val().replace(/,/g,'')) +
                     Number($("#second_loan").val().replace(/,/g,'')) + Number($("#doubt_loan").val().replace(/,/g,''))+ Number($("#noback_loan").val().replace(/,/g,''));
 
-                if(loan_remainder != loan_remainder_s3){
+                if(!equal(loan_remainder,loan_remainder_s3)){
                     $.alert("贷款余额需等于贷款五级分类余额的和");
                     return false;
                 }
@@ -1016,11 +1019,11 @@
                 loan_family_s4 = Number($("#credit_loan_family").val().replace(/,/g,'')) +  Number($("#promise_loan_family").val().replace(/,/g,'')) +
                     Number($("#mortgage_loan_family").val().replace(/,/g,'')) + Number($("#pledge_loan_family").val().replace(/,/g,''))+ Number($("#other_loan_family").val().replace(/,/g,''));
 
-                if(loan_remainder != loan_remainder_s4){
+                if(!equal(loan_remainder,loan_remainder_s4)){
                     $.alert("贷款余额需等于贷款种类余额的和");
                     return false;
                 }
-                if(loan_family != loan_family_s4){
+                if(!equal(loan_family,loan_family_s4)){
                     $.alert("贷款户数需等于贷款种类户数的和");
                     return false;
                 }
