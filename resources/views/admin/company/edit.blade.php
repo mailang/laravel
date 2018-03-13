@@ -324,12 +324,15 @@
                         </script>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
+                @if('company.show' !=  Route::currentRouteName())
                 <input type="hidden" name="areacode" id="areacode"/>
                 <input type="hidden" name="shareholder" id="shareholder"/>
                 <input type="hidden" name="uid" id="uid" value="{{Auth::user()->id}}"/>
+
                 <div class="box-footer"><label class="col-lg-4 control-label">&nbsp;</label>
                     <button id="btnsubmit" type="submit" class="btn btn-primary">提交</button>
                 </div>
+                @endif
             </div><!--/.col (right) -->
         </div>
         <script language="javascript">

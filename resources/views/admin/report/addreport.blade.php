@@ -857,7 +857,7 @@
                     </div><!-- /.box-header -->
                     <div class="box-body  form-horizontal">
                         <div class="form-group">
-                            <label for="paytaxes" class="col-sm-3 control-label">累计纳税支出:</label>
+                            <label for="paytaxes" class="col-sm-3 control-label">累计实缴纳税支出:</label>
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <input class="form-control" check-type="number required" placeholder="今年内累计纳税支出"

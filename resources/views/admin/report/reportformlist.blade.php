@@ -14,7 +14,7 @@
     <style type="text/css">
         #tab li{float: left; list-style: none; width: 100px; font-size: 15px; height: 41px; text-align: center;
             border-radius: 3px; border-top: 1px solid #d2d6de; display: inline-block;}
-        a{color: #0c0c0c; width: 100%; height: 100%;}
+        a{color: #0c0c0c;}
         .current{ background-color: #ffffff; border-bottom: none;}
 
     </style>
@@ -50,7 +50,7 @@
                                 <td>{{ date('Y-m',strtotime($report->dtime))}}</td>
                                 <td>{{ $report->updated_at }}</td>
                                 <td>
-                                    @if($report->edit>0)
+                                    @if(!isset($report->edit)|| $report->edit>0)
                                     <a href="{{route('reportform.seereport',$report->id)}}">查看</a>
                                     @else
                                         <a href="{{route('reportform.edit',$report->id)}}">编辑</a>
@@ -61,7 +61,7 @@
                         @if(isset($userlist))
                             @foreach($userlist as $user)
                                 <tr class="notupload">
-                                    <td>{{ $user->name}}</td>
+                                    <td><a href="{{route('company.show',$user->cid)}}">{{ $user->name}}</a></td>
                                     <td>{{ $user->code}}</td>
                                     <td></td>
                                     <td></td>

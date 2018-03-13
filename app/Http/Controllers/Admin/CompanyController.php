@@ -91,6 +91,9 @@ class CompanyController extends Controller
     public function show(Company $company)
     {
         //
+        $areacode = $this->getareacode()->toJson();
+        //$company = Company::where('uid', Auth::user()->id)->first();
+        return view("admin.company.edit",compact('areacode','company'));
     }
 
     /**

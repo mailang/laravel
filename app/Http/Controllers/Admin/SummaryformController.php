@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\oldsummaryform;
 use App\Models\Summaryform;
+use App\Models\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -24,17 +25,17 @@ class SummaryformController extends Controller
         //
         $user = Auth::user();
         $areacode = $user['areacode'];
-        $field = ['summaryform.id', 'summaryform.updated_at', 'summaryform.dtime', 'users.name'];
+        $field = ['summaryform.id', 'summaryform.updated_at', 'summaryform.dtime','users.id as uid', 'users.name'];
         $reports = DB::table('users')
             ->rightJoin('summaryform', 'users.id', '=', 'summaryform.uid')
             ->where('users.id', $user->id)
-            ->where('income','<>','0')
+            //->where('income','<>','0')
             ->orderBy('summaryform.updated_at', 'desc')
             ->get($field);
-        $url = route("summaryform.uploadlist");
+        $url = route("summaryform.historylist");
 
 
-        return view('admin.summaryform.list', compact('reports','url'));
+        return view('admin.summaryform.historylist', compact('reports','url'));
     }
 
     public function uploadlist($id = null)
@@ -49,9 +50,9 @@ class SummaryformController extends Controller
             $areacode = $user['areacode'];
             $time = date('Y-m-01', strtotime('-1 month'));
         } else {
-            $summary = Summaryform::find($id);
-            $areacode = $summary->areacode;
-            $time = date('Y-m-01', strtotime($summary->dtime));
+            $user = Users::find($id);
+            $areacode = $user['areacode'];
+            $time = date('Y-m-01', strtotime('-1 month'));
         }
         $isfirst = Area::where('pcode', $areacode)->get(['areacode']);
         //dd($isfirst);
@@ -59,11 +60,11 @@ class SummaryformController extends Controller
             //没有子级金融办
             //$url = route("reportform.reportlist");
             //dd($url);
+            //array_push($field,'1 as edit');
             $reports = DB::table('company')
                 ->rightJoin('reportform', 'company.uid', '=', 'reportform.uid')
                 ->where('reportform.areacode', $areacode)
                 ->whereDate('reportform.dtime', $time)
-
                 ->orderBy('reportform.updated_at', 'desc')
                 ->get($field);
             //dd($reports);
@@ -74,7 +75,7 @@ class SummaryformController extends Controller
                 ->where('users.type',1)
                 ->where('users.areacode', $areacode)
                 ->whereNotIn('users.id', array_column($reports->toArray(),"uid" ))
-                ->get(['users.id','users.name','company.code']);
+                ->get(['users.id','company.id as cid','users.name','company.code']);
 
             return view('admin.report.reportformlist', compact('reports','userlist'));
         }
@@ -93,6 +94,8 @@ class SummaryformController extends Controller
 //            foreach ($reports as $report) {
 //                $report->url = $url."/".$report->id;
 //            }
+
+            //dd($reports);
             $uidlist= array_column($reports->toArray(),"uid");
             //dd($url);
             $userlist= DB::table("users")
@@ -100,7 +103,7 @@ class SummaryformController extends Controller
                 ->whereIn('areacode', $isfirst)
                 ->whereNotIn('id',$uidlist )
                 ->get(["id","name"]);
-
+            //dd($userlist);
             return view('admin.summaryform.list', compact('reports','url','userlist'));
 
         }
@@ -130,6 +133,7 @@ class SummaryformController extends Controller
 
         $isfirst = Area::where('pcode', $areacode)->get();
         $datenew = date('Y-m-01', strtotime('-1 month'));
+        $dateold = date('Y-12-01',strtotime('-1 year',strtotime($datenew)));
         //$summary = new Summaryform();
         //$old = $summary
            // ->where("uid", $user->id)
@@ -140,7 +144,7 @@ class SummaryformController extends Controller
              $old=new oldsummaryform();
             if ($isfirst->isEmpty()) {
 
-                $table = DB::table("company")->where('areacode', $areacode)->get();
+                $table = DB::table("company")->where('areacode', $areacode)->whereDate('opening_at','<',$dateold)->get();
                 $old->lp_ins_num = $table->count();
                 $old->branch_ins_num = $table->sum('branch_num');
                 $old->all_ins_num = $old->lp_ins_num + $old->branch_ins_num;
@@ -158,7 +162,7 @@ class SummaryformController extends Controller
                 $reports = DB::table('company')
                     ->rightJoin('reportform', 'company.uid', '=', 'reportform.uid')
                     ->where('reportform.areacode', $areacode)
-                    ->whereDate('reportform.dtime', date('Y-12-01', strtotime('-1 year')))->get();
+                    ->whereDate('reportform.dtime', $dateold)->get();
 
                 $old->total_capital = $reports->sum('total_capital');
                 $old->money_capital = $reports->sum('money_capital');
@@ -243,7 +247,7 @@ class SummaryformController extends Controller
                 $old->othermoney = $reports->sum('othermoney');
 
                 $old->paytaxes = $reports->sum('paytaxes');
-                $old->saletax = $reports->sum('saletax');
+                //$old->saletax = $reports->sum('saletax');
                 $old->incometax = $reports->sum('incometax');
 
                 $old->loantocounty_remainder = $reports->where('company.type', 0)->sum('loan_num');
@@ -304,6 +308,7 @@ class SummaryformController extends Controller
             $new->allp_num = $table->where('bus_area', 2)->count();
             $new->p_num = $table->sum('p_num');
 
+            //dd($areacode,$table,$new);
             $reports = DB::table('company')
                 ->rightJoin('reportform', 'company.uid', '=', 'reportform.uid')
                 ->where('reportform.areacode', $areacode)
@@ -358,6 +363,7 @@ class SummaryformController extends Controller
             $new->highest_interest = $reports->max('highest_interest');
             $new->lowest_interest = $reports->min('lowest_interest');
             //$new->ninety_loan_family = $reports->average('ninety_loan_family');
+            //dd($reports);
 
             $new->normal_loan = $reports->sum('normal_loan');
             $new->follow_loan = $reports->sum('follow_loan');
@@ -392,7 +398,7 @@ class SummaryformController extends Controller
             $new->othermoney = $reports->sum('othermoney');
 
             $new->paytaxes = $reports->sum('paytaxes');
-            $new->saletax = $reports->sum('saletax');
+            //$new->saletax = $reports->sum('saletax');
             $new->incometax = $reports->sum('incometax');
 
             $new->loantocounty_remainder = $reports->where('company.type', 0)->sum('loan_num');
@@ -430,11 +436,12 @@ class SummaryformController extends Controller
 
             }
             $new->highest_interest = $reports->max('highest_interest');
-            $new->lowest_interest = $reports->max('lowest_interest');
+            $new->lowest_interest = $reports->min('lowest_interest');
             //$new->highest_interest = $reports->max('highest_interest');
             //dd($new);
 
         }
+        //dd($new);
 
         return view('admin.summaryform.add', compact('old', 'new'));
     }
@@ -557,5 +564,74 @@ class SummaryformController extends Controller
     public function destroy(Summaryform $Summaryform)
     {
         //
+    }
+
+    public function historylist($sid)
+    {
+        //
+
+        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid'];
+        $url = "";
+
+
+         $summary = Summaryform::find($sid);
+         $areacode = $summary->areacode;
+         $time = date('Y-m-01', strtotime($summary->dtime));
+
+
+        $isfirst = Area::where('pcode', $areacode)->get(['areacode']);
+        //dd($isfirst);
+        if ($isfirst->isEmpty()) {
+            //没有子级金融办
+            //$url = route("reportform.reportlist");
+            //dd($url);
+            $reports = DB::table('company')
+                ->rightJoin('reportform', 'company.uid', '=', 'reportform.uid')
+                ->where('reportform.areacode', $areacode)
+                ->whereDate('reportform.dtime', $time)
+
+                ->orderBy('reportform.updated_at', 'desc')
+                ->get($field);
+            //dd($reports);
+
+            //取出所有未提交报表的子公司
+            $userlist=DB::table("users")
+                ->leftJoin('company','users.id','=','company.uid')
+                ->where('users.type',1)
+                ->where('users.areacode', $areacode)
+                ->whereNotIn('users.id', array_column($reports->toArray(),"uid" ))
+                ->get(['users.id','company.id as cid','users.name','company.code']);
+
+            return view('admin.report.reportformlist', compact('reports','userlist'));
+        }
+        else {
+            //有子级金融办机构
+            $url = route("summaryform.historylist");
+            $field = ['summaryform.id', 'summaryform.uid','summaryform.updated_at', 'summaryform.dtime', 'users.name'];
+            $reports = DB::table('users')
+                ->rightJoin('summaryform', 'users.id', '=', 'summaryform.uid')
+                ->whereIn('summaryform.areacode',$isfirst)
+                //->where('summaryform.areacode',$areacode)
+                ->whereDate('summaryform.dtime', $time)
+                ->orderBy('summaryform.updated_at', 'desc')
+                ->get($field);
+
+//            foreach ($reports as $report) {
+//                $report->url = $url."/".$report->id;
+//            }
+
+            //dd($reports);
+            $uidlist= array_column($reports->toArray(),"uid");
+            //dd($url);
+            $userlist= DB::table("users")
+                ->where('type', 2)
+                ->whereIn('areacode', $isfirst)
+                ->whereNotIn('id',$uidlist )
+                ->get(["id","name"]);
+            //dd($userlist);
+            return view('admin.summaryform.historylist', compact('reports','url','userlist'));
+
+        }
+
     }
 }

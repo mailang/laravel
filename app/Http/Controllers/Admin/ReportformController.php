@@ -123,9 +123,9 @@ class ReportformController extends Controller
         $excel->getActiveSheet()->setCellValue('G71', $report->market_capital);
         $excel->getActiveSheet()->setCellValue('G72', $report->othermoney);
         $excel->getActiveSheet()->setCellValue('G73', $report->paytaxes);
-        $excel->getActiveSheet()->setCellValue('G74', $report->saletax);
-        $excel->getActiveSheet()->setCellValue('G75', $report->incometax);
-        $excel->getActiveSheet()->setCellValue('D76',$report->description);
+        //$excel->getActiveSheet()->setCellValue('G74', $report->saletax);
+        $excel->getActiveSheet()->setCellValue('G74', $report->incometax);
+        $excel->getActiveSheet()->setCellValue('D75',$report->description);
         $excel-> setActiveSheetIndex(0);
         $objWriter =PHPExcel_IOFactory :: createWriter($excel, 'Excel5');
 

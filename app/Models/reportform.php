@@ -28,6 +28,6 @@ class reportform extends Model
    'normal_loan_family','month_loan_remainder','month_loan_family','quarter_loan_remainder','quarter_loan_family','ninety_loan_remainder'
 ,'ninety_loan_family','highest_interest','lowest_interest','Average_interest','normal_loan','follow_loan','second_loan','doubt_loan','noback_loan','credit_loan_remainder','credit_loan_family','promise_loan_remainder','promise_loan_family','mortgage_loan_remainder',
 'mortgage_loan_family','pledge_loan_remainder','pledge_loan_family','other_loan_remainder','other_loan_family','bank_financing','shareholder_loan','profit_transfer','bond_bill','parterner_loan','securitisation','market_capital','othertype_capital','othermoney',
-'paytaxes','saletax',"incometax",'description'];
+'paytaxes','saletax',"incometax",'description','edit'];
  protected $hidden = ['id'];
 }

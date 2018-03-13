@@ -43,7 +43,7 @@
 
                 @foreach($reports as $report)
                     <tr  class="upload">
-                        <td><a href="{{$url.'/'.$report->uid}}">{{ $report->name}}</a></td>
+                        <td><a href="{{$url.'/'.$report->id}}">{{ $report->name}}</a></td>
                         <td>{{ date('Y-m',strtotime($report->dtime))}}</td>
                         <td>{{ $report->updated_at }}</td>
                         <td> <a href="/admin/summary/{{ $report->id}}">查看</a></td>
@@ -52,7 +52,7 @@
                 @if(isset($userlist))
                 @foreach($userlist as $user)
                     <tr class="notupload">
-                        <td><a href="{{$url.'/'.$user->id}}">{{ $user->name}}</a></td>
+                        <td>{{ $user->name}}</td>
                         <td></td>
                         <td></td>
                         <td style="background-color: palevioletred; color: white;">数据未上传</td>
