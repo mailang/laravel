@@ -42,7 +42,7 @@ class SummaryformController extends Controller
     {
         //
 
-        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid'];
+        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid','company.id as cid'];
         $url = "";
 
         if ($id == null) {
@@ -570,7 +570,7 @@ class SummaryformController extends Controller
     {
         //
 
-        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid'];
+        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid','company.id as cid'];
         $url = "";
 
 

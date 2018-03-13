@@ -45,7 +45,7 @@
                         @foreach($reports as $report)
                             <tr class="upload">
 
-                                <td>{{ $report->name}}</td>
+                                <td><a href="{{route('company.show',$report->cid)}}">{{ $report->name}}</a></td>
                                 <td>{{ $report->code }}</td>
                                 <td>{{ date('Y-m',strtotime($report->dtime))}}</td>
                                 <td>{{ $report->updated_at }}</td>
