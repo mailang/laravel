@@ -135,7 +135,7 @@ class ReportformController extends Controller
         $objWriter-> save('php://output');
     }
 
-    //get 请求报表页面
+    /*get 请求报表页面*/
     public function addreport(Request $request, $old = null)
     {
         $user = Auth::user();
@@ -168,6 +168,7 @@ class ReportformController extends Controller
         //dd($data);
         $company = Company::where('uid','=',$user->id)->first();
         $data['reg_capital'] = $company->reg_capital;
+        $data['name'] = $company->name;
         //dd($data);
         return view('admin.report.addreport')->with("data", $data);
 
@@ -181,9 +182,10 @@ class ReportformController extends Controller
         $reportform = new Reportform;
         if ($id) {
             $report = $reportform->where('id', $id)->get()->first();
-        } else $report = $reportform->where('uid', $user['id'])->orderBy('updated_at', 'desc')->get()->first();
+             $company=Company::where('uid',$user->id)->get(['name'])->first();
+        }
         if ($report) {
-            return view('admin.report.reportform', compact('report'));
+            return view('admin.report.reportform', compact('report','company'));
         } else {
             flash("数据未上传！请上传!", "error");
             return view('admin.report.addreport');
@@ -197,7 +199,7 @@ class ReportformController extends Controller
         $user = Auth::user();
         $areacode = $user['areacode'];
         $type = $user['type'];
-        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code','edit'];
+        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code','edit','cid'];
         if ($type == 1) {
             //企业登录查看上传的报表
             $reports = DB::table('company')
@@ -261,8 +263,6 @@ class ReportformController extends Controller
         $result = $report->where('uid', $report->uid)
             ->whereDate('dtime', date('Y-m-01', strtotime('-1 month')))
             ->get();
-
-
         if ($result->isEmpty()) {
             $report->total_capital = $req['total_capital'];
             $report->money_capital = $req['money_capital'];
@@ -377,6 +377,8 @@ class ReportformController extends Controller
         $user = Auth::user();
         $company = Company::where('uid','=',$user->id)->first();
         $data['reg_capital'] = $company->reg_capital;
+        $data['name'] = $company->name;
+        //dd($report);
         return view('admin.report.editreport',compact('report','data'));
 
     }

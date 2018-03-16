@@ -18,7 +18,7 @@
                 <div class="col-md-1"></div>
                 <!-- general form elements -->
 
-                    <table width="1213" style="width: 909.75pt;" border="1">
+                    <table width="1213" style="width: 909.75pt;" border="1" cellpadding="0" cellspacing="0">
                         <colgroup>
                             <col width="91"/>
                             <col width="68"/>
@@ -38,62 +38,18 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="et2" width="91"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; height: 14.25pt; width: 68.25pt;"></td>
-                            <td class="et1" width="68"
-                                style="font-size: 12pt; vertical-align: middle; height: 14.25pt; width: 51pt;"></td>
-                            <td class="et1" width="188"
-                                style="font-size: 12pt; vertical-align: middle; height: 14.25pt; width: 141pt;"></td>
-                            <td class="et1" width="131"
-                                style="font-size: 12pt; vertical-align: middle; height: 14.25pt; width: 98.25pt;"></td>
-                            <td class="et1" width="207"
-                                style="font-size: 12pt; vertical-align: middle; height: 14.25pt; width: 155.25pt;"></td>
-                            <td class="et1" width="135"
-                                style="font-size: 12pt; vertical-align: middle; height: 14.25pt; width: 101.25pt;"></td>
-                            <td class="et7" width="132"
-                                style="font-size: 9pt; text-align: right; vertical-align: middle; height: 14.25pt; width: 99pt;"></td>
-                            <td class="et7" width="130"
-                                style="font-size: 9pt; text-align: right; vertical-align: middle; height: 14.25pt; width: 97.5pt;"></td>
-                            <td class="et45" width="131"
-                                style="font-size: 9pt; vertical-align: middle; height: 14.25pt; width: 98.25pt;"></td>
-                        </tr>
-                        <tr>
                             <td class="et8" colspan="4" width="438"
                                 style="font-size: 12pt; vertical-align: middle; border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 39pt; width: 328.5pt;">
-                                填报单位：
+                                填报单位：{{$user->name}}
                             </td>
                             <td class="et8" colspan="2" width="414"
                                 style="font-size: 12pt; vertical-align: middle; border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 39pt; width: 310.5pt;">
-                                &nbsp;报送周期：年月日
+                                &nbsp;报送周期：{{date('Y年m月', strtotime('-1 month'))}}
                             </td>
                             <td class="et9" colspan="3" width="394"
                                 style="font-size: 12pt; text-align: right; vertical-align: middle; height: 39pt; width: 295.5pt;">
                                 数据单位：家、人、万元、户、%
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="et10" width="91"
-                                style="font-size: 12pt; vertical-align: middle; height: 39pt; width: 68.25pt;">
-                                联系人
-                            </td>
-                            <td class="et10" width="68"
-                                style="font-size: 12pt; vertical-align: middle; height: 39pt; width: 51pt;"></td>
-                            <td class="et10" width="188"
-                                style="font-size: 12pt; vertical-align: middle; height: 39pt; width: 141pt;"></td>
-                            <td class="et10" width="131"
-                                style="font-size: 12pt; vertical-align: middle; height: 39pt; width: 98.25pt;"></td>
-                            <td class="et10" width="207"
-                                style="font-size: 12pt; vertical-align: middle; height: 39pt; width: 155.25pt;"></td>
-                            <td class="et10" width="135"
-                                style="font-size: 12pt; vertical-align: middle; height: 39pt; width: 101.25pt;"></td>
-                            <td class="et9" width="132"
-                                style="font-size: 12pt; text-align: right; vertical-align: middle; height: 39pt; width: 99pt;">
-                                联系电话：
-                            </td>
-                            <td class="et9" width="130"
-                                style="font-size: 12pt; text-align: right; vertical-align: middle; height: 39pt; width: 97.5pt;"></td>
-                            <td class="et9" width="131"
-                                style="font-size: 12pt; text-align: right; vertical-align: middle; height: 39pt; width: 98.25pt;"></td>
                         </tr>
                         <tr>
                             <td class="et15" width="91"
@@ -127,7 +83,7 @@
                                 1.&nbsp;&nbsp;本辖区小额贷款机构数量
                             </td>
                             <td class="et22" width="132"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[all_ins_num]" id="old[all_ins_num]" value="{{$old->all_ins_num}}" /></td>
+                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text"  class="text-center" name="old[all_ins_num]" id="old[all_ins_num]" value="{{$old->all_ins_num}}" /></td>
                             <td class="et22" width="130"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
                             <td class="et47" width="131"
@@ -353,7 +309,7 @@
                             <td class="et22" width="132"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"></td>
                             <td class="et22" width="130"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"><input type="text" check-type="integer required" class="text-center" name="new[del_num]" id="new[del_num]" value="{{$new->del_num}}" /></td>
+                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"><input type="text" check-type="integer required" class="text-center" name="new[del_num]" id="new[del_num]" value="{{$new->del_num==null?"0":$new->del_num}}" /></td>
                             <td class="et47" width="131"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"></td>
                         </tr>
@@ -1661,32 +1617,22 @@
                             </td>
                             <td class="et8" width="68"
                                 style="font-size: 12pt; vertical-align: middle; border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 56.25pt; width: 51pt;">
-                                7.&nbsp;&nbsp;注释及说明
+                                7.注释及说明
                             </td>
-                            <td class="et8" width="188"
-                                style="font-size: 12pt; vertical-align: middle; border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 56.25pt; width: 141pt;"></td>
-                            <td class="et69" colspan="6" width="866"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-left-width: 0.5pt; border-left-color: rgb(0, 0, 0); border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); border-right-width: 1.2pt; border-right-color: rgb(0, 0, 0); height: 56.25pt; width: 649.5pt;">
-                                <textarea  type="text"  name="new[description]"
+                            <td class="et69" colspan="7" width="866"
+                                style="font-size: 12pt; text-align: left; vertical-align: middle;">
+                                <textarea  type="text"  name="new[description]" style="height: 122px;width: 684px;"
                                           id="new[description]">{{$new->description}}</textarea>
                             </td>
                         </tr>
                         <tr>
-                            <td class="et71" colspan="3" width="250"
+                            <td class="et71" colspan="6" width="975px"
                                 style="font-size: 12pt; vertical-align: middle; border-top-width: 1.2pt; border-top-color: rgb(0, 0, 0); height: 27pt; width: 187.5pt;">
-                                单位负责人：
+                                单位负责人：                                <input type="text" class="text-center" name="new[leader]" id="new[leader]" value="{{$new->leader}}"   check-type="required"  />
                             </td>
-                            <td class="et71" colspan="2" width="262"
-                                style="font-size: 12pt; vertical-align: middle; border-top-width: 1.2pt; border-top-color: rgb(0, 0, 0); height: 27pt; width: 196.5pt;">
-                                统计负责人：
-                            </td>
-                            <td class="et71" colspan="2" width="270"
-                                style="font-size: 12pt; vertical-align: middle; border-top-width: 1.2pt; border-top-color: rgb(0, 0, 0); height: 27pt; width: 202.5pt;">
-                                填表人：
-                            </td>
-                            <td class="et71" colspan="2" width="260"
+                            <td class="et71" colspan="3" width="260"
                                 style="font-size: 12pt; vertical-align: middle; border-top-width: 1.2pt; border-top-color: rgb(0, 0, 0); height: 27pt; width: 195pt;">
-                                报出日期：
+                                报出日期：{{date("Y年m月d日")}}
                             </td>
                         </tr>
                         </tbody>
@@ -1712,9 +1658,11 @@
                     $("#btnsubmit").on('click', function (event) {
                         // 2.最后要调用 valid()方法。
       if ($("#form").valid()==false){
-//        $(".modal-body").text("请正确输入必填项");
-//        $("#myModal").modal('show');
           $.alert("存有未填写项");
+          $("input[type='text']").each(function () {
+              if($(this).val()=="")$(this).css('border','1px solid #dd4b39');
+          })
+
            return false;
         }
                     });

@@ -176,7 +176,8 @@ class CreateSummaryformTable extends Migration
             $table->float("incometax")->default(0);
             //注释及说明
             $table->string('description')->nullable();
-
+            //单位负责人
+            $table->string('leader')->nullable();
             //上传几月的报表
             $table->dateTime('dtime');
 

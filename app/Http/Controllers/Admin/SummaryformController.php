@@ -400,6 +400,7 @@ class SummaryformController extends Controller
             $new->paytaxes = $reports->sum('paytaxes');
             //$new->saletax = $reports->sum('saletax');
             $new->incometax = $reports->sum('incometax');
+            $new->add_num=$new->lp_ins_num-$old->lp_ins_num;
 
             $new->loantocounty_remainder = $reports->where('company.type', 0)->sum('loan_num');
             $new->loantocounty_family = $reports->where('company.type', 0)->sum('loan_family');
@@ -443,7 +444,7 @@ class SummaryformController extends Controller
         }
         //dd($new);
 
-        return view('admin.summaryform.add', compact('old', 'new'));
+        return view('admin.summaryform.add', compact('old', 'new','user'));
     }
 
     /**
@@ -523,7 +524,10 @@ class SummaryformController extends Controller
            // ->first();
         $old = oldsummaryform::where('id',$id)->first();
         if ($old) {
-            return view('admin.summaryform.edit', compact('old', 'new'));
+            $areaname=Area::where('areacode',$old->areacode)->first();
+            $name=$areaname['name'];
+            if($name=="市辖区") {$pname=Area::where('areacode',$areaname->pcode)->first();$name=$pname->name.'辖区';}
+            return view('admin.summaryform.edit', compact('old', 'new','name'));
         } else {
             return view('admin.summaryform.old');
         }

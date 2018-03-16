@@ -17,10 +17,9 @@
   <body class="login-page">
     <div class="login-box">
       <div class="login-logo">
-        小贷报表管理
+        <b  style="color:white;">安徽省小额贷款公司 </b><br><span style="color: #d2d6de;">报表管理系统 </span>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-
         <form action="{{ route('login') }}" method="post">
           {{ csrf_field() }}
           {{--<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">--}}
@@ -76,6 +75,8 @@
         {{--<a href="register.html" class="text-center">Register a new membership</a>--}}
 
       </div><!-- /.login-box-body -->
+     <div style="padding-top: 100px; color:white; font-size: 12px; text-align: center;">   联系方式：156****8956 </div>
+
     </div><!-- /.login-box -->
 
     <!-- jQuery 2.1.4 -->
