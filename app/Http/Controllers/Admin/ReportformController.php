@@ -181,8 +181,8 @@ class ReportformController extends Controller
         $user = Auth::user();
         $reportform = new Reportform;
         if ($id) {
-            $report = $reportform->where('id', $id)->get()->first();
-             $company=Company::where('uid',$user->id)->get(['name'])->first();
+             $report = $reportform->where('id', $id)->get()->first();
+             $company=Company::where('uid',$report->uid)->get(['name'])->first();
         }
         if ($report) {
             return view('admin.report.reportform', compact('report','company'));
