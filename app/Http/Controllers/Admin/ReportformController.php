@@ -199,7 +199,7 @@ class ReportformController extends Controller
         $user = Auth::user();
         $areacode = $user['areacode'];
         $type = $user['type'];
-        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code','edit','cid'];
+        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code','edit','company.id as cid'];
         if ($type == 1) {
             //企业登录查看上传的报表
             $reports = DB::table('company')
