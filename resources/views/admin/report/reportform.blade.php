@@ -53,7 +53,7 @@
                         <td style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: center; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="91">
                             1
                         </td>
-                        <td colspan="2" rowspan="8" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: left; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="336">
+                        <td colspan="2" rowspan="8" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: center; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="336">
                             3.&nbsp;&nbsp;财务情况
                         </td>
                         <td colspan="3" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="588">
@@ -144,7 +144,7 @@
                         <td style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: center; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="91">
                             9
                         </td>
-                        <td colspan="2" rowspan="52" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: left; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="336">
+                        <td colspan="2" rowspan="52" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: center; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="336">
                             4.&nbsp;&nbsp;贷款情况
                         </td>
                         <td colspan="3" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: left; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="588">
@@ -794,7 +794,7 @@
                         <td style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: center; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="91">
                             61
                         </td>
-                        <td colspan="2" rowspan="8" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: left; vertical-align: middle; border-left: 1px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0);" width="336">
+                        <td colspan="2" rowspan="8" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: center; vertical-align: middle; border-left: 1px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0);" width="336">
                             5.&nbsp;&nbsp;融入资金金额
                         </td>
                         <td colspan="3" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; vertical-align: middle; border-left: 1px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(0, 0, 0);" width="588">
@@ -885,7 +885,7 @@
                         <td style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: center; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="91">
                             69
                         </td>
-                        <td colspan="2" rowspan="2" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: left; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="336">
+                        <td colspan="2" rowspan="2" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: center; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="336">
                             6.&nbsp;&nbsp;税务情况
                         </td>
                         <td colspan="3" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="588">
@@ -910,10 +910,9 @@
                         <td style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: center; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="91">
                             71
                         </td>
-                        <td style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: left; vertical-align: middle; border-bottom: 2px solid rgb(0, 0, 0);" width="168">
+                        <td colspan="2" rowspan="2" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: center; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="336">
                             7.&nbsp;&nbsp;注释及说明
                         </td>
-                        <td style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: left; vertical-align: middle; border-bottom: 2px solid rgb(0, 0, 0);" width="188"></td>
                         <td colspan="4" style="color: rgb(0, 0, 0); font-size: 16px; font-weight: 400; font-style: normal; text-align: center; vertical-align: middle; border-width: 1px; border-style: solid; border-color: rgb(0, 0, 0);" width="746">
                             {{ $report->description}}
                         </td>
