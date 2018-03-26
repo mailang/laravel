@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title')
        <h1>
-           首页
+           报表管理
             <small>it all starts here</small>
           </h1>
           <ol class="breadcrumb">
