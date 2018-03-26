@@ -75,7 +75,7 @@
         {{--<a href="register.html" class="text-center">Register a new membership</a>--}}
 
       </div><!-- /.login-box-body -->
-     <div style="padding-top: 100px; color:white; font-size: 12px; text-align: center;">   联系方式：156****8956 </div>
+     <div style="padding-top: 100px; color:white; font-size: 12px; text-align: center;">   联系方式：18949895245 </div>
 
     </div><!-- /.login-box -->
 
