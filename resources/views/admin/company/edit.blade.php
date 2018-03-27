@@ -267,6 +267,14 @@
                         </div>
 
                         <script language="javascript">
+                            function toDecimal(x) {
+                                var f = parseFloat(x);
+                                if (isNaN(f)) {
+                                    return;
+                                }
+                                f = Math.round(x * 100) / 100;
+                                return f;
+                            }
                             $(function () {
                                 var html = '                       <div class="row margin lprow">\n' +
                                     '                                <label for="profit_income" class="col-sm-3 control-label">姓名或公司名称:</label>\n' +
