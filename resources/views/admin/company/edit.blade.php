@@ -326,6 +326,10 @@
                                         $(".lpcontent .lp_name:last").val(obj.name);
                                         $(".lpcontent .lp_money:last").val(obj.money);
                                         $(".lpcontent .lp_equity:last").val(obj.equity);
+                                        $(".sublp").click(function () {
+                                            $(this).parents(".lprow").remove();
+
+                                        });
                                     });
                                 }
                             });
