@@ -356,13 +356,17 @@
                         alllp_money += Number($(this).val());
                     });
 
-                    if($("#reg_capital").val() != alllp_money)
+                    if(!equal($("#reg_capital").val(),alllp_money))
                     {
                         $.alert("股本金额填写错误！");
                         return false;
                     }
 
                     return true;
+                }
+
+                function equal(numa,numb){
+                    return Math.abs(numa - numb) < 0.0000001;
                 }
 
                 $(function () {
