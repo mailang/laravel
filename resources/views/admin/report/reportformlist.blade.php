@@ -61,7 +61,11 @@
                         @if(isset($userlist))
                             @foreach($userlist as $user)
                                 <tr class="notupload">
-                                    <td><a href="{{route('company.show',$user->cid)}}">{{ $user->name}}</a></td>
+                                    @if($user->cid)
+                                        <td><a href="{{route('company.show',$user->cid)}}">{{ $user->name}}</a></td>
+                                    @else
+                                        <td>{{ $user->name}}</td>
+                                    @endif
                                     <td>{{ $user->code}}</td>
                                     <td></td>
                                     <td></td>
