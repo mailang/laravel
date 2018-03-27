@@ -29,14 +29,21 @@
     <![endif]-->
 
     <!-- jQuery 2.1.4 -->
+    <!--[if !IE]> -->
     <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}" type="text/javascript"></script>
+    <!-- <![endif]-->
+    <!--[if IE]>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <![endif]-->
     <!-- Bootstrap 3.3.2 JS -->
     <script src="{{asset('bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
     <!-- SlimScroll -->
     <script src="{{asset('plugins/slimScroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
     <!-- FastClick -->
+    <!--[if !IE]> -->
     <script src="{{asset('plugins/fastclick/fastclick.min.js')}}" type="text/javascript"></script>
-    <!-- AdminLTE App -->
+    <!-- <![endif]-->
+<!-- AdminLTE App -->
     <script src="{{asset('dist/js/app.min.js')}}" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('dist/js/demo.js')}}" type="text/javascript"></script>
@@ -49,7 +56,9 @@
     <script src="{{asset('plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js')}}"></script>
     <script src="{{asset('js/jquery.linq.min.js')}}"></script>
     <script src="{{asset('js/jquery.json.min.js')}}"></script>
+    <!--[if !IE]> -->
     <script src="{{asset('js/xlsx.core.min.js')}}"></script>
+    <!-- <![endif]-->
     <script src="{{asset('js/FileSaver.min.js')}}"></script>
     <script src="{{asset('js/tableExport.min.js')}}"></script>
   </head>
