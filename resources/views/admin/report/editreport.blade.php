@@ -1421,7 +1421,7 @@
                 //贷款余额不能大于资产总额
                 if(Number($("#total_capital").val().replace(/,/g,'')) < Number($("#loan_remainder").val().replace(/,/g,'')))
                 {
-                    $.alert("不良贷款余额不能大于贷款余额！");
+                    $.alert("贷款余额不能大于资产总额！");
                     return false;
                 }
 
