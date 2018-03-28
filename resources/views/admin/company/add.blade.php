@@ -54,7 +54,7 @@
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input check-type="required" class="form-control pull-right" id="opening_at"
+                                    <input check-type="required date" class="form-control pull-right" id="opening_at"
                                            name="opening_at"
                                            placeholder="开业时间" type="text" data-date-end-date="0d">
                                 </div>
@@ -317,6 +317,17 @@
 
             </div>
             <script language="javascript">
+                $(function () {
+                    var $inp = $('input:text');
+                    $inp.bind('keydown', function (e) {
+                        var key = e.which;
+                        if (key == 13) {
+                            e.preventDefault();
+                            var nxtIdx = $inp.index(this) + 1;
+                            jQuery(":input:text:eq(" + nxtIdx + ")").focus();
+                        }
+                    });
+                });
                 function toVaild() {
                     var areacode = $("#areacode2").val();
                     if (areacode == "--请选择--") {
@@ -370,8 +381,9 @@
                 }
 
                 $(function () {
-                    $("#form").validation({
-                        ignore: "#incometax"
+                    $("#form").validation();
+                    $("#opening_at").change(function () {
+                        $(this).validateFieldsingle();
                     });
                     $("#btnsubmit").on('click', function (event) {
                         // 2.最后要调用 valid()方法。

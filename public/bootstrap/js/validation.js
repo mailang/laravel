@@ -166,6 +166,12 @@
         return !validationError;        
     }
 
+    $.fn.validateFieldsingle = function(){
+        var el = $(this),
+        valid = (el.attr('check-type')==undefined)?null:el.attr('check-type').split(' ');
+        return validateField(this,valid);
+    }
+
    $.fn.validation.defaults = {
         validRules : [
             {name: 'required', validate: function(value) {return ($.trim(value) == '');}, defaultMsg: '请输入内容。'},
