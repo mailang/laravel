@@ -29,8 +29,8 @@
                 <i class="fa fa-dashboard"></i> <span>报表管理</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{{route('reportform.addreport')}}"><i class="fa fa-circle-o"></i>上传报表</a></li>
-                <li><a href="{{route('reportform.reportlist')}}"><i class="fa fa-circle-o"></i>企业查看报表</a></li>
+                <li><a href="{{route('reportform.addreport')}}"><i class="fa fa-circle-o"></i>报表填报</a></li>
+                <li><a href="{{route('reportform.reportlist')}}"><i class="fa fa-circle-o"></i>查看历史报表</a></li>
               </ul>
             </li>
           </ul>  
@@ -53,7 +53,7 @@
               </a>
               <ul class="treeview-menu">
                   <li><a href="{{route('summaryform.uploadlist')}}"><i class="fa fa-circle-o"></i>查看上传报表</a></li>
-                  <li><a href="{{route('summaryform.create')}}"><i class="fa fa-circle-o"></i>上传报表</a></li>
+                  <li><a href="{{route('summaryform.create')}}"><i class="fa fa-circle-o"></i>报表填报</a></li>
                   <li><a href="{{route('summaryform.index')}}"><i class="fa fa-circle-o"></i>查看历史报表</a></li>
               </ul>
             </li>

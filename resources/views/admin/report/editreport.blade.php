@@ -673,7 +673,7 @@
                           <div class="form-group">
                                   <div class="input-group">
                                       <input class="form-control" check-type="number required"
-                                             type="text" placeholder="净利润" name="normal_loan_remainder" id="normal_loan_remainder" value="{{$report->normal_loan_remainder}}"/>
+                                             type="text" placeholder="正常贷款余额" name="normal_loan_remainder" id="normal_loan_remainder" value="{{$report->normal_loan_remainder}}"/>
                                       <span class="input-group-addon">万元</span>
                                   </div>
                               </div>
