@@ -48,11 +48,11 @@ class SummaryformController extends Controller
         if ($id == null) {
             $user = Auth::user();
             $areacode = $user['areacode'];
-            $time = date('Y-m-01', strtotime('-1 month'));
+            $time = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
         } else {
             $user = Users::find($id);
             $areacode = $user['areacode'];
-            $time = date('Y-m-01', strtotime('-1 month'));
+            $time = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
         }
         $isfirst = Area::where('pcode', $areacode)->get(['areacode']);
         //dd($isfirst);
@@ -124,7 +124,7 @@ class SummaryformController extends Controller
         $areacode = $user['areacode'];
         //$field = ['reportform.id','reportform.updated_at','company.name','company.code'];
 
-        $isuploaded = Summaryform::where("uid", $user->id)->whereDate('dtime', date('Y-m-01', strtotime('-1 month')))->first();
+        $isuploaded = Summaryform::where("uid", $user->id)->whereDate('dtime', date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month')))->first();
         //dd(date('Y-m-01', strtotime('-1 mounth')));
 
         if ($isuploaded) {
@@ -132,7 +132,7 @@ class SummaryformController extends Controller
         }
 
         $isfirst = Area::where('pcode', $areacode)->get();
-        $datenew = date('Y-m-01', strtotime('-1 month'));
+        $datenew = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
         $dateold = date('Y-12-01',strtotime('-1 year',strtotime($datenew)));
         //$summary = new Summaryform();
         //$old = $summary
@@ -312,7 +312,7 @@ class SummaryformController extends Controller
             $reports = DB::table('company')
                 ->rightJoin('reportform', 'company.uid', '=', 'reportform.uid')
                 ->where('reportform.areacode', $areacode)
-                ->whereDate('reportform.dtime', date('Y-m-01', strtotime('-1 month')))->get();
+                ->whereDate('reportform.dtime', date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month')))->get();
 
             $new->total_capital = $reports->sum('total_capital');
             $new->money_capital = $reports->sum('money_capital');
@@ -418,7 +418,7 @@ class SummaryformController extends Controller
             $reports = DB::table('area')
                 ->rightJoin('summaryform', 'summaryform.areacode', '=', 'area.areacode')
                 ->where('area.pcode', $areacode)
-                ->whereDate('summaryform.dtime', date('Y-m-01', strtotime('-1 month')))->get();
+                ->whereDate('summaryform.dtime', date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month')))->get();
             $columns = Schema::getColumnListing('summaryform');
 
             foreach ($columns as $key => $column){
@@ -456,7 +456,7 @@ class SummaryformController extends Controller
     public function store(Request $request)
     {
         //
-        $datenew = date('Y-m-01', strtotime('-1 month'));
+        $datenew = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
         $user = Auth::user();
         $areacode = $user['areacode'];
         $all = $request->all();
@@ -468,13 +468,13 @@ class SummaryformController extends Controller
         $newr = $all["new"];
         $newr["areacode"] = $areacode;
         $newr["uid"] = Auth::user()->id;
-        $newr["dtime"] = date('Y-m-01', strtotime('-1 month'));
+        $newr["dtime"] = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
          $res1 = Summaryform::create($newr);
 
          $summary=new Summaryform();
          $id=  $summary
             ->where('uid',Auth::user()->id)
-            ->whereDate('dtime', date('Y-m-01', strtotime('-1 month')))->get(['id'])->first();
+            ->whereDate('dtime', date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month')))->get(['id'])->first();
 
             $oldr = $all["old"];
             $oldr["id"]= $id->id;
