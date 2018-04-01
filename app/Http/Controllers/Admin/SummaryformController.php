@@ -12,6 +12,7 @@ use App\Models\Area;
 use App\Models\reportform;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use App\Src\timedefine;
 
 class SummaryformController extends Controller
 {
@@ -44,15 +45,15 @@ class SummaryformController extends Controller
 
         $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid','company.id as cid'];
         $url = "";
-
+        $datenew = timedefine::getdatenew();
         if ($id == null) {
             $user = Auth::user();
             $areacode = $user['areacode'];
-            $time = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
+            $time = $datenew;
         } else {
             $user = Users::find($id);
             $areacode = $user['areacode'];
-            $time = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
+            $time = $datenew;
         }
         $isfirst = Area::where('pcode', $areacode)->get(['areacode']);
         //dd($isfirst);
@@ -123,17 +124,18 @@ class SummaryformController extends Controller
         $user = Auth::user();
         $areacode = $user['areacode'];
         //$field = ['reportform.id','reportform.updated_at','company.name','company.code'];
+        $datenew = timedefine::getdatenew();
 
-        $isuploaded = Summaryform::where("uid", $user->id)->whereDate('dtime', date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month')))->first();
-        //dd(date('Y-m-01', strtotime('-1 mounth')));
+        $isuploaded = Summaryform::where("uid", $user->id)->whereDate('dtime', $datenew)->first();
+        //dd(date('Y-m-01', strtotime('-1 month')));
 
         if ($isuploaded) {
             return view("admin.report.isuploaded");
         }
 
         $isfirst = Area::where('pcode', $areacode)->get();
-        $datenew = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
-        $dateold = date('Y-12-01',strtotime('-1 year',strtotime($datenew)));
+        $datenew = timedefine::getdatenew();
+        $dateold = timedefine::getdateold();
         //$summary = new Summaryform();
         //$old = $summary
            // ->where("uid", $user->id)
@@ -261,7 +263,7 @@ class SummaryformController extends Controller
                 $reports = DB::table('area')
                     ->rightJoin('oldsummaryform', 'oldsummaryform.areacode', '=', 'area.areacode')
                     ->where('area.pcode', $areacode)
-                    ->whereDate('oldsummaryform.dtime', date('Y-12-01',strtotime('-1 year',strtotime($datenew))))
+                    ->whereDate('oldsummaryform.dtime', timedefine::getdateold())
                     ->whereBetween('oldsummaryform.created_at',[date('Y-m-01 00:00:00',time()),date('Y-m-d H:i:s')])
                     ->get();
 
@@ -312,7 +314,7 @@ class SummaryformController extends Controller
             $reports = DB::table('company')
                 ->rightJoin('reportform', 'company.uid', '=', 'reportform.uid')
                 ->where('reportform.areacode', $areacode)
-                ->whereDate('reportform.dtime', date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month')))->get();
+                ->whereDate('reportform.dtime', $datenew)->get();
 
             $new->total_capital = $reports->sum('total_capital');
             $new->money_capital = $reports->sum('money_capital');
@@ -418,7 +420,7 @@ class SummaryformController extends Controller
             $reports = DB::table('area')
                 ->rightJoin('summaryform', 'summaryform.areacode', '=', 'area.areacode')
                 ->where('area.pcode', $areacode)
-                ->whereDate('summaryform.dtime', date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month')))->get();
+                ->whereDate('summaryform.dtime', $datenew)->get();
             $columns = Schema::getColumnListing('summaryform');
 
             foreach ($columns as $key => $column){
@@ -456,7 +458,7 @@ class SummaryformController extends Controller
     public function store(Request $request)
     {
         //
-        $datenew = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
+        $datenew = timedefine::getdatenew();
         $user = Auth::user();
         $areacode = $user['areacode'];
         $all = $request->all();
@@ -468,19 +470,19 @@ class SummaryformController extends Controller
         $newr = $all["new"];
         $newr["areacode"] = $areacode;
         $newr["uid"] = Auth::user()->id;
-        $newr["dtime"] = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
+        $newr["dtime"] = $datenew;
          $res1 = Summaryform::create($newr);
 
          $summary=new Summaryform();
          $id=  $summary
             ->where('uid',Auth::user()->id)
-            ->whereDate('dtime', date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month')))->get(['id'])->first();
+            ->whereDate('dtime', $datenew)->get(['id'])->first();
 
             $oldr = $all["old"];
             $oldr["id"]= $id->id;
             $oldr["areacode"] = $areacode;
             $oldr["uid"] = Auth::user()->id;
-            $oldr["dtime"] = date('Y-12-01',strtotime('-1 year',strtotime($datenew)));
+            $oldr["dtime"] = timedefine::getdateold();
 
             $res0 = oldsummaryform::create($oldr);
             //如果是一级审核机构，提交汇总报表后，则该区域内的企业提交的报表不可以更改

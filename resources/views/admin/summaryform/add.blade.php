@@ -44,7 +44,7 @@
                             </td>
                             <td class="et8" colspan="2" width="414"
                                 style="font-size: 12pt; vertical-align: middle; border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 39pt; width: 310.5pt;">
-                                &nbsp;报送周期：{{date('Y年m月', strtotime(date('Y-m-01') . ' -1 month'))}}
+                                &nbsp;报送周期：{{date('Y年m月', strtotime(\App\Src\timedefine::getdatenew()))}}
                             </td>
                             <td class="et9" colspan="3" width="394"
                                 style="font-size: 12pt; text-align: right; vertical-align: middle; height: 39pt; width: 295.5pt;">

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Redirect;
 use Excel;
 use PHPExcel;
 use PHPExcel_IOFactory;
+use App\Src\timedefine;
 
 define('base_path',str_replace('\\','/',realpath(dirname(__FILE__).'/../../'))."/");
 class ReportformController extends Controller
@@ -139,9 +140,10 @@ class ReportformController extends Controller
     public function addreport(Request $request, $old = null)
     {
         $user = Auth::user();
-        //$dateold = date('Y-12-01', strtotime('-1 year'));
-        $datenew = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
-        $dateold = date('Y-12-01',strtotime('-1 year',strtotime($datenew)));
+
+        $datenew = timedefine::getdatenew();
+        $dateold = timedefine::getdateold();
+
 
         $isuploadedold = Reportform::where("uid", $user->id)->whereDate('dtime', $dateold)->first();
         $isuploadednew = Reportform::where("uid", $user->id)->whereDate('dtime', $datenew)->first();
@@ -256,12 +258,12 @@ class ReportformController extends Controller
         $req = $request;
         $report = new Reportform;
         $user = Auth::user();
-
+        $datenew = timedefine::getdatenew();
         $report->uid = $user['id'];
         $report->areacode = $user['areacode'];
 
         $result = $report->where('uid', $report->uid)
-            ->whereDate('dtime', date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month')))
+            ->whereDate('dtime', $datenew)
             ->get();
         if ($result->isEmpty()) {
             $report->total_capital = $req['total_capital'];
@@ -342,7 +344,7 @@ class ReportformController extends Controller
             $report->dtime = $req['dtime'];
 
             if ($report->save()) {
-                $datenew = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
+                $datenew = timedefine::getdatenew();
                 if ($req['dtime'] == $datenew){
                     flash("报表上传成功!", "success");
                 }
@@ -461,7 +463,7 @@ class ReportformController extends Controller
         $report['incometax']= $req['incometax'];
         $report['description']= $req['description'];
         if ($report->save()) {
-            $datenew = date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
+            $datenew = timedefine::getdatenew();
             if ($req['dtime'] == $datenew){
                 flash("报表上传成功!", "success");
             }

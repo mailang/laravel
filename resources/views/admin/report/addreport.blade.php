@@ -45,7 +45,7 @@
                             公司：  {{$data['name'] }}
                         </td>
                         <td  width="195">
-                            报送日期：{{date('Y年m月', strtotime(date('Y-m-01') . ' -1 month'))}}
+                            报送日期：{{date('Y年m月', strtotime(\App\Src\timedefine::getdatenew()))}}
                         </td>
                         <td colspan="3" width="530">
                             &nbsp;数据单位：家、人、万元、户、%
