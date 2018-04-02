@@ -195,13 +195,18 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="profit_income" class="col-sm-4 control-label">业务开展区域:</label>
-                            <div class="col-sm-4">
-
-                                    <textarea check-type="required" class="form-control" type="text"
-                                              placeholder="业务开展区域" name="scope"
-                                              id="scope">{{$company['scope']}}</textarea>
-
+                            <label for="profit_income" class="col-sm-4 control-label">业务范围:</label>
+                            <div id="scoplist" class="col-sm-4">
+                                <?php $list=explode('|',$company['scope']);?>
+                                <input type="checkbox" value="发放小额贷款" @if(in_array("发放小额贷款",$list))checked @endif  id="1st"><label for="1st"> 发放小额贷款</label>
+                                <input type="checkbox" value="票据贴现业务" @if(in_array("票据贴现业务",$list))checked @endif id="2nd"><label for="2nd"> 票据贴现业务</label>
+                                <input type="checkbox" value="信托代理" @if(in_array("信托代理",$list))checked @endif id="3rd"><label for="3rd"> 信托代理</label><input type="checkbox" value="发行私募债" id="7th"><label for="7th"> 发行私募债</label>
+                                <br>
+                                <input type="checkbox" value="向大股东定向借款" @if(in_array("向大股东定向借款",$list))checked @endif id="4th"><label for="4th"> 向大股东定向借款</label>
+                                <input type="checkbox" value="与符合条件的金融机构开展资产转让业务" @if(in_array("与符合条件的金融机构开展资产转让业务",$list))checked @endif id="5th"><label for="5th"> 与符合条件的金融机构开展资产转让业务</label>
+                                <input type="checkbox" value="部分资产收益权转让" @if(in_array("部分资产收益权转让",$list))checked @endif id="6th"><label for="6th"> 部分资产收益权转让</label>
+                                <input type="checkbox" value="其他经省金融办批准业务" @if(in_array("其他经省金融办批准业务",$list))checked @endif id="8th"><label for="8th"> 其他经省金融办批准业务</label>
+                                 <input type="hidden" value=""  name="scope" id="scope">
                             </div>
                         </div>
                         <div class="form-group">
@@ -397,11 +402,17 @@
                     alllp_money += Number($(this).val());
                 });
 
-                if(!equal($("#reg_capital").val(),alllp_money))
-                {
+                if(!equal($("#reg_capital").val(),alllp_money)) {
                     $.alert("股本金额填写错误！");
                     return false;
                 }
+                var s="";
+                $("#scoplist input:checkbox:checked").each(function () {
+                    s+=$(this).val()+"|";
+                });
+                if(s=="")   {$.alert("业务范围至少选择一项！");
+                return false;}else $("#scope").val(s);
+
                 return true;
             }
             function equal(numa,numb){
