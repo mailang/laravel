@@ -102,6 +102,7 @@ class Summaryform extends Model
         'saletax',
         "incometax",
         'description',
+        'leader',
         'dtime'
     ];
 }
