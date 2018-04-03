@@ -35,8 +35,7 @@ class ReportformController extends Controller
         $objReader = PHPExcel_IOFactory::createReader($inputFileType);
         $excel=$objReader->load($inputFileName);
         $report=reportform::find($id);
-        $user = Auth::user();
-        $company=DB::table('company')->where('uid',$user->id)->first();
+        $company=DB::table('company')->where('uid',$report->uid)->first();
 
         $excel->getActiveSheet()->setCellValue('A3', $company->name);
         $excel->getActiveSheet()->setCellValue('D3', $report->created_at);
