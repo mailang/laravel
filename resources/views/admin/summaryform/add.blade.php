@@ -1081,7 +1081,7 @@
                             <td class="et22" width="132"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"></td>
                             <td class="et22" width="130"
-                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"><input type="text" check-type="integer required" class="text-center" name="new[Average_interest]" id="new[Average_interest]" value="{{$new->Average_interest}}" /></td>
+                                style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"><input type="text" check-type="number required" class="text-center" name="new[Average_interest]" id="new[Average_interest]" value="{{$new->Average_interest}}" /></td>
                             <td class="et48" width="131"
                                 style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"></td>
                         </tr>
