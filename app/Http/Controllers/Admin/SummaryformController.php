@@ -272,7 +272,7 @@ class SummaryformController extends Controller
 
                 foreach ($columns as $key => $column){
                     //if()
-                    $arr = array('id','uid','areacode','areacode','areacode','highest_interest','lowest_interest','Average_interest','othertype_capital','description','dtime','created_at','updated_at');
+                    $arr = array('id','uid','areacode','areacode','areacode','highest_interest','lowest_interest','Average_interest','othertype_capital','description','dtime','created_at','updated_at','leader');
                     if(in_array($column,$arr)) {
                         continue;
                     }
@@ -426,7 +426,7 @@ class SummaryformController extends Controller
 
             foreach ($columns as $key => $column){
                 //if()
-                $arr = array('id','uid','areacode','areacode','areacode','highest_interest','lowest_interest','Average_interest','othertype_capital','description','dtime','created_at','updated_at');
+                $arr = array('id','uid','areacode','areacode','areacode','highest_interest','lowest_interest','Average_interest','othertype_capital','description','dtime','created_at','updated_at','leader');
                 if(in_array($column,$arr)) {
                     continue;
                 }

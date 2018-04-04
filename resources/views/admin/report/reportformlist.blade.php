@@ -51,7 +51,7 @@
                                 <td>{{ $report->updated_at }}</td>
                                 <td>
                                     @if(!isset($report->edit)|| $report->edit>0)
-                                    <a href="{{route('reportform.seereport',$report->id)}}">查看</a>
+                                        <a href="{{route('reportform.seereport',$report->id)}}">查看</a>
                                     @else
                                         <a href="{{route('reportform.edit',$report->id)}}">编辑</a>
                                     @endif
