@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Area;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CompanyRequest;
+use Illuminate\Support\Facades\Session;
 
 class CompanyController extends Controller
 {
@@ -27,7 +28,9 @@ class CompanyController extends Controller
         }
         else
         {
-            return view("admin.company.add",compact('areacode'));
+            $token = md5(time());
+            Session::flash("token_c", $token);
+            return view("admin.company.add",compact('areacode','token'));
         }
 
     }
@@ -63,6 +66,13 @@ class CompanyController extends Controller
         }
         else
         {
+            if(empty(Session::get("token_c"))) {
+                flash("请勿重复提交!","error");
+                return redirect()->back();
+            }
+            $sessionold = Session::get("token_c");
+            Session::forget("token_c");
+            $sessionnew = Session::get("token_c");
             $res = Company::create($request->all());
         }
         if($res)
