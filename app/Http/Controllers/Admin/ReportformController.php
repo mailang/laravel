@@ -142,17 +142,31 @@ class ReportformController extends Controller
 
         $datenew = timedefine::getdatenew();
         $dateold = timedefine::getdateold();
+        $dateoldopen = timedefine::getdateoldopen();
 
+        $company = Company::where("uid",$user->id)->first();
+        $isopenold = (strtotime($company->opening_at) < strtotime($dateoldopen));
+
+        //dd($company,$isopen,$company->opening_at,$dateoldopen,strtotime($company->opening_at),date("Y-m-d H:i:s",strtotime($dateoldopen)));
 
         $isuploadedold = Reportform::where("uid", $user->id)->whereDate('dtime', $dateold)->first();
         $isuploadednew = Reportform::where("uid", $user->id)->whereDate('dtime', $datenew)->first();
-        if (!$isuploadedold) {
+
+        $data['old_loan_remainder'] = "";
+        $data['old_loan_family'] = "";
+        $data['old_loan_num'] = "";
+        if (!$isuploadedold && $isopenold) {
             $request->session()->flash('modeltext', "您需先补填历史报表！");
             $time = $dateold;
         } else {
             if ($isuploadednew) {
                 return view("admin.report.isuploaded");
             } else {
+                if ($isuploadedold){
+                    $data['old_loan_remainder'] = $isuploadedold->loan_remainder;
+                    $data['old_loan_family'] = $isuploadedold->loan_family;
+                    $data['old_loan_num'] = $isuploadedold->loan_num;
+                }
                 $time = $datenew;
             }
         }
@@ -379,6 +393,18 @@ class ReportformController extends Controller
         $company = Company::where('uid','=',$user->id)->first();
         $data['reg_capital'] = $company->reg_capital;
         $data['name'] = $company->name;
+
+
+        $data['old_loan_remainder'] = "";
+        $data['old_loan_family'] = "";
+        $data['old_loan_num'] = "";
+        $isuploadedold = Reportform::where("uid", $user->id)->whereDate('dtime', timedefine::getdateold($time))->first();
+        if($isuploadedold){
+            $data['old_loan_remainder'] = $isuploadedold->loan_remainder;
+            $data['old_loan_family'] = $isuploadedold->loan_family;
+            $data['old_loan_num'] = $isuploadedold->loan_num;
+        }
+
         //dd($report);
         return view('admin.report.editreport',compact('report','data'));
 

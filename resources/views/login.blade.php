@@ -80,6 +80,7 @@
       </div><!-- /.login-box-body -->
      <div style="padding-top: 100px; color:white; font-size: 12px; text-align: center;">   联系方式：18949895245 </div>
       <div style=" color:white; font-size: 12px; text-align: center;">   操作问题 请加 QQ 群：255459368 </div>
+      <div style=" color:white; font-size: 12px; text-align: center;"><a href="/download/360cse.exe">浏览器下载</a></div>
     </div><!-- /.login-box -->
 
     <!-- jQuery 2.1.4 -->

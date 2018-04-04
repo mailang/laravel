@@ -1399,6 +1399,8 @@
                 ignore: "#incometax"
             });
             $("#btnsubmit").on('click', function (event) {
+
+
                 //实收资本金等于公司注册资金
                 if($("#paidup_capital").val().replace(/,/g,'') != "{{$data['reg_capital']}}"){
                     $.alert("实收资本需和公司注册资本金相同！");
@@ -1442,8 +1444,32 @@
 
                 loan_remainder = Number($("#loan_remainder").val().replace(/,/g,''));
                 loan_family = Number($("#loan_family").val().replace(/,/g,''));
+                loan_num = Number($("#loan_num").val().replace(/,/g,''));
                 year_issueloan = Number($("#year_issueloan").val().replace(/,/g,''));
                 year_issuefamily = Number($("#year_issuefamily").val().replace(/,/g,''));
+                year_issuenum = Number($("#year_issuenum").val().replace(/,/g,''));
+                year_backloan = Number($("#year_backloan").val().replace(/,/g,''));
+                year_backfamily = Number($("#year_backfamily").val().replace(/,/g,''));
+                year_backnum = Number($("#year_backnum").val().replace(/,/g,''));
+
+
+                if("{{$data['old_loan_remainder']}}" != ""){
+                    sum_loan_remainder =  {{$data['old_loan_remainder']}} + year_issueloan + year_backloan;
+                    if(!equal(sum_loan_remainder,loan_remainder)){
+                        $.alert("贷款余额需等于年初贷款余额+本年内累计发放贷款金额-本年内累计收回贷款金额");
+                        return false;
+                    }
+                }
+
+
+                if("{{$data['old_loan_num']}}" != ""){
+                    sum_loan_num =  {{$data['old_loan_num']}} + year_issuenum + year_backnum;
+                    if(!equal(sum_loan_num,loan_num)){
+                        $.alert("贷款笔数需等于年初贷款笔数+本年内累计发放贷款笔数-本年内累计收回贷款笔数");
+                        return false;
+                    }
+                }
+
 
                 loan_remainder_s1 = Number($("#farmer_loan_remainder").val().replace(/,/g,'')) +
                     Number($("#company_loan_remainder").val().replace(/,/g,'')) +　Number($("#person_loan_remainder").val().replace(/,/g,''));

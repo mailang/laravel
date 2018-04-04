@@ -11,7 +11,15 @@ class timedefine{
    static  function getdatenew(){
        return date('Y-m-d', strtotime(date('Y-m-01') . ' -2 month'));
    }
-   static  function  getdateold(){
-       return date('Y-12-01',strtotime('-1 year',strtotime(self::getdatenew())));
+   static  function  getdateold($dtime = null){
+       if ($dtime){
+           return date('Y-12-01',strtotime('-1 year',strtotime($dtime)));
+       }
+       else{
+           return date('Y-12-01',strtotime('-1 year',strtotime(self::getdatenew())));
+       }
    }
+    static  function  getdateoldopen(){
+        return date('Y-m-d',strtotime('+1 month',strtotime(self::getdateold())));
+    }
 }

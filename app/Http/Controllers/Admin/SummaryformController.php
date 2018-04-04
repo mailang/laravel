@@ -136,17 +136,18 @@ class SummaryformController extends Controller
         $isfirst = Area::where('pcode', $areacode)->get();
         $datenew = timedefine::getdatenew();
         $dateold = timedefine::getdateold();
+        $dateoldopen = timedefine::getdateoldopen();
         //$summary = new Summaryform();
         //$old = $summary
-           // ->where("uid", $user->id)
-           // ->whereDate('dtime', date('Y-12-01',strtotime('-1 year',strtotime($datenew))))
-          //  ->get()
-          //  ->first();
-            //$old=new Summaryform();
+        // ->where("uid", $user->id)
+        // ->whereDate('dtime', date('Y-12-01',strtotime('-1 year',strtotime($datenew))))
+        //  ->get()
+        //  ->first();
+        //$old=new Summaryform();
              $old=new oldsummaryform();
             if ($isfirst->isEmpty()) {
 
-                $table = DB::table("company")->where('areacode', $areacode)->whereDate('opening_at','<',$dateold)->get();
+                $table = DB::table("company")->where('areacode', $areacode)->whereDate('opening_at','<',$dateoldopen)->get();
                 $old->lp_ins_num = $table->count();
                 $old->branch_ins_num = $table->sum('branch_num');
                 $old->all_ins_num = $old->lp_ins_num + $old->branch_ins_num;
