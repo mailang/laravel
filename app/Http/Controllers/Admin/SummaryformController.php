@@ -265,7 +265,7 @@ class SummaryformController extends Controller
                     ->rightJoin('oldsummaryform', 'oldsummaryform.areacode', '=', 'area.areacode')
                     ->where('area.pcode', $areacode)
                     ->whereDate('oldsummaryform.dtime', timedefine::getdateold())
-                    ->whereBetween('oldsummaryform.created_at',[date('Y-m-01 00:00:00',time()),date('Y-m-d H:i:s')])
+                    //->whereBetween('oldsummaryform.created_at',[date('Y-m-01 00:00:00',time()),date('Y-m-d H:i:s')])
                     ->get();
 
                 $columns = Schema::getColumnListing('oldsummaryform');
