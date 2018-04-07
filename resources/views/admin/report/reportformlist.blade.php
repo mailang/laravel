@@ -50,11 +50,24 @@
                                 <td>{{ date('Y-m',strtotime($report->dtime))}}</td>
                                 <td>{{ $report->updated_at }}</td>
                                 <td>
+                                    <div>
                                     @if(!isset($report->edit)|| $report->edit>0)
                                         <a href="{{route('reportform.seereport',$report->id)}}">查看</a>
                                     @else
                                         <a href="{{route('reportform.edit',$report->id)}}">编辑</a>
                                     @endif
+                                    </div>
+                                    @if(isset($enableback) && $enableback && $report->enableedit>0)
+                                        <div>
+                                            <a attr="{{$report->id}}" onclick="javascript:back(this);"  href="#">退回</a>
+                                        </div>
+                                    @endif
+                                    @if('reportform.reportlist' != Route::currentRouteName())
+                                        <div>
+                                            <a href="{{route('reportform.reportlist',$report->uid)}}">查看历史报表</a>
+                                        </div>
+                                     @endif
+
                                 </td>
                             </tr>
                         @endforeach
@@ -69,7 +82,18 @@
                                     <td>{{ $user->code}}</td>
                                     <td></td>
                                     <td></td>
-                                    <td style="background-color: palevioletred; color: white;">数据未上传</td>
+                                    <td>
+                                        <div style="background-color: palevioletred; color: white;">
+                                        数据未上传
+                                        </div>
+                                        @if($user->cid)
+                                            @if('reportform.reportlist' != Route::currentRouteName())
+                                                <div>
+                                                    <a href="{{route('reportform.reportlist',$user->id)}}">查看历史报表</a>
+                                                </div>
+                                            @endif
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         @endif
@@ -77,6 +101,33 @@
                   </table>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
+    <div class="modal fade" id="modal-delete" tabIndex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        ×
+                    </button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <form id="deleteForm" class="deleteForm" method="POST" action="">
+                    <div class="modal-body">
+                        <p class="lead">
+
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" id="newsid" name="newsid" value="">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-times-circle"></i>确认
+                        </button>
+                    </div> </form>
+            </div>
+        </div>
+    </div>
               <script type="text/javascript">
                   function uploaded(obj)
                   {
@@ -91,6 +142,12 @@
                       $(".upload").hide();
                       $(".notupload").show();
                       $(obj).parent().addClass("current").siblings().removeClass("current");
+                  }
+                  function back(obj) {
+                      var id = $(obj).attr('attr');
+                      $('.deleteForm').attr('action', '/admin/report/back/' + id);
+                      $(".lead").html(" <i class=\"fa fa-question-circle fa-lg\"></i>确定要退回吗?");
+                      $("#modal-delete").modal();
                   }
               </script>
 @endsection

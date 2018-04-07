@@ -46,7 +46,14 @@
                         <td><a href="{{$url.'/'.$report->uid}}">{{ $report->name}}</a></td>
                         <td>{{ date('Y-m',strtotime($report->dtime))}}</td>
                         <td>{{ $report->updated_at }}</td>
-                        <td> <a href="/admin/summary/{{ $report->id}}">查看</a></td>
+                        <td>
+                            <div><a href="/admin/summary/{{ $report->id}}">查看</a></div>
+                            @if(isset($enableback) && $enableback)
+                                <div>
+                                    <a attr="{{$report->id}}" onclick="javascript:back(this);"  href="#">退回</a>
+                                </div>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
                 @if(isset($userlist))
@@ -63,6 +70,33 @@
             </table>
         </div><!-- /.box-body -->
     </div><!-- /.box -->
+<div class="modal fade" id="modal-delete" tabIndex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    ×
+                </button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <form id="deleteForm" class="deleteForm" method="POST" action="">
+                <div class="modal-body">
+                    <p class="lead">
+
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" id="newsid" name="newsid" value="">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-times-circle"></i>确认
+                    </button>
+                </div> </form>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
    function uploaded(obj)
    {
@@ -77,6 +111,12 @@
        $(".upload").hide();
        $(".notupload").show();
        $(obj).parent().addClass("current").siblings().removeClass("current");
+   }
+   function back(obj) {
+       var id = $(obj).attr('attr');
+       $('.deleteForm').attr('action', '/admin/summary/back/' + id);
+       $(".lead").html(" <i class=\"fa fa-question-circle fa-lg\"></i>确定要退回吗?");
+       $("#modal-delete").modal();
    }
 </script>
 @endsection

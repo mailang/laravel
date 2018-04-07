@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\reportform;
@@ -208,13 +209,21 @@ class ReportformController extends Controller
     }
 
     // 一级审核显示的列表页
-    public function reportlist($areacode = null)
+    public function reportlist($uid = null)
     {
         #
-        $user = Auth::user();
+        if($uid){
+            $user = Users::find($uid);
+            $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code','company.id as cid'];
+        }
+        else{
+            $user = Auth::user();
+            $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code','edit','company.id as cid'];
+        }
+        //dd($user);
         $areacode = $user['areacode'];
         $type = $user['type'];
-        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code','edit','company.id as cid'];
+
         if ($type == 1) {
             //企业登录查看上传的报表
             $reports = DB::table('company')
@@ -224,6 +233,7 @@ class ReportformController extends Controller
                 ->get($field);
 
         } else {
+            //未执行，金融办看到的在summaryform中
             $isfirst = Area::where('pcode', $areacode)->get();
             if ($isfirst->isEmpty()) {
                 //区级审核者审核区以下企业报表
@@ -256,6 +266,15 @@ class ReportformController extends Controller
         $data = \Request::all();
         $reportform = reportform::create($data);
         $this->json_or_dd($reportform->toArray());
+    }
+
+    public function back($id)
+    {
+        $report = reportform::find($id);
+        $report->edit = 0;
+        $report->save();
+        flash('操作成功');
+        return redirect()->back();
     }
 
     //查看本月是否已提交报表，已提交则不可以继续添加

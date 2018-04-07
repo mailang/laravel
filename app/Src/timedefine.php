@@ -9,7 +9,7 @@ namespace App\Src;
 
 class timedefine{
    static  function getdatenew(){
-       return date('Y-m-d', strtotime(date('Y-m-01') . ' -2 month'));
+       return date('Y-m-d', strtotime(date('Y-m-01') . ' -1 month'));
    }
    static  function  getdateold($dtime = null){
        if ($dtime){

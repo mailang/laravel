@@ -43,13 +43,19 @@ class SummaryformController extends Controller
     {
         //
 
-        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid','company.id as cid'];
+        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid','company.id as cid','reportform.edit as enableedit'];
         $url = "";
+        $enableback = false;
         $datenew = timedefine::getdatenew();
         if ($id == null) {
             $user = Auth::user();
             $areacode = $user['areacode'];
             $time = $datenew;
+
+            $isuploaded = Summaryform::where("uid", $user->id)->whereDate('dtime', $datenew)->first();
+            if(!$isuploaded){
+                $enableback = true;
+            }
         } else {
             $user = Users::find($id);
             $areacode = $user['areacode'];
@@ -78,7 +84,7 @@ class SummaryformController extends Controller
                 ->whereNotIn('users.id', array_column($reports->toArray(),"uid" ))
                 ->get(['users.id','company.id as cid','users.name','company.code']);
 
-            return view('admin.report.reportformlist', compact('reports','userlist'));
+            return view('admin.report.reportformlist', compact('reports','userlist','enableback'));
         }
         else {
             //有子级金融办机构
@@ -105,7 +111,7 @@ class SummaryformController extends Controller
                 ->whereNotIn('id',$uidlist )
                 ->get(["id","name"]);
             //dd($userlist);
-            return view('admin.summaryform.list', compact('reports','url','userlist'));
+            return view('admin.summaryform.list', compact('reports','url','userlist','enableback'));
 
         }
 
@@ -474,13 +480,13 @@ class SummaryformController extends Controller
         $newr["dtime"] = $datenew;
          $res1 = Summaryform::create($newr);
 
-         $summary=new Summaryform();
-         $id=  $summary
-            ->where('uid',Auth::user()->id)
-            ->whereDate('dtime', $datenew)->get(['id'])->first();
+//         $summary=new Summaryform();
+//         $id=  $summary
+//            ->where('uid',Auth::user()->id)
+//            ->whereDate('dtime', $datenew)->get(['id'])->first();
 
             $oldr = $all["old"];
-            $oldr["id"]= $id->id;
+            $oldr["id"]= $res1->id;
             $oldr["areacode"] = $areacode;
             $oldr["uid"] = Auth::user()->id;
             $oldr["dtime"] = timedefine::getdateold();
@@ -571,6 +577,19 @@ class SummaryformController extends Controller
     public function destroy(Summaryform $Summaryform)
     {
         //
+    }
+
+    public function back($id)
+    {
+        $summary = Summaryform::find($id);
+        $oldsummary = oldsummaryform::where('id',$id)->first();
+        //dd($summary,$oldsummary);
+//        oldsummaryform::destroy($oldsummary);
+//        Summaryform::destroy($summary);
+        $oldsummary->delete();
+        $summary->delete();
+        flash('操作成功');
+        return redirect()->back();
     }
 
     public function historylist($sid)

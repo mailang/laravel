@@ -16,12 +16,14 @@ Route::get('/seereport/{id?}',['uses'=>'ReportformController@seereport','as' => 
 Route::get('/report/edit/{id}',['uses'=>'ReportformController@edit','as' => 'reportform.edit']);
 Route::get('/report/export/{id}',['uses'=>'ReportformController@export','as' => 'reportform.export']);
 Route::post('/report/edit/{id}',['uses'=>'ReportformController@update','as' => 'reportform.update']);
-Route::get('/reportlist/{areacode?}',['uses'=>'ReportformController@reportlist','as' => 'reportform.reportlist']);
+Route::get('/reportlist/{uid?}',['uses'=>'ReportformController@reportlist','as' => 'reportform.reportlist']);
+Route::post('/report/back/{id}',['uses'=>'ReportformController@back','as' => 'reportform.back']);
 
 
 Route::get('/summarylist',['uses'=>'SummaryformController@index','as' => 'summaryform.index']);
 Route::get('/summary/{id?}',['uses'=>'SummaryformController@show','as' => 'summaryform.show']);
 Route::get('/summaryadd',['uses'=>'SummaryformController@create','as' => 'summaryform.create']);
 Route::post('/summaryadd',['uses'=>'SummaryformController@store','as' => 'summaryform.store']);
+Route::post('/summary/back/{id}',['uses'=>'SummaryformController@back','as' => 'summaryform.back']);
 Route::get('/uploadlist/{id?}',['uses'=>'SummaryformController@uploadlist','as' => 'summaryform.uploadlist']);
 Route::get('/historylist/{sid?}',['uses'=>'SummaryformController@historylist','as' => 'summaryform.historylist']);
