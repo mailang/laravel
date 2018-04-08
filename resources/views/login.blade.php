@@ -82,7 +82,7 @@
       <div style="padding-top: 100px; color:white; font-size: 12px; text-align: center;">   联系方式：0551—65100943，时间：8:30至17:00，周一至周五 </div>
       <div style=" color:white; font-size: 12px; text-align: center;">   操作问题 请加 QQ 群：255459368 </div>
       <div style=" color:white; font-size: 12px; text-align: center;">   <a href="video.html" style=" color:white; font-size: 12px; text-align: center;">演示视频</a> </div>
-      <div style=" color:white; font-size: 12px; text-align: center;">   <a href="/download/安徽省小额贷款公司报表管理系统使用说明书.pdf" download="安徽省小额贷款公司报表管理系统使用说明书.mp4" style=" color:white; font-size: 12px; text-align: center;">操作手册下载</a> </div>
+      <div style=" color:white; font-size: 12px; text-align: center;">   <a href="/download/安徽省小额贷款公司报表管理系统使用说明书.pdf" download="安徽省小额贷款公司报表管理系统使用说明书.pdf" style=" color:white; font-size: 12px; text-align: center;">操作手册下载</a> </div>
     </div><!-- /.login-box -->
 
     <!-- jQuery 2.1.4 -->
