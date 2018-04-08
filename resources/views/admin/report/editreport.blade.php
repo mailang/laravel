@@ -1542,7 +1542,7 @@
 
 
                 if ("{{$data['old_loan_remainder']}}" != "") {
-                    sum_loan_remainder = {{$data['old_loan_remainder']}} +year_issueloan + year_backloan;
+                    sum_loan_remainder = {{$data['old_loan_remainder']}} + year_issueloan - year_backloan;
                     if (!equal(sum_loan_remainder, loan_remainder)) {
                         $.alert("贷款余额需等于年初贷款余额+本年内累计发放贷款金额-本年内累计收回贷款金额");
                         return false;
@@ -1551,7 +1551,7 @@
 
 
                 if ("{{$data['old_loan_num']}}" != "") {
-                    sum_loan_num = {{$data['old_loan_num']}} +year_issuenum + year_backnum;
+                    sum_loan_num = {{$data['old_loan_num']}} + year_issuenum - year_backnum;
                     if (!equal(sum_loan_num, loan_num)) {
                         $.alert("贷款笔数需等于年初贷款笔数+本年内累计发放贷款笔数-本年内累计收回贷款笔数");
                         return false;
