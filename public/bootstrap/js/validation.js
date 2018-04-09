@@ -303,8 +303,7 @@
 
 
         var controlGroup = el.parents('.form-group');
-        controlGroup.removeClass('has-error has-success');
-        
+        controlGroup.removeClass('has-error has-success has-warning');
         controlGroup.addClass(error==false?'has-success':'has-error');
         //在后面增加图标
         if(globalOptions.icon===true ){
@@ -389,7 +388,7 @@
                 $(obj).find(".form-group>label").each(function(){
                     var el=$(this);
                     var controlGroup = el.parents('.form-group');
-                    controlGroup.removeClass('has-error has-success');
+                    controlGroup.removeClass('has-error has-success has-warning');
                     controlGroup.find("#autoreqmark").remove();
                     if(el.parent().find('input').attr('check-type'))
                     el.after('<span id="autoreqmark" style="color:#FF9966"> *</span>')
@@ -404,7 +403,7 @@
                 $(obj).find('input, textarea,select').each(function(){
                     var el = $(this);
                     var controlGroup = el.parents('.form-group');
-                    controlGroup.removeClass('has-error has-success');
+                    controlGroup.removeClass('has-error has-success has-warning');
                     controlGroup.find("#valierr").remove();
                     valid = (el.attr('check-type')==undefined)?null:el.attr('check-type').split(' ');
                     if (valid){

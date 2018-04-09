@@ -8,6 +8,14 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
         <li class="active">公司管理</li>
     </ol>
+    <style>
+        .form-control{
+            width:155px;
+            height: 28px;
+            display: inline;
+            padding:0;
+        }
+    </style>
 @endsection
 @section('content')
     <script src="{{asset('bootstrap/js/validation.js')}}" type="text/javascript"></script>
@@ -314,15 +322,15 @@
                             style="font-size: 12pt; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
                             1.1.10&nbsp;&nbsp;开展网络小贷业务的
                         </td>
-                        <td class="et22" width="132"
+                        <td class="et22 form-group has-warning" width="132"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;">
-                            <input type="text" check-type="integer required" class="text-center" name="old[net_num]"
+                            <input type="text" check-type="required integer" class="text-center form-control" name="old[net_num]"
                                    id="old[net_num]" value="{{$old->net_num}}"/></td>
                         <td class="et22" width="130"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
-                        <td class="et47" width="131"
+                        <td class="et47 form-group has-warning" width="131"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;">
-                            <input type="text" check-type="integer required" class="text-center" name="new[net_num]"
+                            <input type="text" check-type="required integer" class="text-center form-control" name="new[net_num]"
                                    id="new[net_num]" value="{{$new->net_num}}"/></td>
                     </tr>
                     <tr>
@@ -342,7 +350,7 @@
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"></td>
                         <td class="et22" width="130"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;">
-                            <input type="text" check-type="integer required" class="text-center" name="new[add_num]"
+                            <input type="text" check-type="required integer" class="text-center" name="new[add_num]"
                                    id="new[add_num]" value="{{$new->add_num}}"/></td>
                         <td class="et47" width="131"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"></td>
@@ -360,7 +368,7 @@
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"></td>
                         <td class="et22" width="130"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;">
-                            <input type="text" check-type="integer required" class="text-center" name="new[del_num]"
+                            <input type="text" check-type="required integer" class="text-center" name="new[del_num]"
                                    id="new[del_num]" value="{{$new->del_num==null?"0":$new->del_num}}"/></td>
                         <td class="et47" width="131"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"></td>
@@ -394,15 +402,15 @@
                             style="font-size: 12pt; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 496.5pt;">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.2.1&nbsp;&nbsp;其中：跨省（自治区、直辖市）在本辖区设立的
                         </td>
-                        <td class="et22" width="132"
+                        <td class="et22 form-group has-warning" width="132"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;">
-                            <input type="text" check-type="integer required" class="text-center" name="old[op_num]"
+                            <input type="text" check-type="required integer" class="text-center form-control" name="old[op_num]"
                                    id="old[op_num]" value="{{$old->op_num}}"/></td>
                         <td class="et22" width="130"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
-                        <td class="et47" width="131"
+                        <td class="et47 form-group has-warning" width="131"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt 1.2pt 0.5pt 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;">
-                            <input type="text" check-type="integer required" class="text-center" name="new[op_num]"
+                            <input type="text" check-type="required integer" class="text-center form-control" name="new[op_num]"
                                    id="new[op_num]" value="{{$new->op_num}}"/></td>
                     </tr>
                     <tr>
@@ -1276,9 +1284,9 @@
                         </td>
                         <td class="et22" width="132"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"></td>
-                        <td class="et22" width="130"
+                        <td class="et22 form-group has-warning" width="130"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 0.5pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;">
-                            <input type="text" check-type="number required" class="text-center"
+                            <input type="text" check-type="required number" class="text-center form-control"
                                    name="new[Average_interest]" id="new[Average_interest]"
                                    value="{{$new->Average_interest}}"/></td>
                         <td class="et48" width="131"
@@ -1912,9 +1920,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="et71" colspan="6" width="975px"
+                        <td class="et71 form-group has-warning" colspan="6" width="975px"
                             style="font-size: 12pt; vertical-align: middle; border-top-width: 1.2pt; border-top-color: rgb(0, 0, 0); height: 27pt; width: 187.5pt;">
-                            单位负责人： <input type="text" class="text-center" name="new[leader]" id="new[leader]"
+                            单位负责人： <input type="text" class="text-center form-control" name="new[leader]" id="new[leader]"
                                           value="{{$new->leader}}" check-type="required"/>
                         </td>
                         <td class="et71" colspan="3" width="260"
@@ -1936,14 +1944,15 @@
 
                     $(function () {
                         $("#form").validation({
-                            ignore: "#incometax"
+                            ignore: "#incometax",
+                            reqmark:false
                         });
                         $("#btnsubmit").on('click', function (event) {
                             if ($("#form").valid() == false) {
-                                $.alert("存有未填写项");
-                                $("input[type='text']").each(function () {
-                                    if ($(this).val() == "") $(this).css('border', '1px solid #dd4b39');
-                                })
+                                  $.alert("请规范填写！");
+//                                $("input[type='text']").each(function () {
+//                                    if ($(this).val() == "") $(this).css('border', '1px solid #dd4b39');
+//                                })
 
                                 return false;
                             }
