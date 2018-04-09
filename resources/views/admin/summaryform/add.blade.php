@@ -1939,16 +1939,6 @@
                             ignore: "#incometax"
                         });
                         $("#btnsubmit").on('click', function (event) {
-                            //加权平均值需在最大和最小值之间
-                            if (Number($("#Average_interest").val().replace(/,/g, '')) < Number($("#lowest_interest").val().replace(/,/g, ''))) {
-                                $.alert("加权平均利率不能小于最低利率！");
-                                return false;
-                            }
-                            if (Number($("#Average_interest").val().replace(/,/g, '')) > Number($("#highest_interest").val().replace(/,/g, ''))) {
-                                $.alert("加权平均利率不能大于最高利率！");
-                                return false;
-                            }
-// 2.最后要调用 valid()方法。
                             if ($("#form").valid() == false) {
                                 $.alert("存有未填写项");
                                 $("input[type='text']").each(function () {
@@ -1957,6 +1947,17 @@
 
                                 return false;
                             }
+                            //加权平均值需在最大和最小值之间
+                            if (Number($("#new\\[Average_interest\\]").val().replace(/,/g, '')) < Number($("#new\\[lowest_interest\\]").val().replace(/,/g, ''))) {
+                                $.alert("加权平均利率不能小于最低利率！");
+                                return false;
+                            }
+                            if (Number($("#new\\[Average_interest\\]").val().replace(/,/g, '')) > Number($("#new\\[highest_interest\\]").val().replace(/,/g, ''))) {
+                                $.alert("加权平均利率不能大于最高利率！");
+                                return false;
+                            }
+// 2.最后要调用 valid()方法。
+
                         });
                     });
                 </script>
