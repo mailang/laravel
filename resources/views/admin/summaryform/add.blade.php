@@ -15,6 +15,7 @@
             display: inline;
             padding:0;
         }
+        table tbody tr td{border: 1px solid rgb(0,0,0);}
     </style>
 @endsection
 @section('content')
@@ -1953,7 +1954,6 @@
 //                                $("input[type='text']").each(function () {
 //                                    if ($(this).val() == "") $(this).css('border', '1px solid #dd4b39');
 //                                })
-
                                 return false;
                             }
                             //加权平均值需在最大和最小值之间
@@ -1971,6 +1971,7 @@
                     });
                 </script>
             </div>
+        </div>
     </form>
 
 

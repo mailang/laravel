@@ -19,6 +19,9 @@
     </ol>
 @endsection
 @section('content')
+    <style type="text/css">
+        table tbody tr td{border: 1px solid rgb(0,0,0);}
+    </style>
     <script src="{{asset('bootstrap/js/validation.js')}}" type="text/javascript"></script>
     <form id="form" class="form-horizontal" action="/admin/summaryadd" method="post" onsubmit="return toVaild()">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
