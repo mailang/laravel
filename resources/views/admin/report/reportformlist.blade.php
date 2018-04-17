@@ -57,6 +57,12 @@
                                         <a href="{{route('reportform.edit',$report->id)}}">编辑</a>
                                     @endif
                                     </div>
+                                    {{--临时添加--}}
+                                    @if(\Illuminate\Support\Facades\Auth::user()->username == "fysjrb")
+                                        <div>
+                                            <a href="{{route('reportform.edit',$report->id)}}">编辑</a>
+                                        </div>
+                                    @endif
                                     @if(isset($enableback) && $enableback && $report->enableedit>0)
                                         <div>
                                             <a attr="{{$report->id}}" onclick="javascript:back(this);"  href="#">退回</a>

@@ -408,8 +408,8 @@ class ReportformController extends Controller
             $data["timep"] = date("Y年1-m月", strtotime($time)) . "份";
         }
         $data["dtime"] = $time;
-        $user = Auth::user();
-        $company = Company::where('uid','=',$user->id)->first();
+        //$user = Auth::user();
+        $company = Company::where('uid','=',$report->uid)->first();
         $data['reg_capital'] = $company->reg_capital;
         $data['name'] = $company->name;
 
@@ -417,7 +417,7 @@ class ReportformController extends Controller
         $data['old_loan_remainder'] = "";
         $data['old_loan_family'] = "";
         $data['old_loan_num'] = "";
-        $isuploadedold = Reportform::where("uid", $user->id)->whereDate('dtime', timedefine::getdateold($time))->first();
+        $isuploadedold = Reportform::where("uid", $report->uid)->whereDate('dtime', timedefine::getdateold($time))->first();
         if($isuploadedold){
             $data['old_loan_remainder'] = $isuploadedold->loan_remainder;
             $data['old_loan_family'] = $isuploadedold->loan_family;
@@ -428,6 +428,7 @@ class ReportformController extends Controller
         return view('admin.report.editreport',compact('report','data'));
 
     }
+
     public function  update(Request $request,$id)
     {
         $req = $request->all();
