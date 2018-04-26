@@ -270,7 +270,7 @@ class SummaryformController extends Controller
                 $reports = DB::table('area')
                     ->rightJoin('oldsummaryform', 'oldsummaryform.areacode', '=', 'area.areacode')
                     ->where('area.pcode', $areacode)
-                    ->whereDate('oldsummaryform.dtime', timedefine::getdateold())
+                    ->whereDate('oldsummaryform.dtime', timedefine::getdatenew())
                     //->whereBetween('oldsummaryform.created_at',[date('Y-m-01 00:00:00',time()),date('Y-m-d H:i:s')])
                     ->get();
 
@@ -489,7 +489,7 @@ class SummaryformController extends Controller
             $oldr["id"]= $res1->id;
             $oldr["areacode"] = $areacode;
             $oldr["uid"] = Auth::user()->id;
-            $oldr["dtime"] = timedefine::getdateold();
+            $oldr["dtime"] = timedefine::getdatenew();
 
             $res0 = oldsummaryform::create($oldr);
             //如果是一级审核机构，提交汇总报表后，则该区域内的企业提交的报表不可以更改
