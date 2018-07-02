@@ -26,10 +26,12 @@ class SummaryformController extends Controller
         //
         $user = Auth::user();
         $areacode = $user['areacode'];
+        $jrbuser = Users::where("areacode",$areacode)->where("type",2)->first();
+        $uid = $jrbuser->id;
         $field = ['summaryform.id', 'summaryform.updated_at', 'summaryform.dtime','users.id as uid', 'users.name'];
         $reports = DB::table('users')
             ->rightJoin('summaryform', 'users.id', '=', 'summaryform.uid')
-            ->where('users.id', $user->id)
+            ->where('users.id', $uid)
             //->where('income','<>','0')
             ->orderBy('summaryform.updated_at', 'desc')
             ->get($field);

@@ -48,7 +48,7 @@
                         <td>{{ $report->updated_at }}</td>
                         <td>
                             <div><a href="/admin/summary/{{ $report->id}}">查看</a></div>
-                            @if(isset($enableback) && $enableback)
+                            @if(isset($enableback) && $enableback && auth()->user()->type != "3")
                                 <div>
                                     <a attr="{{$report->id}}" onclick="javascript:back(this);"  href="#">退回</a>
                                 </div>

@@ -59,6 +59,19 @@
             </li>
           </ul>
      @endif
+            @if(auth()->user()->type=='3')
+                <ul class="sidebar-menu">
+                    <li class="treeview active">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>报表管理</span> <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('summaryform.uploadlist')}}"><i class="fa fa-circle-o"></i>查看上传报表</a></li>
+                            <li><a href="{{route('summaryform.index')}}"><i class="fa fa-circle-o"></i>查看历史报表</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            @endif
    @endif
         </section>
         <!-- /.sidebar -->

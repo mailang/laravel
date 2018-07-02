@@ -51,13 +51,13 @@
                                 <td>{{ $report->updated_at }}</td>
                                 <td>
                                     <div>
-                                    @if(!isset($report->edit)|| $report->edit>0)
-                                        <a href="{{route('reportform.seereport',$report->id)}}">查看</a>
-                                    @else
-                                        <a href="{{route('reportform.edit',$report->id)}}">编辑</a>
-                                    @endif
+                                    @if(!isset($report->edit)|| $report->edit>0 || auth()->user()->type == "3")
+                                            <a href="{{route('reportform.seereport',$report->id)}}">查看</a>
+                                        @else
+                                            <a href="{{route('reportform.edit',$report->id)}}">编辑</a>
+                                        @endif
                                     </div>
-                                    @if(isset($enableback) && $enableback && $report->enableedit>0)
+                                    @if(isset($enableback) && $enableback && $report->enableedit>0 && auth()->user()->type != "3")
                                         <div>
                                             <a attr="{{$report->id}}" onclick="javascript:back(this);"  href="#">退回</a>
                                         </div>
@@ -66,7 +66,7 @@
                                         <div>
                                             <a href="{{route('reportform.reportlist',$report->uid)}}">查看历史报表</a>
                                         </div>
-                                     @endif
+                                    @endif
 
                                 </td>
                             </tr>
