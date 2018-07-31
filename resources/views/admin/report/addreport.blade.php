@@ -1479,10 +1479,10 @@
                 }
 
                 //贷款余额不能大于资产总额
-                if (Number($("#total_capital").val().replace(/,/g, '')) < Number($("#loan_remainder").val().replace(/,/g, ''))) {
-                    $.alert("贷款余额不能大于资产总额！");
-                    return false;
-                }
+//                if (Number($("#total_capital").val().replace(/,/g, '')) < Number($("#loan_remainder").val().replace(/,/g, ''))) {
+//                    $.alert("贷款余额不能大于资产总额！");
+//                    return false;
+//                }
 
                 loan_remainder = Number($("#loan_remainder").val().replace(/,/g, ''));
                 loan_family = Number($("#loan_family").val().replace(/,/g, ''));
