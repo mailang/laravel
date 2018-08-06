@@ -1464,6 +1464,11 @@
                     jQuery(":input:text:eq(" + nxtIdx + ")").focus();
                 }
             });
+
+            var num = $("[check-type*='number']");
+            num.keyup(function () {
+                $(this).val($(this).val().replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'));
+            })
         });
 
         function webprint() {
