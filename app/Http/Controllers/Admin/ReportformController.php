@@ -159,6 +159,7 @@ class ReportformController extends Controller
         if (!$isuploadedold && $isopenold) {
             $request->session()->flash('modeltext', "您需先补填历史报表！");
             $time = $dateold;
+            $data['isold'] = 1;
         } else {
             if ($isuploadednew) {
                 return view("admin.report.isuploaded");
@@ -185,6 +186,7 @@ class ReportformController extends Controller
         $company = Company::where('uid','=',$user->id)->first();
         $data['reg_capital'] = $company->reg_capital;
         $data['name'] = $company->name;
+
         //dd($data);
         return view('admin.report.addreport')->with("data", $data);
 

@@ -1448,17 +1448,22 @@
                     return false;
                 }
 
+
+                @if(isset($data['isold']) && $data['isold']== 1)
+                @else
                 //实收资本金等于公司注册资金
                 if (!equal(Number($("#paidup_capital").val().replace(/,/g, '')), Number("{{$data['reg_capital']}}"))) {
                     $.alert("实收资本需和公司注册资本金相同！");
                     return false;
                 }
+                @endif
 
                 //货币资金不能大于资产总额
                 if (Number($("#total_capital").val().replace(/,/g, '')) < Number($("#money_capital").val().replace(/,/g, ''))) {
                     $.alert("货币资金不能大于资产总额！");
                     return false;
                 }
+
 
                 //其他资产不能大于资产总额
                 if (Number($("#total_capital").val().replace(/,/g, '')) < Number($("#other_capital").val().replace(/,/g, ''))) {
