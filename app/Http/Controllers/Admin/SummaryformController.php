@@ -159,7 +159,7 @@ class SummaryformController extends Controller
                 $old->lp_ins_num = $table->count();
                 $old->branch_ins_num = $table->sum('branch_num');
                 $old->all_ins_num = $old->lp_ins_num + $old->branch_ins_num;
-                $old['gt500m_num'] = $table->where('reg_capital', '>', '50000')->count();
+                $old['gt500m_num'] = $table->where('reg_capital', '>=', '50000')->count();
                 $old['200mto500m_num'] = $table->where('reg_capital', '<', '50000')->where('reg_capital', '>=', '20000')->count();
                 $old['100mto200m_num'] = $table->where('reg_capital', '<', '20000')->where('reg_capital', '>=', '10000')->count();
                 $old['50mto100m_num'] = $table->where('reg_capital', '<', '10000')->where('reg_capital', '>=', '5000')->count();
@@ -308,7 +308,7 @@ class SummaryformController extends Controller
             $new->lp_ins_num = $table->count();
             $new->branch_ins_num = $table->sum('branch_num');
             $new->all_ins_num = $new->lp_ins_num + $new->branch_ins_num;
-            $new['gt500m_num'] = $table->where('reg_capital', '>', '50000')->count();
+            $new['gt500m_num'] = $table->where('reg_capital', '>=', '50000')->count();
             $new['200mto500m_num'] = $table->where('reg_capital', '<', '50000')->where('reg_capital', '>=', '20000')->count();
             $new['100mto200m_num'] = $table->where('reg_capital', '<', '20000')->where('reg_capital', '>=', '10000')->count();
             $new['50mto100m_num'] = $table->where('reg_capital', '<', '10000')->where('reg_capital', '>=', '5000')->count();
