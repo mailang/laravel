@@ -1952,7 +1952,7 @@
                         $("table input").each(function () {
                             id = $(this).attr("id");
                             if(id != "old[net_num]" && id != "new[net_num]" && id != "old[op_num]" && id != "new[op_num]" && id != "new[Average_interest]" && id!= "new[othertype_capital]" && id != "new[leader]")
-                                $(this).attr("disabled","disabled");
+                                $(this).attr("readonly","readonly");
                         })
 
                         $("#btnsubmit").on('click', function (event) {
