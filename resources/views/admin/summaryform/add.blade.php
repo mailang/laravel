@@ -1948,6 +1948,13 @@
                             ignore: "#incometax",
                             reqmark:false
                         });
+
+                        $("input").each(function () {
+                            id = $(this).attr("id");
+                            if(id != "old[net_num]" && id != "new[net_num]" && id != "old[op_num]" && id != "new[op_num]" && id != "new[Average_interest]" && id!= "new[othertype_capital]" && id != "new[leader]")
+                                $(this).attr("disabled","disabled");
+                        })
+
                         $("#btnsubmit").on('click', function (event) {
                             if ($("#form").valid() == false) {
                                 $.alert("请规范填写！");
@@ -1956,6 +1963,7 @@
 //                                })
                                 return false;
                             }
+
                             //加权平均值需在最大和最小值之间
                             if (Number($("#new\\[Average_interest\\]").val().replace(/,/g, '')) < Number($("#new\\[lowest_interest\\]").val().replace(/,/g, ''))) {
                                 $.alert("加权平均利率不能小于最低利率！");
