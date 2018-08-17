@@ -21,7 +21,7 @@
 @section('content')
     <script src="{{asset('bootstrap/js/validation.js')}}" type="text/javascript"></script>
     <form id="form" class="form-horizontal" action="/admin/summaryadd" method="post" onsubmit="return toVaild()">
-        <input type="hidden" name="_token" value="{{csrf_token()}}">
+        {{ csrf_field() }}
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-1"></div>
