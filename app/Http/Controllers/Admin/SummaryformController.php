@@ -176,7 +176,6 @@ class SummaryformController extends Controller
                     ->whereDate('reportform.dtime', $dateold)->get();
 
                 $old->total_capital = $reports->sum('total_capital');
-
                 $old->money_capital = $reports->sum('money_capital');
                 $old->other_capital = $reports->sum('other_capital');
                 $old->total_debtcapital = $reports->sum('total_debtcapital');
@@ -262,11 +261,11 @@ class SummaryformController extends Controller
                 //$old->saletax = $reports->sum('saletax');
                 $old->incometax = $reports->sum('incometax');
 
-                $old->loantocounty_remainder = $reports->where('bus_area', 0)->sum('loan_remainder');
-                $old->loantocounty_family = $reports->where('bus_area', 0)->sum('loan_family');
+                $old->loantocounty_remainder = $reports->where('company.type', 0)->sum('loan_remainder');
+                $old->loantocounty_family = $reports->where('company.type', 0)->sum('loan_family');
 
-                $old->loantocity_remainder = $reports->where('bus_area', 1)->sum('loan_remainder');
-                $old->loantocity_family = $reports->where('bus_area', 1)->sum('loan_family');
+                $old->loantocity_remainder = $reports->where('company.type', 1)->sum('loan_remainder');
+                $old->loantocity_family = $reports->where('company.type', 1)->sum('loan_family');
 
             }
             else{
@@ -414,11 +413,11 @@ class SummaryformController extends Controller
             $new->incometax = $reports->sum('incometax');
             $new->add_num=$new->lp_ins_num-$old->lp_ins_num;
 
-            $new->loantocounty_remainder = $reports->where('bus_area', 0)->sum('loan_remainder');
-            $new->loantocounty_family = $reports->where('bus_area', 0)->sum('loan_family');
+            $new->loantocounty_remainder = $reports->where('company.type', 0)->sum('loan_remainder');
+            $new->loantocounty_family = $reports->where('company.type', 0)->sum('loan_family');
 
-            $new->loantocity_remainder = $reports->where('bus_area', 1)->sum('loan_remainder');
-            $new->loantocity_family = $reports->where('bus_area', 1)->sum('loan_family');
+            $new->loantocity_remainder = $reports->where('company.type', 1)->sum('loan_remainder');
+            $new->loantocity_family = $reports->where('company.type', 1)->sum('loan_family');
 
             //dd($new);
 
@@ -662,112 +661,5 @@ class SummaryformController extends Controller
 
         }
 
-    }
-
-    public function test()
-    {
-
-        $area[2] = DB::table('area')->where('pcode','=','000000')->get(['areacode'])->map(function ($value) {
-            return (array)$value;
-        })->toArray();
-
-        $area[1] = DB::table('area')->whereIn('pcode', $area[2])->get(['areacode'])->map(function ($value) {
-        return (array)$value;
-        })->toArray();
-
-        $area[0] = DB::table('area')->whereIn('pcode', $area[1])->get(['areacode'])->map(function ($value) {
-            return (array)$value;
-        })->toArray();
-
-        ksort($area);
-
-
-        foreach ($area as $key=>$a)
-        {
-            $summary = DB::table('summaryform')->whereIn('areacode',$a)->get();
-
-            if ($key == 0)
-            {
-
-                foreach ($summary as $s)
-                {
-                    $id = $s->id;
-                    $areacode = $s->areacode;
-                    $dtime = $s->dtime;
-
-                    $datenew = $dtime;
-                    $dateold = timedefine::getdateold($dtime);
-
-
-                    $oldreports = DB::table('company')
-                        ->rightJoin('reportform', 'company.uid', '=', 'reportform.uid')
-                        ->where('reportform.areacode', $areacode)
-                        ->whereDate('reportform.dtime', $dateold)->get();
-
-                    $newreports =  DB::table('company')
-                        ->rightJoin('reportform', 'company.uid', '=', 'reportform.uid')
-                        ->where('reportform.areacode', $areacode)
-                        ->whereDate('reportform.dtime', $datenew)->get();
-
-
-                    $old= oldsummaryform::where('id',$id)->first();
-                    $old->loantocounty_remainder = $oldreports->where('bus_area', 0)->sum('loan_remainder');
-                    $old->loantocounty_family = $oldreports->where('bus_area', 0)->sum('loan_family');
-
-                    $old->loantocity_remainder = $oldreports->where('bus_area', 1)->sum('loan_remainder');
-                    $old->loantocity_family = $oldreports->where('bus_area', 1)->sum('loan_family');
-                    $old->save();
-
-                    $new= summaryform::Find($id);
-                    $new->loantocounty_remainder = $newreports->where('bus_area', 0)->sum('loan_remainder');
-                    $new->loantocounty_family = $newreports->where('bus_area', 0)->sum('loan_family');
-
-                    $new->loantocity_remainder = $newreports->where('bus_area', 1)->sum('loan_remainder');
-                    $new->loantocity_family = $newreports->where('bus_area', 1)->sum('loan_family');
-                    $new->save();
-                    //dd($old,$new);
-                    dd($oldreports,$newreports,$old,$new);
-                }
-            }
-            else
-            {
-                foreach ($summary as $s) {
-                    $id = $s->id;
-                    $areacode = $s->areacode;
-                    $dtime = $s->dtime;
-
-                    $datenew = $dtime;
-                    $dateold = timedefine::getdateold($dtime);
-
-                    $oldreports = DB::table('area')
-                        ->rightJoin('oldsummaryform', 'oldsummaryform.areacode', '=', 'area.areacode')
-                        ->where('area.pcode', $areacode)
-                        ->whereDate('oldsummaryform.dtime', $datenew)
-                        //->whereBetween('oldsummaryform.created_at',[date('Y-m-01 00:00:00',time()),date('Y-m-d H:i:s')])
-                        ->get();
-                    $newreports = DB::table('area')
-                        ->rightJoin('summaryform', 'summaryform.areacode', '=', 'area.areacode')
-                        ->where('area.pcode', $areacode)
-                        ->whereDate('summaryform.dtime', $datenew)->get();
-
-                    $old= oldsummaryform::where('id',$id)->first();
-                    $old->loantocounty_remainder = $oldreports->sum('loantocounty_remainder');
-                    $old->loantocounty_family = $oldreports->sum('loantocounty_family');
-                    $old->loantocity_remainder = $oldreports->sum('loantocity_remainder');
-                    $old->loantocity_family = $oldreports->sum('loantocity_family');
-
-                    $old->save();
-
-                    $new= summaryform::Find($id);
-                    $new->loantocounty_remainder = $newreports->sum('loantocounty_remainder');
-                    $new->loantocounty_family = $newreports->sum('loantocounty_family');
-                    $new->loantocity_remainder = $newreports->sum('loantocity_remainder');
-                    $new->loantocity_family = $newreports->sum('loantocity_family');
-                    $new->save();
-
-
-                }
-            }
-        }
     }
 }
