@@ -27,3 +27,5 @@ Route::post('/summaryadd',['uses'=>'SummaryformController@store','as' => 'summar
 Route::post('/summary/back/{id}',['uses'=>'SummaryformController@back','as' => 'summaryform.back']);
 Route::get('/uploadlist/{id?}',['uses'=>'SummaryformController@uploadlist','as' => 'summaryform.uploadlist']);
 Route::get('/historylist/{sid?}',['uses'=>'SummaryformController@historylist','as' => 'summaryform.historylist']);
+
+Route::get('/test',['uses'=>'SummaryformController@test','as' => 'summaryform.test']);
