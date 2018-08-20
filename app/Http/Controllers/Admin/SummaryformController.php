@@ -726,7 +726,7 @@ class SummaryformController extends Controller
                     $new->loantocity_family = $newreports->where('bus_area', 1)->sum('loan_family');
                     $new->save();
                     //dd($old,$new);
-                    //dd($oldreports,$newreports,$old,$new);
+                    dd($oldreports,$newreports,$old,$new);
                 }
             }
             else
