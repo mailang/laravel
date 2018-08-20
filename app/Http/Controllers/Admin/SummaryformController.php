@@ -261,10 +261,10 @@ class SummaryformController extends Controller
                 //$old->saletax = $reports->sum('saletax');
                 $old->incometax = $reports->sum('incometax');
 
-                $old->loantocounty_remainder = $reports->where('company.type', 0)->sum('loan_num');
+                $old->loantocounty_remainder = $reports->where('company.type', 0)->sum('loan_remainder');
                 $old->loantocounty_family = $reports->where('company.type', 0)->sum('loan_family');
 
-                $old->loantocity_remainder = $reports->where('company.type', 1)->sum('loan_num');
+                $old->loantocity_remainder = $reports->where('company.type', 1)->sum('loan_remainder');
                 $old->loantocity_family = $reports->where('company.type', 1)->sum('loan_family');
 
             }
@@ -413,10 +413,10 @@ class SummaryformController extends Controller
             $new->incometax = $reports->sum('incometax');
             $new->add_num=$new->lp_ins_num-$old->lp_ins_num;
 
-            $new->loantocounty_remainder = $reports->where('company.type', 0)->sum('loan_num');
+            $new->loantocounty_remainder = $reports->where('company.type', 0)->sum('loan_remainder');
             $new->loantocounty_family = $reports->where('company.type', 0)->sum('loan_family');
 
-            $new->loantocity_remainder = $reports->where('company.type', 1)->sum('loan_num');
+            $new->loantocity_remainder = $reports->where('company.type', 1)->sum('loan_remainder');
             $new->loantocity_family = $reports->where('company.type', 1)->sum('loan_family');
 
             //dd($new);
