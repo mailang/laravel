@@ -299,7 +299,7 @@ class ReportformController extends Controller
         $result = $report->where('uid', $report->uid)
             ->whereDate('dtime', $datenew)
             ->get();
-        if ($result->isEmpty()) {
+        if ($result->isEmpty() || $req['dtime'] == timedefine::getdateold()) {
             $report->total_capital = $req['total_capital'];
             $report->money_capital = $req['money_capital'];
             $report->other_capital = $req['other_capital'];
