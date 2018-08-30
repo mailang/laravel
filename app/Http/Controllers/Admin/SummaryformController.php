@@ -223,7 +223,11 @@ class SummaryformController extends Controller
                 $old->ninety_loan_family = $reports->sum('ninety_loan_family');
 
                 $old->highest_interest = $reports->max('highest_interest');
+                $old->highest_interest = isset($old->highest_interest)?$old->highest_interest:"0";
+                //dd($old->highest_interest);
                 $old->lowest_interest = $reports->min('lowest_interest');
+                $old->lowest_interest = isset($old->lowest_interest)?$old->lowest_interest:"0";
+
                 //$new->ninety_loan_family = $reports->average('ninety_loan_family');
 
                 $old->normal_loan = $reports->sum('normal_loan');
@@ -373,7 +377,9 @@ class SummaryformController extends Controller
             $new->ninety_loan_family = $reports->sum('ninety_loan_family');
 
             $new->highest_interest = $reports->max('highest_interest');
+            $new->highest_interest = isset($new->highest_interest)?$new->highest_interest:"0";
             $new->lowest_interest = $reports->min('lowest_interest');
+            $new->lowest_interest = isset($new->lowest_interest)?$new->lowest_interest:"0";
             //$new->ninety_loan_family = $reports->average('ninety_loan_family');
             //dd($reports);
 
