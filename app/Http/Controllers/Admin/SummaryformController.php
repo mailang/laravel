@@ -225,7 +225,9 @@ class SummaryformController extends Controller
                 $old->highest_interest = $reports->max('highest_interest');
                 $old->highest_interest = isset($old->highest_interest)?$old->highest_interest:"0";
                 //dd($old->highest_interest);
-                $old->lowest_interest = $reports->min('lowest_interest');
+                $tmpreports = $reports->where('lowest_interest','<>','0');
+                $old->lowest_interest = $tmpreports->min('lowest_interest');
+                //dd($reports,$tmpreports,$old->lowest_interest);
                 $old->lowest_interest = isset($old->lowest_interest)?$old->lowest_interest:"0";
 
                 //$new->ninety_loan_family = $reports->average('ninety_loan_family');
@@ -299,7 +301,12 @@ class SummaryformController extends Controller
 
                 }
                 $old->highest_interest = $reports->max('highest_interest');
-                $old->lowest_interest = $reports->max('lowest_interest');
+
+                $tmpreports = $reports->where('lowest_interest','<>','0');
+                $old->lowest_interest = $tmpreports->min('lowest_interest');
+                //dd($reports,$tmpreports,$old->lowest_interest);
+                $old->lowest_interest = isset($old->lowest_interest)?$old->lowest_interest:"0";
+                //$old->lowest_interest = $reports->max('lowest_interest');
             }
           $new = new Summaryform();
         if ($isfirst->isEmpty()) {
@@ -378,8 +385,10 @@ class SummaryformController extends Controller
 
             $new->highest_interest = $reports->max('highest_interest');
             $new->highest_interest = isset($new->highest_interest)?$new->highest_interest:"0";
-            $new->lowest_interest = $reports->min('lowest_interest');
+            $tmpreports = $reports->where('lowest_interest','<>','0');
+            $new->lowest_interest = $tmpreports->min('lowest_interest');
             $new->lowest_interest = isset($new->lowest_interest)?$new->lowest_interest:"0";
+            //dd($reports,$tmpreports,$new->lowest_interest);
             //$new->ninety_loan_family = $reports->average('ninety_loan_family');
             //dd($reports);
 
@@ -455,7 +464,12 @@ class SummaryformController extends Controller
 
             }
             $new->highest_interest = $reports->max('highest_interest');
-            $new->lowest_interest = $reports->min('lowest_interest');
+
+            $tmpreports = $reports->where('lowest_interest','<>','0');
+            $new->lowest_interest = $tmpreports->min('lowest_interest');
+            $new->lowest_interest = isset($new->lowest_interest)?$new->lowest_interest:"0";
+            //dd($reports,$tmpreports,$new->lowest_interest);
+            //$new->lowest_interest = $reports->min('lowest_interest');
             //$new->highest_interest = $reports->max('highest_interest');
             //dd($new);
 
