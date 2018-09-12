@@ -40,7 +40,7 @@ class SummaryformController extends Controller
 
         return view('admin.summaryform.historylist', compact('reports','url'));
     }
-
+/*获取上传和未上传报表的企业报表*/
     public function uploadlist($id = null)
     {
         //

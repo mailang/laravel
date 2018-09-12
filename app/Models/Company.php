@@ -28,7 +28,9 @@ class Company extends Model
         'bus_area',
         'branch_num',
         'p_num',
-        'uid'
+        'uid',
+        'isclosing',
+        'closing_at'
     ];
 
 }

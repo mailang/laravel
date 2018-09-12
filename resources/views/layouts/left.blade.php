@@ -41,6 +41,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="{{route('company.index')}}"><i class="fa fa-circle-o"></i>查看企业信息</a></li>
+                  <li><a href="{{route('company.closing')}}"><i class="fa fa-circle-o"></i>企业注销</a></li>
               </ul>
             </li>
           </ul>  
@@ -58,6 +59,7 @@
               </ul>
             </li>
           </ul>
+
      @endif
             @if(auth()->user()->type=='3')
                 <ul class="sidebar-menu">
@@ -72,6 +74,18 @@
                     </li>
                 </ul>
             @endif
+            @if(substr(auth()->user()->areacode,-2,2)=='00')
+                <ul class="sidebar-menu">
+                    <li class="treeview active">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>小额贷款公司报表</span> <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('companyreport.list')}}"><i class="fa fa-circle-o"></i>已上传企业报表</a></li>
+                            <li><a href="{{route('companyreport.noupload')}}"><i class="fa fa-circle-o"></i>未上传企业报表</a></li>
+                        </ul>
+                    </li>
+                </ul>@endif
    @endif
         </section>
         <!-- /.sidebar -->

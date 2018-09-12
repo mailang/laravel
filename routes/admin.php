@@ -8,6 +8,8 @@ $this->post('/modifypassword', 'ModifyPasswordController@update');
 Route::get('/company',['uses'=>'CompanyController@index','as' => 'company.index',]);
 Route::post('/company',['uses'=>'CompanyController@store','as' => 'company.store',]);
 Route::get('/company/{company}',['uses'=>'CompanyController@show','as' => 'company.show',]);
+Route::get('/companycancel',['uses'=>'CompanyController@companycancel','as' => 'company.closing']);
+Route::get('/companycancel/{id}',['uses'=>'CompanyController@modifycancel','as' => 'company.postcancel']);
 
 Route::get('/addreport/{old?}',['uses'=>'ReportformController@addreport','as' => 'reportform.addreport',]);
 Route::post('/addreport',['uses'=>'ReportformController@submitreport','as' => 'reportform.submitreport',]);
@@ -28,3 +30,8 @@ Route::post('/summary/back/{id}',['uses'=>'SummaryformController@back','as' => '
 Route::get('/uploadlist/{id?}',['uses'=>'SummaryformController@uploadlist','as' => 'summaryform.uploadlist']);
 Route::get('/historylist/{sid?}',['uses'=>'SummaryformController@historylist','as' => 'summaryform.historylist']);
 
+/*查看基本报表*/
+Route::get('/jrb/report',['uses'=>'CompanyreportController@list','as' => 'companyreport.list']);
+Route::post('/jrb/report/export',['uses'=>'CompanyreportController@export','as' => 'companyreport.export']);
+Route::get('/jrb/report/noupload/{id?}',['uses'=>'CompanyreportController@noupload','as' => 'companyreport.noupload']);
+Route::get('/jrb/report/upload/{id}/{time}',['uses'=>'CompanyreportController@search','as' => 'companyreport.search']);

@@ -9,6 +9,7 @@ use App\Models\Area;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CompanyRequest;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\VarDumper\Caster\DateCaster;
 
 class CompanyController extends Controller
 {
@@ -33,6 +34,24 @@ class CompanyController extends Controller
             return view("admin.company.add",compact('areacode','token'));
         }
 
+    }
+    /*企业状态注销*/
+   public function companycancel()
+    {
+        $company = Company::where('uid', Auth::user()->id)->first();
+
+        return view("admin.company.cancel",compact('company'));
+
+
+    }
+    public function modifycancel(Request $request,$id)
+    {
+        $company = Company::find($id);
+        $company->isclosing=1;
+        $company->closing_at=Date('Y-m-d');
+        $company->save();
+        flash("修改成功!");
+        return redirect()->back();
     }
 
     public function getareacode()
