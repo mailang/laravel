@@ -9,7 +9,7 @@ Route::get('/company',['uses'=>'CompanyController@index','as' => 'company.index'
 Route::post('/company',['uses'=>'CompanyController@store','as' => 'company.store',]);
 Route::get('/company/{company}',['uses'=>'CompanyController@show','as' => 'company.show',]);
 Route::get('/companycancel',['uses'=>'CompanyController@companycancel','as' => 'company.closing']);
-Route::get('/companycancel/{id}',['uses'=>'CompanyController@modifycancel','as' => 'company.postcancel']);
+Route::post('/companycancel/{id}',['uses'=>'CompanyController@modifycancel','as' => 'company.postcancel']);
 
 Route::get('/addreport/{old?}',['uses'=>'ReportformController@addreport','as' => 'reportform.addreport',]);
 Route::post('/addreport',['uses'=>'ReportformController@submitreport','as' => 'reportform.submitreport',]);

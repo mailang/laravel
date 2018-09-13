@@ -38,19 +38,22 @@ class CompanyreportController extends Controller
         $areas=Area::where('pcode', $areacode)->get(['areacode']);
         $time1=$prams['year'].'-'.$prams['month'].'-01';
         $time2=$prams['year'].'-'.($prams['month']+1).'-01';
-        $uploaded=$prams['uploaded'];
         $list=DB::table('company')->leftJoin('reportform','company.uid','=','reportform.uid')
             ->select(['company.name','company.address','company.opening_at','company.reg_capital','company.type','company.shareholder','company.p_num','company.branch_num','company.isclosing','company.closing_at','company.tel','company.phone','reportform.*'])
             ->whereBetween('reportform.created_at',[$time1,$time2])
             ->whereIn('company.areacode',$areas)
             ->get();
+        if (count($list)==0){flash('未找到相关数据');return redirect()->back();}
+
         $inputFileName=storage_path('/excel/').iconv('UTF-8', 'GBK//IGNORE','template' ).'.xls';
         $inputFileType='Excel5';
         $objReader = PHPExcel_IOFactory::createReader($inputFileType);
         $excel=$objReader->load($inputFileName);
-        $sheet= $excel->getSheet(0)->setTitle($uploaded);
+        $sheet= $excel->getSheet(0)->setTitle("已上报报表");
         $sheet->setCellValue('E2',"报送周期：".date('Y').'年1月1日至'.date('Y年m月d日',strtotime($prams['year'].'-'.($prams['month']+1).'-01'.'-1 day')));
         $sheet->setCellValue('B1',$areaname[0]->name."小额贷款公司基本报表");
+        $sheet->setCellValue('J4','1.9是否已于'. date('Y').'年1月1日至（含）以后取消经营资质');
+
         foreach ($list as $key=>$report)
         {
             $num=6+$key;
