@@ -48,7 +48,7 @@
                                     <select check-type="required number" class="form-control" name="month"
                                             id="month">
                                         @for($i=1;$i<13;$i++)
-                                            <option>{{ $i }}</option>
+                                            <option value="{{$i}}" @if(date('m')==$i) selected @endif>{{ $i }}</option>
                                         @endfor
                                     </select>
                                 </div>
