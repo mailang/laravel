@@ -155,7 +155,11 @@ class SummaryformController extends Controller
              $old=new oldsummaryform();
             if ($isfirst->isEmpty()) {
 
-                $table = DB::table("company")->where('areacode', $areacode)->whereDate('opening_at','<',$dateoldopen)->get();
+                $table = DB::table("company")->where('areacode', $areacode)->whereDate('opening_at','<',$dateoldopen)
+                    ->where(function ($query) use ($dateold) {
+                        $query->where('isclosing', '0')
+                            ->orWhere('isclosing', '1')->where('closing_at','>',$dateold);})
+                    ->get();
                 $old->lp_ins_num = $table->count();
                 $old->branch_ins_num = $table->sum('branch_num');
                 $old->all_ins_num = $old->lp_ins_num + $old->branch_ins_num;
@@ -316,7 +320,11 @@ class SummaryformController extends Controller
             // $new->lp_ins_num = DB::table("company")->where('areacode',$areacode)->count();
             //$new->branch_ins_num = DB::table("company")->where('areacode',$areacode)->sum('branch_num');
 
-            $table = DB::table("company")->where('areacode', $areacode)->get();
+            $table = DB::table("company")->where('areacode', $areacode)
+                ->where(function ($query) use ($datenew) {
+                    $query->where('isclosing', '0')
+                        ->orWhere('isclosing', '1')->where('closing_at','>',$datenew);})
+                ->get();
             $new->lp_ins_num = $table->count();
             $new->branch_ins_num = $table->sum('branch_num');
             $new->all_ins_num = $new->lp_ins_num + $new->branch_ins_num;
