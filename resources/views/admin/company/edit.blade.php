@@ -341,6 +341,21 @@
                         </script>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
+
+                <div class="form-group">
+                    <div class="row">
+                        <div> <label for="profit_income" class="col-lg-4 control-label">企业是否注销：</label></div>
+                      <div class="col-sm-4">  <div class="input-group">
+                              <div class="form-control" style="border: none">
+                      {{$company["isclosing"]==0?"否":"是"}}
+                        @if($company["isclosing"]==1)
+                       &nbsp;&nbsp;&nbsp; <b> 注销时间: </b>{{date('Y-m-d',strtotime($company["closing_at"])) }}
+                        @endif
+                              </div></div>
+                      </div>
+                    </div>
+                </div>
+
                 @if('company.show' !=  Route::currentRouteName())
                 <input type="hidden" name="areacode" id="areacode"/>
                 <input type="hidden" name="shareholder" id="shareholder"/>
