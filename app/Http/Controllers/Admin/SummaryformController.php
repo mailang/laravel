@@ -1058,6 +1058,7 @@ class SummaryformController extends Controller
                 }
             }
         }
+        echo 'ok';
     }
 
 }
