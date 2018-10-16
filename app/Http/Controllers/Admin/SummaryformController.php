@@ -692,4 +692,372 @@ class SummaryformController extends Controller
 
     }
 
+    public function test()
+    {
+
+        $area[2] = DB::table('area')->where('pcode','=','000000')->get(['areacode'])->map(function ($value) {
+            return (array)$value;
+        })->toArray();
+
+        $area[1] = DB::table('area')->whereIn('pcode', $area[2])->get(['areacode'])->map(function ($value) {
+            return (array)$value;
+        })->toArray();
+
+        $area[0] = DB::table('area')->whereIn('pcode', $area[1])->get(['areacode'])->map(function ($value) {
+            return (array)$value;
+        })->toArray();
+
+        ksort($area);
+
+
+        foreach ($area as $key=>$a)
+        {
+            $summary = DB::table('summaryform')->whereIn('areacode',$a)->get();
+
+            if ($key == 0)
+            {
+
+                foreach ($summary as $s)
+                {
+                    $id = $s->id;
+                    $areacode = $s->areacode;
+                    $dtime = $s->dtime;
+
+                    $datenew = $dtime;
+                    $dateold = timedefine::getdateold($dtime);
+                    $dateoldopen = timedefine::getdateoldopen($dtime);
+
+
+
+                    $oldreports = DB::table('company')
+                        ->rightJoin('reportform', 'company.uid', '=', 'reportform.uid')
+                        ->where('reportform.areacode', $areacode)
+                        ->whereDate('reportform.dtime', $dateold)->get();
+
+                    $newreports =  DB::table('company')
+                        ->rightJoin('reportform', 'company.uid', '=', 'reportform.uid')
+                        ->where('reportform.areacode', $areacode)
+                        ->whereDate('reportform.dtime', $datenew)->get();
+
+
+                    $old= oldsummaryform::where('id',$id)->first();
+
+
+                    $oldtable = DB::table("company")->where('areacode', $areacode)->whereDate('opening_at','<',$dateoldopen)
+                        ->where(function ($query) use ($dateold) {
+                            $query->where('isclosing', '0')
+                                ->orWhere('isclosing', '1')->where('closing_at','>',$dateold);})
+                        ->get();
+                    $old->lp_ins_num = $oldtable->count();
+                    $old->branch_ins_num = $oldtable->sum('branch_num');
+                    $old->all_ins_num = $old->lp_ins_num + $old->branch_ins_num;
+                    $old['gt500m_num'] = $oldtable->where('reg_capital', '>=', '50000')->count();
+                    $old['200mto500m_num'] = $oldtable->where('reg_capital', '<', '50000')->where('reg_capital', '>=', '20000')->count();
+                    $old['100mto200m_num'] = $oldtable->where('reg_capital', '<', '20000')->where('reg_capital', '>=', '10000')->count();
+                    $old['50mto100m_num'] = $oldtable->where('reg_capital', '<', '10000')->where('reg_capital', '>=', '5000')->count();
+                    $old['lt50m_num'] = $oldtable->where('reg_capital', '<', '5000')->count();
+                    $old->sh_num = $oldtable->where('type', 0)->count();
+                    $old->ph_num = $oldtable->where('type', 1)->count();
+                    $old->fh_num = $oldtable->where('type', 2)->count();
+                    $old->allp_num = $oldtable->where('bus_area', 2)->count();
+                    $old->p_num = $oldtable->sum('p_num');
+
+
+                    $old->total_capital = $oldreports->sum('total_capital');
+
+                    $old->money_capital = $oldreports->sum('money_capital');
+                    $old->other_capital = $oldreports->sum('other_capital');
+                    $old->total_debtcapital = $oldreports->sum('total_debtcapital');
+                    $old->paidup_capital = $oldreports->sum('paidup_capital');
+                    $old->income = $oldreports->sum('income');
+                    $old->loan_income = $oldreports->sum('loan_income');
+                    $old->profit_income = $oldreports->sum('profit_income');
+
+                    $old->loan_remainder = $oldreports->sum('loan_remainder');
+                    $old->bad_remainder = $oldreports->sum('bad_remainder');
+                    $old->loan_family = $oldreports->sum('loan_family');
+                    $old->loan_num = $oldreports->sum('loan_num');
+                    $old->year_issueloan = $oldreports->sum('year_issueloan');
+                    $old->year_issuefamily = $oldreports->sum('year_issuefamily');
+                    $old->year_issuenum = $oldreports->sum('year_issuenum');
+
+                    $old->farmer_loan_remainder = $oldreports->sum('farmer_loan_remainder');
+                    $old->farmer_loan_family = $oldreports->sum('farmer_loan_family');
+                    $old->farmer_issue = $oldreports->sum('farmer_issue');
+                    $old->farmer_backnum = $oldreports->sum('farmer_backnum');
+
+                    $old->company_loan_remainder = $oldreports->sum('company_loan_remainder');
+                    $old->company_loan_family = $oldreports->sum('company_loan_family');
+                    $old->company_issue = $oldreports->sum('company_issue');
+                    $old->company_backnum = $oldreports->sum('company_backnum');
+
+                    $old->total_remainder = $oldreports->sum('total_remainder');
+                    $old->total_loan_family = $oldreports->sum('total_loan_family');
+                    $old->total_issue = $oldreports->sum('total_issue');
+                    $old->total_backnum = $oldreports->sum('total_backnum');
+
+                    $old->person_loan_remainder = $oldreports->sum('person_loan_remainder');
+                    $old->person_loan_family = $oldreports->sum('person_loan_family');
+                    $old->person_issue = $oldreports->sum('person_issue');
+                    $old->person_backnum = $oldreports->sum('person_backnum');
+
+                    $old->normal_loan_remainder = $oldreports->sum('normal_loan_remainder');
+                    $old->normal_loan_family = $oldreports->sum('normal_loan_family');
+                    $old->month_loan_remainder = $oldreports->sum('month_loan_remainder');
+                    $old->month_loan_family = $oldreports->sum('month_loan_family');
+                    $old->quarter_loan_remainder = $oldreports->sum('quarter_loan_remainder');
+                    $old->quarter_loan_family = $oldreports->sum('quarter_loan_family');
+                    $old->ninety_loan_remainder = $oldreports->sum('ninety_loan_remainder');
+                    $old->ninety_loan_family = $oldreports->sum('ninety_loan_family');
+
+                    $old->highest_interest = $oldreports->max('highest_interest');
+                    $old->highest_interest = isset($old->highest_interest)?$old->highest_interest:"0";
+                    //dd($old->highest_interest);
+                    $tmpreports = $oldreports->where('lowest_interest','<>','0');
+                    $old->lowest_interest = $tmpreports->min('lowest_interest');
+                    //dd($oldreports,$tmpreports,$old->lowest_interest);
+                    $old->lowest_interest = isset($old->lowest_interest)?$old->lowest_interest:"0";
+
+                    //$new->ninety_loan_family = $oldreports->average('ninety_loan_family');
+
+                    $old->normal_loan = $oldreports->sum('normal_loan');
+                    $old->follow_loan = $oldreports->sum('follow_loan');
+                    $old->second_loan = $oldreports->sum('second_loan');
+                    $old->doubt_loan = $oldreports->sum('doubt_loan');
+                    $old->noback_loan = $oldreports->sum('noback_loan');
+
+                    $old->credit_loan_remainder = $oldreports->sum('credit_loan_remainder');
+                    $old->credit_loan_family = $oldreports->sum('credit_loan_family');
+                    $old->promise_loan_remainder = $oldreports->sum('promise_loan_remainder');
+                    $old->promise_loan_family = $oldreports->sum('promise_loan_family');
+                    $old->mortgage_loan_remainder = $oldreports->sum('mortgage_loan_remainder');
+                    $old->mortgage_loan_family = $oldreports->sum('mortgage_loan_family');
+                    $old->pledge_loan_remainder = $oldreports->sum('pledge_loan_remainder');
+                    $old->pledge_loan_family = $oldreports->sum('pledge_loan_family');
+                    $old->other_loan_remainder = $oldreports->sum('other_loan_remainder');
+                    $old->other_loan_family = $oldreports->sum('other_loan_family');
+
+
+                    $old->bank_financing = $oldreports->sum('bank_financing');
+                    $old->shareholder_loan = $oldreports->sum('shareholder_loan');
+                    $old->profit_transfer = $oldreports->sum('profit_transfer');
+                    $old->bond_bill = $oldreports->sum('bond_bill');
+                    $old->parterner_loan = $oldreports->sum('parterner_loan');
+
+                    $old->securitisation = $oldreports->sum('securitisation');
+                    $old->market_capital = $oldreports->sum('market_capital');
+                    $old->othermoney = $oldreports->sum('othermoney');
+
+                    $old->paytaxes = $oldreports->sum('paytaxes');
+                    //$old->saletax = $oldreports->sum('saletax');
+                    $old->incometax = $oldreports->sum('incometax');
+
+                    $old->loantocounty_remainder = $oldreports->where('bus_area', 0)->sum('loan_remainder');
+                    $old->loantocounty_family = $oldreports->where('bus_area', 0)->sum('loan_family');
+
+                    $old->loantocity_remainder = $oldreports->where('bus_area', 1)->sum('loan_remainder');
+                    $old->loantocity_family = $oldreports->where('bus_area', 1)->sum('loan_family');
+                    $old->save();
+
+                    $new= summaryform::Find($id);
+                    $newtable = DB::table("company")->where('areacode', $areacode)
+                        ->where(function ($query) use ($datenew) {
+                            $query->where('isclosing', '0')
+                                ->orWhere('isclosing', '1')->where('closing_at','>',$datenew);})
+                        ->get();
+                    $new->lp_ins_num = $newtable->count();
+                    $new->branch_ins_num = $newtable->sum('branch_num');
+                    $new->all_ins_num = $new->lp_ins_num + $new->branch_ins_num;
+                    $new['gt500m_num'] = $newtable->where('reg_capital', '>=', '50000')->count();
+                    $new['200mto500m_num'] = $newtable->where('reg_capital', '<', '50000')->where('reg_capital', '>=', '20000')->count();
+                    $new['100mto200m_num'] = $newtable->where('reg_capital', '<', '20000')->where('reg_capital', '>=', '10000')->count();
+                    $new['50mto100m_num'] = $newtable->where('reg_capital', '<', '10000')->where('reg_capital', '>=', '5000')->count();
+                    $new['lt50m_num'] = $newtable->where('reg_capital', '<', '5000')->count();
+                    $new->sh_num = $newtable->where('type', 0)->count();
+                    $new->ph_num = $newtable->where('type', 1)->count();
+                    $new->fh_num = $newtable->where('type', 2)->count();
+                    $new->allp_num = $newtable->where('bus_area', 2)->count();
+                    $new->p_num = $newtable->sum('p_num');
+
+                    $new->total_capital = $newreports->sum('total_capital');
+                    $new->money_capital = $newreports->sum('money_capital');
+                    $new->other_capital = $newreports->sum('other_capital');
+                    $new->total_debtcapital = $newreports->sum('total_debtcapital');
+                    $new->paidup_capital = $newreports->sum('paidup_capital');
+                    $new->income = $newreports->sum('income');
+                    $new->loan_income = $newreports->sum('loan_income');
+                    $new->profit_income = $newreports->sum('profit_income');
+
+                    $new->loan_remainder = $newreports->sum('loan_remainder');
+                    $new->bad_remainder = $newreports->sum('bad_remainder');
+                    $new->loan_family = $newreports->sum('loan_family');
+                    $new->loan_num = $newreports->sum('loan_num');
+                    $new->year_issueloan = $newreports->sum('year_issueloan');
+                    $new->year_issuefamily = $newreports->sum('year_issuefamily');
+                    $new->year_issuenum = $newreports->sum('year_issuenum');
+
+                    $new->farmer_loan_remainder = $newreports->sum('farmer_loan_remainder');
+                    $new->farmer_loan_family = $newreports->sum('farmer_loan_family');
+                    $new->farmer_issue = $newreports->sum('farmer_issue');
+                    $new->farmer_backnum = $newreports->sum('farmer_backnum');
+
+                    $new->company_loan_remainder = $newreports->sum('company_loan_remainder');
+                    $new->company_loan_family = $newreports->sum('company_loan_family');
+                    $new->company_issue = $newreports->sum('company_issue');
+                    $new->company_backnum = $newreports->sum('company_backnum');
+
+                    $new->total_remainder = $newreports->sum('total_remainder');
+                    $new->total_loan_family = $newreports->sum('total_loan_family');
+                    $new->total_issue = $newreports->sum('total_issue');
+                    $new->total_backnum = $newreports->sum('total_backnum');
+
+                    $new->person_loan_remainder = $newreports->sum('person_loan_remainder');
+                    $new->person_loan_family = $newreports->sum('person_loan_family');
+                    $new->person_issue = $newreports->sum('person_issue');
+                    $new->person_backnum = $newreports->sum('person_backnum');
+
+                    $new->normal_loan_remainder = $newreports->sum('normal_loan_remainder');
+                    $new->normal_loan_family = $newreports->sum('normal_loan_family');
+                    $new->month_loan_remainder = $newreports->sum('month_loan_remainder');
+                    $new->month_loan_family = $newreports->sum('month_loan_family');
+                    $new->quarter_loan_remainder = $newreports->sum('quarter_loan_remainder');
+                    $new->quarter_loan_family = $newreports->sum('quarter_loan_family');
+                    $new->ninety_loan_remainder = $newreports->sum('ninety_loan_remainder');
+                    $new->ninety_loan_family = $newreports->sum('ninety_loan_family');
+
+                    $new->highest_interest = $newreports->max('highest_interest');
+                    $new->highest_interest = isset($new->highest_interest)?$new->highest_interest:"0";
+                    $tmpreports = $newreports->where('lowest_interest','<>','0');
+                    $new->lowest_interest = $tmpreports->min('lowest_interest');
+                    $new->lowest_interest = isset($new->lowest_interest)?$new->lowest_interest:"0";
+                    //dd($newreports,$tmpreports,$new->lowest_interest);
+                    //$new->ninety_loan_family = $newreports->average('ninety_loan_family');
+                    //dd($newreports);
+
+                    $new->normal_loan = $newreports->sum('normal_loan');
+                    $new->follow_loan = $newreports->sum('follow_loan');
+                    $new->second_loan = $newreports->sum('second_loan');
+                    $new->doubt_loan = $newreports->sum('doubt_loan');
+                    $new->noback_loan = $newreports->sum('noback_loan');
+
+                    $new->credit_loan_remainder = $newreports->sum('credit_loan_remainder');
+                    $new->credit_loan_family = $newreports->sum('credit_loan_family');
+                    $new->promise_loan_remainder = $newreports->sum('promise_loan_remainder');
+                    $new->promise_loan_family = $newreports->sum('promise_loan_family');
+                    $new->mortgage_loan_remainder = $newreports->sum('mortgage_loan_remainder');
+                    $new->mortgage_loan_family = $newreports->sum('mortgage_loan_family');
+                    $new->pledge_loan_remainder = $newreports->sum('pledge_loan_remainder');
+                    $new->pledge_loan_family = $newreports->sum('pledge_loan_family');
+                    $new->other_loan_remainder = $newreports->sum('other_loan_remainder');
+                    $new->other_loan_family = $newreports->sum('other_loan_family');
+
+//            $new->loantocounty_remainder = $newreports->sum('loantocounty_remainder');
+//            $new->loantocounty_family = $newreports->sum('loantocounty_family');
+//            $new->loantocity_remainder = $newreports->sum('loantocity_remainder');
+//            $new->loantocity_family = $newreports->sum('loantocity_family');
+
+                    $new->bank_financing = $newreports->sum('bank_financing');
+                    $new->shareholder_loan = $newreports->sum('shareholder_loan');
+                    $new->profit_transfer = $newreports->sum('profit_transfer');
+                    $new->bond_bill = $newreports->sum('bond_bill');
+                    $new->parterner_loan = $newreports->sum('parterner_loan');
+
+                    $new->securitisation = $newreports->sum('securitisation');
+                    $new->market_capital = $newreports->sum('market_capital');
+                    $new->othermoney = $newreports->sum('othermoney');
+
+                    $new->paytaxes = $newreports->sum('paytaxes');
+                    //$new->saletax = $newreports->sum('saletax');
+                    $new->incometax = $newreports->sum('incometax');
+                    $new->add_num=$new->lp_ins_num-$old->lp_ins_num;
+
+                    $new->loantocounty_remainder = $newreports->where('bus_area', 0)->sum('loan_remainder');
+                    $new->loantocounty_family = $newreports->where('bus_area', 0)->sum('loan_family');
+
+                    $new->loantocity_remainder = $newreports->where('bus_area', 1)->sum('loan_remainder');
+                    $new->loantocity_family = $newreports->where('bus_area', 1)->sum('loan_family');
+                    $new->save();
+
+                }
+            }
+            else
+            {
+                foreach ($summary as $s) {
+                    $id = $s->id;
+                    $areacode = $s->areacode;
+                    $dtime = $s->dtime;
+
+                    $datenew = $dtime;
+                    $dateold = timedefine::getdateold($dtime);
+
+                    $oldreports = DB::table('area')
+                        ->rightJoin('oldsummaryform', 'oldsummaryform.areacode', '=', 'area.areacode')
+                        ->where('area.pcode', $areacode)
+                        ->whereDate('oldsummaryform.dtime', $datenew)
+                        //->whereBetween('oldsummaryform.created_at',[date('Y-m-01 00:00:00',time()),date('Y-m-d H:i:s')])
+                        ->get();
+                    $newreports = DB::table('area')
+                        ->rightJoin('summaryform', 'summaryform.areacode', '=', 'area.areacode')
+                        ->where('area.pcode', $areacode)
+                        ->whereDate('summaryform.dtime', $datenew)->get();
+
+                    $old= oldsummaryform::where('id',$id)->first();
+                    $columns = Schema::getColumnListing('oldsummaryform');
+
+                    foreach ($columns as $key => $column){
+                        //if()
+                        $arr = array('oldid','id','uid','areacode','areacode','areacode','highest_interest','lowest_interest','Average_interest','othertype_capital','description','dtime','created_at','updated_at','leader');
+                        if(in_array($column,$arr)) {
+                            continue;
+                        }
+                        //dd($reports->sum($column));
+                        //dd(gettype($reports->sum($column)),gettype(5));
+
+                        $old[$column] = $oldreports->sum($column);
+
+                        //dd($reports->sum($column));
+                        //dd($new["$column"],$column,$reports->sum($column),$reports->sum("all_ins_num"));
+
+                    }
+                    $old->highest_interest = $oldreports->max('highest_interest');
+
+                    $tmpreports = $oldreports->where('lowest_interest','<>','0');
+                    $old->lowest_interest = $tmpreports->min('lowest_interest');
+                    //dd($reports,$tmpreports,$old->lowest_interest);
+                    $old->lowest_interest = isset($old->lowest_interest)?$old->lowest_interest:"0";
+
+
+                    $old->save();
+
+                    $new= summaryform::Find($id);
+                    $columns = Schema::getColumnListing('summaryform');
+
+                    foreach ($columns as $key => $column){
+                        //if()
+                        $arr = array('id','uid','areacode','areacode','areacode','highest_interest','lowest_interest','Average_interest','othertype_capital','description','dtime','created_at','updated_at','leader');
+                        if(in_array($column,$arr)) {
+                            continue;
+                        }
+                        //dd($reports->sum($column));
+                        //dd(gettype($reports->sum($column)),gettype(5));
+
+                        $new[$column] = $newreports->sum($column);
+
+                        //dd($reports->sum($column));
+                        //dd($new["$column"],$column,$reports->sum($column),$reports->sum("all_ins_num"));
+
+                    }
+                    $new->highest_interest = $newreports->max('highest_interest');
+
+                    $tmpreports = $newreports->where('lowest_interest','<>','0');
+                    $new->lowest_interest = $tmpreports->min('lowest_interest');
+                    $new->lowest_interest = isset($new->lowest_interest)?$new->lowest_interest:"0";
+                    $new->save();
+
+
+                }
+            }
+        }
+    }
+
 }

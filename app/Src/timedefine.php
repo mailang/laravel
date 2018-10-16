@@ -19,7 +19,12 @@ class timedefine{
            return date('Y-12-01',strtotime('-1 year',strtotime(self::getdatenew())));
        }
    }
-    static  function  getdateoldopen(){
-        return date('Y-m-d',strtotime('+1 month',strtotime(self::getdateold())));
+    static  function  getdateoldopen($dtime = null){
+        if ($dtime){
+            return date('Y-m-d',strtotime('+1 month',strtotime(self::getdateold($dtime))));
+        }
+        else{
+            return date('Y-m-d',strtotime('+1 month',strtotime(self::getdateold())));
+        }
     }
 }

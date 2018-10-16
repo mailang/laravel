@@ -35,3 +35,6 @@ Route::get('/jrb/report',['uses'=>'CompanyreportController@list','as' => 'compan
 Route::post('/jrb/report/export',['uses'=>'CompanyreportController@export','as' => 'companyreport.export']);
 Route::get('/jrb/report/noupload/{id?}',['uses'=>'CompanyreportController@noupload','as' => 'companyreport.noupload']);
 Route::get('/jrb/report/upload/{id}/{time}',['uses'=>'CompanyreportController@search','as' => 'companyreport.search']);
+
+
+Route::get('/test',['uses'=>'SummaryformController@test','as' => 'summaryform.test']);

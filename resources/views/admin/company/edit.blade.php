@@ -83,7 +83,7 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <select class="form-control" name="areacode0" id="areacode0"
-                                                check-type="required number">
+                                                check-type="required number" readonly="true">
                                             <option>--请选择--</option>
                                         </select>
                                     </div>
