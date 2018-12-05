@@ -151,7 +151,7 @@ class CompanyreportController extends Controller
         $child=Area::where('pcode',$code)->get(['areacode']);
         /*获取已上报的企业id*/
         $time1=date('Y').'-'.date('m').'-01';
-        $time2=date('Y').'-'.date('m',strtotime('+1 month')).'-01';
+        $time2= date('Y-m-01',strtotime('+1 month'));
         $uid=reportform::whereBetween('reportform.created_at',[$time1,$time2])
             ->whereIn('areacode',$child)
            ->get(['uid']);
