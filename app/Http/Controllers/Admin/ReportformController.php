@@ -214,13 +214,14 @@ class ReportformController extends Controller
     public function reportlist($uid = null)
     {
         #
+        $companystatechangeable = false;
         if($uid){
             $user = Users::find($uid);
-            $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code','company.id as cid'];
+            $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name','company.state', 'company.code','company.id as cid'];
         }
         else{
             $user = Auth::user();
-            $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code','edit','company.id as cid'];
+            $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name','company.state', 'company.code','edit','company.id as cid'];
         }
         //dd($user);
         $areacode = $user['areacode'];
@@ -247,7 +248,7 @@ class ReportformController extends Controller
             } else
                 return view('index');
         }
-        return view('admin.report.reportformlist', compact('reports'));
+        return view('admin.report.reportformlist', compact('reports','companystatechangeable'));
     }
 
     /**
