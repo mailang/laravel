@@ -740,7 +740,7 @@ class SummaryformController extends Controller
     {
         //
         $companystatechangeable = false;
-        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid','company.id as cid'];
+        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid','company.id as cid','company.state'];
         $url = "";
 
 
