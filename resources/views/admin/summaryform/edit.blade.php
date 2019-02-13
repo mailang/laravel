@@ -17,6 +17,11 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
         <li class="active">查看报表</li>
     </ol>
+    <style>
+        .tabletwo td{
+            font-size: 12pt; vertical-align: middle; border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 39pt; width: 328.5pt
+        }
+    </style>
 @endsection
 @section('content')
     <style type="text/css">
@@ -46,7 +51,7 @@
                     <tr>
                         <td class="et5" colspan="9" width="1173"
                             style="font-size: 20pt; font-weight: 700; text-align: center; vertical-align: middle; height: 54pt; width: 879.75pt;">
-                            {{$name}}小额贷款公司基本情况表
+                            {{$name}}小额贷款公司基本情况表(表一)
                         </td>
                     </tr>
                     <tr>
@@ -116,6 +121,106 @@
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
                         <td class="et47" width="131"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt 1.2pt 1.2pt 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text" class="text-center" name="new[lp_ins_num]" id="new[lp_ins_num]" value="{{$new->lp_ins_num}}" /></td>
+                    </tr>
+                    <tr>
+                        <td class="et20" width="91"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-left-width: 1.2pt; border-left-color: rgb(0, 0, 0); border-right-width: 1.2pt; border-right-color: rgb(0, 0, 0); border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 27pt; width: 68.25pt;">
+                            3
+                        </td>
+                        <td class="et22" colspan="2" rowspan="6" width="136"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 135pt; width: 102pt;">
+                            按企业经营状况划分
+                        </td>
+                        <td class="et24" colspan="3" width="469"
+                            style="font-size: 12pt; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
+                            1.1.1&nbsp;&nbsp;未核实
+                        </td>
+                        <td class="et22" width="132"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[state0]" id="old[state0]" value="{{$old['state0']}}" /></td>
+                        <td class="et22" width="130"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
+                        <td class="et47" width="131"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt 1.2pt 1.2pt 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text" class="text-center" name="new[state0]" id="new[state0]" value="{{$new['state0']}}" /></td>
+                    </tr>
+                    <tr>
+                        <td class="et20" width="91"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-left-width: 1.2pt; border-left-color: rgb(0, 0, 0); border-right-width: 1.2pt; border-right-color: rgb(0, 0, 0); border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 27pt; width: 68.25pt;">
+                            4
+                        </td>
+                        <td class="et24" colspan="3" width="469"
+                            style="font-size: 12pt; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
+                            1.1.2&nbsp;&nbsp;正常经营（有放贷业务）
+                        </td>
+                        <td class="et22" width="132"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[state1]" id="old[state1]" value="{{$old['state1']}}" /></td>
+                        <td class="et22" width="130"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
+                        <td class="et47" width="131"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt 1.2pt 1.2pt 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text" class="text-center" name="new[state1]" id="new[state1]" value="{{$new['state1']}}" /></td>
+                    </tr>
+                    <tr>
+                        <td class="et20" width="91"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-left-width: 1.2pt; border-left-color: rgb(0, 0, 0); border-right-width: 1.2pt; border-right-color: rgb(0, 0, 0); border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 27pt; width: 68.25pt;">
+                            4
+                        </td>
+                        <td class="et24" colspan="3" width="469"
+                            style="font-size: 12pt; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
+                            1.1.3  暂停经营
+                        </td>
+                        <td class="et22" width="132"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[state2]" id="old[state2]" value="{{$old['state2']}}" /></td>
+                        <td class="et22" width="130"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
+                        <td class="et47" width="131"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt 1.2pt 1.2pt 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text" class="text-center" name="new[state2]" id="new[state2]" value="{{$new['state2']}}" /></td>
+                    </tr>
+                    <tr>
+                        <td class="et20" width="91"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-left-width: 1.2pt; border-left-color: rgb(0, 0, 0); border-right-width: 1.2pt; border-right-color: rgb(0, 0, 0); border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 27pt; width: 68.25pt;">
+                            4
+                        </td>
+                        <td class="et24" colspan="3" width="469"
+                            style="font-size: 12pt; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
+                            1.1.4  取消试点经营资格
+                        </td>
+                        <td class="et22" width="132"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[state3]" id="old[state3]" value="{{$old['state3']}}" /></td>
+                        <td class="et22" width="130"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
+                        <td class="et47" width="131"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt 1.2pt 1.2pt 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text" class="text-center" name="new[state3]" id="new[state3]" value="{{$new['state3']}}" /></td>
+                    </tr>
+                    <tr>
+                        <td class="et20" width="91"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-left-width: 1.2pt; border-left-color: rgb(0, 0, 0); border-right-width: 1.2pt; border-right-color: rgb(0, 0, 0); border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 27pt; width: 68.25pt;">
+                            4
+                        </td>
+                        <td class="et24" colspan="3" width="469"
+                            style="font-size: 12pt; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
+                            1.1.5  已吊销营业执照
+                        </td>
+                        <td class="et22" width="132"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[state4]" id="old[state4]" value="{{$old['state4']}}" /></td>
+                        <td class="et22" width="130"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
+                        <td class="et47" width="131"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt 1.2pt 1.2pt 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text" class="text-center" name="new[state4]" id="new[state4]" value="{{$new['state4']}}" /></td>
+                    </tr>
+                    <tr>
+                        <td class="et20" width="91"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-left-width: 1.2pt; border-left-color: rgb(0, 0, 0); border-right-width: 1.2pt; border-right-color: rgb(0, 0, 0); border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 27pt; width: 68.25pt;">
+                            4
+                        </td>
+                        <td class="et24" colspan="3" width="469"
+                            style="font-size: 12pt; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
+                            1.1.6  已注销营业执照
+                        </td>
+                        <td class="et22" width="132"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[state5]" id="old[state5]" value="{{$old['state5']}}" /></td>
+                        <td class="et22" width="130"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
+                        <td class="et47" width="131"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt 1.2pt 1.2pt 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text" class="text-center" name="new[state5]" id="new[state5]" value="{{$new['state5']}}" /></td>
                     </tr>
                     <tr>
                         <td class="et20" width="91"
@@ -1655,6 +1760,84 @@
 
                 <div class="box-footer">
 
+                </div>
+
+                <div style="text-align: center;" width="100%">
+                    <h2>报表报送基本情况表（表二）</h2>
+                    <small>前六个月基本情况</small>
+                    <table style="margin:0 auto;" class="tabletwo" width="909.75pt;">
+                        <tr>
+                            <td></td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['time']}}</td>
+                            @endforeach
+                        </tr>
+                        <tr>
+                            <td>1 本辖区小额贷款机构数量</td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['all_ins_num']}}</td>
+                            @endforeach
+                        </tr>
+                        <tr>
+                            <td>1.1 法人机构数量</td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['lp_ins_num']}}</td>
+                            @endforeach
+                        </tr>
+                        <tr>
+                            <td>1.3 正常经营数量</td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['state1']}}</td>
+                            @endforeach
+                        </tr>
+                        <tr>
+                            <td>1.4 暂停营业数量</td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['state2']}}</td>
+                            @endforeach                    </tr>
+                        <tr>
+                            <td>1.5 取消试点营业资格数量</td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['state3']}}</td>
+                            @endforeach
+                        </tr>
+                        <tr>
+                            <td>1.6 已吊销营业执照数量</td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['state4']}}</td>
+                            @endforeach
+                        </tr>
+                        <tr>
+                            <td>1.7 已注销营业执照数量</td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['state5']}}</td>
+                            @endforeach
+                        </tr>
+                        <tr>
+                            <td>1.8 本期上报报表公司数量</td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['upload_num']}}</td>
+                            @endforeach
+                        </tr>
+                        <tr>
+                            <td>2 贷款余额</td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['loan_remainder']}}</td>
+                            @endforeach
+                        </tr>
+                        <tr>
+                            <td>3 营业收入</td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['income']}}</td>
+                            @endforeach
+                        </tr>
+                        <tr>
+                            <td>4 纳税支出</td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['paytaxes']}}</td>
+                            @endforeach
+                        </tr>
+                    </table>
                 </div>
                 <script language="javascript">
                     function toVaild() {

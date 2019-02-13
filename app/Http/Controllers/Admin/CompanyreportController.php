@@ -14,7 +14,7 @@ use Symfony\Component\VarDumper\Caster\DateCaster;
 class CompanyreportController extends Controller
 {
     /*查看公司报表列表*/
-    function  list()
+    function  clist()
     {
         $areacode=Auth::user()->areacode;//340600
         $isp=substr($areacode,-4,4);
@@ -39,7 +39,8 @@ class CompanyreportController extends Controller
         $time1=$prams['year'].'-'.$prams['month'].'-01';
         $time2= date('Y-m-01',strtotime($time1.'+1 month'));
         $list=DB::table('company')->leftJoin('reportform','company.uid','=','reportform.uid')
-            ->select(['company.name','company.address','company.opening_at','company.reg_capital','company.type','company.shareholder','company.p_num','company.branch_num','company.isclosing','company.closing_at','company.tel','company.phone','reportform.*'])
+            ->leftJoin('area','company.areacode','=','area.areacode')
+            ->select(['area.name as areaname','company.name','company.address','company.opening_at','company.reg_capital','company.type','company.shareholder','company.p_num','company.branch_num','company.state','company.closing_at','company.tel','company.phone','reportform.*'])
             ->where('reportform.dtime',$time1)
             ->whereIn('company.areacode',$areas)
             ->get();
@@ -58,10 +59,11 @@ class CompanyreportController extends Controller
         {
             $num=6+$key;
             $sheet->setCellValue('A'.$num, ++$key);
-            $sheet->setCellValue('B'.$num, $report->name);
-            $sheet->setCellValue('C'.$num, $report->address);
-            $sheet->setCellValue('D'.$num,date('Y-m-d',strtotime($report->opening_at)));
-            $sheet->setCellValue('E'.$num, $report->reg_capital);
+            $sheet->setCellValue('B'.$num, $report->areaname);
+            $sheet->setCellValue('C'.$num, $report->name);
+            $sheet->setCellValue('D'.$num, $report->address);
+            $sheet->setCellValue('E'.$num,date('Y-m-d',strtotime($report->opening_at)));
+            $sheet->setCellValue('F'.$num, $report->reg_capital);
             //0：国有控股，1：民营控股，2：外资控股
                switch($report->type) {
                    case 0: $type="国有控股"; break;
@@ -77,40 +79,40 @@ class CompanyreportController extends Controller
                     if($manager<$share[$i]->equity)$manager=$share[$i]->equity;
                     else continue;
                }
-            $sheet->setCellValue('F'.$num,$type);
-            $sheet->setCellValue('G'.$num, $manager);
-            $sheet->setCellValue('H'.$num, $report->p_num);
-            $sheet->setCellValue('I'.$num, $report->branch_num);
+            $sheet->setCellValue('G'.$num,$type);
+            $sheet->setCellValue('H'.$num, $manager);
+            $sheet->setCellValue('I'.$num, $report->p_num);
+            $sheet->setCellValue('J'.$num, $report->branch_num);
             $close="否";
-            if($report->isclosing==1&&strtotime($report->closing_at)>strtotime('2018-07-01'))
+            if($report->state>3&&strtotime($report->closing_at)>strtotime('2018-07-01'))
                 $close="是";
-            $sheet->setCellValue('J'.$num, $close);
-            $sheet->setCellValue('K'.$num, $report->phone);
-            $sheet->setCellValue('L'.$num, $report->total_capital);
-            $sheet->setCellValue('M'.$num, $report->total_debtcapital);
-            $sheet->setCellValue('N'.$num, $report->paidup_capital);
-            $sheet->setCellValue('O'.$num, $report->profit_income);
-            $sheet->setCellValue('P'.$num, $report->loan_remainder);
-            $sheet->setCellValue('Q'.$num, $report->person_loan_remainder);
-            $sheet->setCellValue('R'.$num, $report->farmer_loan_remainder);
-            $sheet->setCellValue('S'.$num, $report->company_loan_remainder);
-            $sheet->setCellValue('T'.$num, $report->bad_remainder);
-            $sheet->setCellValue('U'.$num, $report->loan_family);
-            $sheet->setCellValue('V'.$num, $report->loan_num);
-            $sheet->setCellValue('W'.$num, $report->year_issueloan);
-            $sheet->setCellValue('X'.$num, $report->year_issuefamily);
-            $sheet->setCellValue('Y'.$num, $report->year_issuenum);
-            $sheet->setCellValue('Z'.$num, $report->Average_interest);
+            $sheet->setCellValue('K'.$num, $close);
+            $sheet->setCellValue('L'.$num, $report->phone);
+            $sheet->setCellValue('M'.$num, $report->total_capital);
+            $sheet->setCellValue('N'.$num, $report->total_debtcapital);
+            $sheet->setCellValue('O'.$num, $report->paidup_capital);
+            $sheet->setCellValue('P'.$num, $report->profit_income);
+            $sheet->setCellValue('Q'.$num, $report->loan_remainder);
+            $sheet->setCellValue('R'.$num, $report->person_loan_remainder);
+            $sheet->setCellValue('S'.$num, $report->farmer_loan_remainder);
+            $sheet->setCellValue('T'.$num, $report->company_loan_remainder);
+            $sheet->setCellValue('U'.$num, $report->bad_remainder);
+            $sheet->setCellValue('V'.$num, $report->loan_family);
+            $sheet->setCellValue('W'.$num, $report->loan_num);
+            $sheet->setCellValue('X'.$num, $report->year_issueloan);
+            $sheet->setCellValue('Y'.$num, $report->year_issuefamily);
+            $sheet->setCellValue('Z'.$num, $report->year_issuenum);
+            $sheet->setCellValue('AA'.$num, $report->Average_interest);
             $totalmoney=$report->bank_financing+$report->shareholder_loan+$report->securitisation+$report->parterner_loan+$report->profit_transfer;
             $othermoney=$report->bond_bill+$report->market_capital+$report->othermoney;
-            $sheet->setCellValue('AA'.$num, $totalmoney+$othermoney);
-            $sheet->setCellValue('AB'.$num, $report->bank_financing);//银行
-            $sheet->setCellValue('AC'.$num, $report->shareholder_loan);//股东
-            $sheet->setCellValue('AD'.$num, $report->securitisation);//资产证券化
-            $sheet->setCellValue('AE'.$num, $report->profit_transfer);//收益转让
-            $sheet->setCellValue('AF'.$num, $report->parterner_loan);//同行拆借
-            $sheet->setCellValue('AG'.$num, $othermoney);//其他类型及金额
-            $sheet->setCellValue('AH'.$num, $report->description);
+            $sheet->setCellValue('AB'.$num, $totalmoney+$othermoney);
+            $sheet->setCellValue('AC'.$num, $report->bank_financing);//银行
+            $sheet->setCellValue('AD'.$num, $report->shareholder_loan);//股东
+            $sheet->setCellValue('AE'.$num, $report->securitisation);//资产证券化
+            $sheet->setCellValue('AF'.$num, $report->profit_transfer);//收益转让
+            $sheet->setCellValue('AG'.$num, $report->parterner_loan);//同行拆借
+            $sheet->setCellValue('AH'.$num, $othermoney);//其他类型及金额
+            $sheet->setCellValue('AI'.$num, $report->description);
             $sheet->getRowDimension($num)->setRowHeight(60);
             $styleArray = array(
                 'borders' => array(
@@ -119,7 +121,7 @@ class CompanyreportController extends Controller
                     ),
                 ),
             );
-            $sheet->getStyle('A'.$num.':AH'.$num)->applyFromArray($styleArray);
+            $sheet->getStyle('A'.$num.':AI'.$num)->applyFromArray($styleArray);
         }
         $objWriter =PHPExcel_IOFactory :: createWriter($excel, 'Excel5');
         header('Content-Type:application/vnd.ms-excel');

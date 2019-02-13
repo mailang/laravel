@@ -25,6 +25,7 @@ class CompanyController extends Controller
         $company = Company::where('uid', Auth::user()->id)->first();
         if ($company)
         {
+            //dd($company);
             return view("admin.company.edit",compact('areacode','company'));
         }
         else
@@ -35,23 +36,24 @@ class CompanyController extends Controller
         }
 
     }
-    /*企业状态注销*/
-   public function companycancel()
+    /*企业状态修改*/
+   public function companystate()
     {
         $company = Company::where('uid', Auth::user()->id)->first();
 
-        return view("admin.company.cancel",compact('company'));
+        return view("admin.company.state",compact('company'));
 
 
     }
-    public function modifycancel(Request $request,$id)
+    public function modifystate(Request $request)
     {
-        $company = Company::find($id);
-        $company->isclosing=1;
-        $company->closing_at=Date('Y-m-d');
+        $company = Company::find($request["cid"]);
+        $company->state = $request["state"];
+        if ($company->state == 5){
+            $company->closing_at=Date('Y-m-d');
+        }
         $company->save();
-        flash("修改成功!");
-        return redirect()->back();
+        echo "ok";
     }
 
     public function getareacode()

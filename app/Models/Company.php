@@ -29,6 +29,7 @@ class Company extends Model
         'branch_num',
         'p_num',
         'uid',
+        'state',
         'isclosing',
         'closing_at'
     ];

@@ -41,7 +41,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="{{route('company.index')}}"><i class="fa fa-circle-o"></i>查看企业信息</a></li>
-                  <li><a href="{{route('company.closing')}}"><i class="fa fa-circle-o"></i>企业注销</a></li>
+                  <li><a href="{{route('company.state')}}"><i class="fa fa-circle-o"></i>企业状态更改</a></li>
               </ul>
             </li>
           </ul>  
@@ -78,7 +78,7 @@
                 <ul class="sidebar-menu">
                     <li class="treeview active">
                         <a href="#">
-                            <i class="fa fa-dashboard"></i> <span>小额贷款公司报表</span> <i class="fa fa-angle-left pull-right"></i>
+                            <i class="fa fa-dashboard"></i> <span>报表报送情况</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="{{route('companyreport.list')}}"><i class="fa fa-circle-o"></i>已上传企业报表</a></li>

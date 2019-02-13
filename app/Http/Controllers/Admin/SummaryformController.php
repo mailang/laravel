@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\oldsummaryform;
 use App\Models\Summaryform;
 use App\Models\Users;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -45,15 +46,16 @@ class SummaryformController extends Controller
     {
         //
 
-        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid','company.id as cid','reportform.edit as enableedit'];
+        $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid','company.id as cid','reportform.edit as enableedit','company.state'];
         $url = "";
         $enableback = false;
+        $companystatechangeable = false;
         $datenew = timedefine::getdatenew();
         if ($id == null) {
             $user = Auth::user();
             $areacode = $user['areacode'];
             $time = $datenew;
-
+            $companystatechangeable = true;
             $isuploaded = Summaryform::where("uid", $user->id)->whereDate('dtime', $datenew)->first();
             if(!$isuploaded){
                 $enableback = true;
@@ -84,9 +86,9 @@ class SummaryformController extends Controller
                 ->where('users.type',1)
                 ->where('users.areacode', $areacode)
                 ->whereNotIn('users.id', array_column($reports->toArray(),"uid" ))
-                ->get(['users.id','company.id as cid','users.name','company.code']);
+                ->get(['users.id','company.id as cid','users.name','company.code','company.state']);
 
-            return view('admin.report.reportformlist', compact('reports','userlist','enableback'));
+            return view('admin.report.reportformlist', compact('reports','userlist','enableback','companystatechangeable'));
         }
         else {
             //有子级金融办机构
@@ -136,9 +138,12 @@ class SummaryformController extends Controller
 
         $isuploaded = Summaryform::where("uid", $user->id)->whereDate('dtime', $datenew)->first();
         //dd(date('Y-m-01', strtotime('-1 month')));
-
+        //dd($isuploaded);
         if ($isuploaded) {
-            return view("admin.report.isuploaded");
+            if($areacode == "340000"){
+                $summaryid = $isuploaded->id;
+            }
+            return view("admin.report.isuploaded",compact('summaryid'));
         }
 
         $isfirst = Area::where('pcode', $areacode)->get();
@@ -152,17 +157,31 @@ class SummaryformController extends Controller
         //  ->get()
         //  ->first();
         //$old=new Summaryform();
-             $old=new oldsummaryform();
+        if ($isfirst->isEmpty()) {
+           $hasnotval = Company::where("areacode",$areacode)->where("state","0")->first();
+            if ($hasnotval){
+                return view("admin.hasnotval");
+            }
+
+        }
+
+            $old=new oldsummaryform();
             if ($isfirst->isEmpty()) {
 
                 $table = DB::table("company")->where('areacode', $areacode)->whereDate('opening_at','<',$dateoldopen)
-                    ->where(function ($query) use ($dateold) {
-                        $query->where('isclosing', '0')
-                            ->orWhere('isclosing', '1')->where('closing_at','>',$dateold);})
+//                    ->where(function ($query) use ($dateold) {
+//                        $query->where('state','<>', '5')
+//                            ->orWhere('state', '5')->where('closing_at','>',$dateold);})
                     ->get();
                 $old->lp_ins_num = $table->count();
                 $old->branch_ins_num = $table->sum('branch_num');
                 $old->all_ins_num = $old->lp_ins_num + $old->branch_ins_num;
+                $old['state0'] = $table->where('state','0')->count();
+                $old['state1'] = $table->where('state','1')->count();
+                $old['state2'] = $table->where('state','2')->count();
+                $old['state3'] = $table->where('state','3')->count();
+                $old['state4'] = $table->where('state','4')->count();
+                $old['state5'] = $table->where('state','5')->count();
                 $old['gt500m_num'] = $table->where('reg_capital', '>=', '50000')->count();
                 $old['200mto500m_num'] = $table->where('reg_capital', '<', '50000')->where('reg_capital', '>=', '20000')->count();
                 $old['100mto200m_num'] = $table->where('reg_capital', '<', '20000')->where('reg_capital', '>=', '10000')->count();
@@ -321,13 +340,19 @@ class SummaryformController extends Controller
             //$new->branch_ins_num = DB::table("company")->where('areacode',$areacode)->sum('branch_num');
 
             $table = DB::table("company")->where('areacode', $areacode)
-                ->where(function ($query) use ($datenew) {
-                    $query->where('isclosing', '0')
-                        ->orWhere('isclosing', '1')->where('closing_at','>',$datenew);})
+//                ->where(function ($query) use ($datenew) {
+//                    $query->where('state','<>', '5')
+//                        ->orWhere('state', '5')->where('closing_at','>',$datenew);})
                 ->get();
             $new->lp_ins_num = $table->count();
             $new->branch_ins_num = $table->sum('branch_num');
             $new->all_ins_num = $new->lp_ins_num + $new->branch_ins_num;
+            $new['state0'] = $table->where('state','0')->count();
+            $new['state1'] = $table->where('state','1')->count();
+            $new['state2'] = $table->where('state','2')->count();
+            $new['state3'] = $table->where('state','3')->count();
+            $new['state4'] = $table->where('state','4')->count();
+            $new['state5'] = $table->where('state','5')->count();
             $new['gt500m_num'] = $table->where('reg_capital', '>=', '50000')->count();
             $new['200mto500m_num'] = $table->where('reg_capital', '<', '50000')->where('reg_capital', '>=', '20000')->count();
             $new['100mto200m_num'] = $table->where('reg_capital', '<', '20000')->where('reg_capital', '>=', '10000')->count();
@@ -483,8 +508,49 @@ class SummaryformController extends Controller
 
         }
         //dd($new);
+        //表二
+        $month = 6;
+        $tabletwo = [];
+        for ($i=0;$i< $month;$i++){
+            $monthsub = $month - $i;
+           $date = date('Y-m-d',strtotime('-'.$monthsub.' month',strtotime($datenew)));
+           $tabletwo[$i]["time"] = date('Y年m月',strtotime('-'.$monthsub.' month',strtotime($datenew)));
 
-        return view('admin.summaryform.add', compact('old', 'new','user'));
+           $summary = Summaryform::where('areacode',$areacode)->whereDate('dtime', $date)->first();
+           if (!$summary){
+               $tabletwo[$i]["all_ins_num"] = "未上传";
+               $tabletwo[$i]["lp_ins_num"] = "未上传";
+               $tabletwo[$i]["state1"] = "未上传";
+               $tabletwo[$i]["state2"] = "未上传";
+               $tabletwo[$i]["state3"] = "未上传";
+               $tabletwo[$i]["state4"] = "未上传";
+               $tabletwo[$i]["state5"] = "未上传";
+               $tabletwo[$i]["upload_num"] = "未上传";
+               $tabletwo[$i]["loan_remainder"] = "未上传";
+               $tabletwo[$i]["income"] = "未上传";
+               $tabletwo[$i]["paytaxes"] = "未上传";
+
+           }
+           else{
+               $tabletwo[$i]["all_ins_num"] = $summary->all_ins_num;
+               $tabletwo[$i]["lp_ins_num"] = $summary->lp_ins_num;
+               $tabletwo[$i]["state1"] = $summary->state1;
+               $tabletwo[$i]["state2"] = $summary->state2;
+               $tabletwo[$i]["state3"] = $summary->state3;
+               $tabletwo[$i]["state4"] = $summary->state4;
+               $tabletwo[$i]["state5"] = $summary->state5;
+
+
+               $uploadnum = reportform::where('areacode','like',rtrim($areacode).'%')->whereDate('dtime',$date)->get()->count();
+
+               $tabletwo[$i]["upload_num"] = $uploadnum;
+               $tabletwo[$i]["loan_remainder"] = $summary->loan_remainder;
+               $tabletwo[$i]["income"] = $summary->income;
+               $tabletwo[$i]["paytaxes"] = $summary->paytaxes;
+           }
+        }
+
+        return view('admin.summaryform.add', compact('old', 'new','user','tabletwo'));
     }
 
     /**
@@ -555,6 +621,52 @@ class SummaryformController extends Controller
         $field = ["summaryform.*","users.name"];
 
         $new = Summaryform::leftJoin('users','users.id','=','uid')->find($id,$field);
+
+
+
+        //表二
+        $areacode = $new->areacode;
+        $datenew = $new->dtime;
+        $month = 6;
+        $tabletwo = [];
+        for ($i=0;$i< $month;$i++){
+            $monthsub = $month - $i;
+            $date = date('Y-m-d',strtotime('-'.$monthsub.' month',strtotime($datenew)));
+            $tabletwo[$i]["time"] = date('Y年m月',strtotime('-'.$monthsub.' month',strtotime($datenew)));
+
+            $summary = Summaryform::where('areacode',$areacode)->whereDate('dtime', $date)->first();
+            if (!$summary){
+                $tabletwo[$i]["all_ins_num"] = "未上传";
+                $tabletwo[$i]["lp_ins_num"] = "未上传";
+                $tabletwo[$i]["state1"] = "未上传";
+                $tabletwo[$i]["state2"] = "未上传";
+                $tabletwo[$i]["state3"] = "未上传";
+                $tabletwo[$i]["state4"] = "未上传";
+                $tabletwo[$i]["state5"] = "未上传";
+                $tabletwo[$i]["upload_num"] = "未上传";
+                $tabletwo[$i]["loan_remainder"] = "未上传";
+                $tabletwo[$i]["income"] = "未上传";
+                $tabletwo[$i]["paytaxes"] = "未上传";
+
+            }
+            else{
+                $tabletwo[$i]["all_ins_num"] = $summary->all_ins_num;
+                $tabletwo[$i]["lp_ins_num"] = $summary->lp_ins_num;
+                $tabletwo[$i]["state1"] = $summary->state1;
+                $tabletwo[$i]["state2"] = $summary->state2;
+                $tabletwo[$i]["state3"] = $summary->state3;
+                $tabletwo[$i]["state4"] = $summary->state4;
+                $tabletwo[$i]["state5"] = $summary->state5;
+
+
+                $uploadnum = reportform::where('areacode','like',rtrim($areacode).'%')->whereDate('dtime',$date)->get()->count();
+
+                $tabletwo[$i]["upload_num"] = $uploadnum;
+                $tabletwo[$i]["loan_remainder"] = $summary->loan_remainder;
+                $tabletwo[$i]["income"] = $summary->income;
+                $tabletwo[$i]["paytaxes"] = $summary->paytaxes;
+            }
+        }
         //dd($new);
         //dd(strtotime("-1 year"));
         //$oldtime = date('Y-12-01', strtotime('-1 year', strtotime($new->dtime)));
@@ -567,7 +679,8 @@ class SummaryformController extends Controller
             $areaname=Area::where('areacode',$old->areacode)->first();
             $name=$areaname['name'];
             if($name=="市辖区") {$pname=Area::where('areacode',$areaname->pcode)->first();$name=$pname->name.'辖区';}
-            return view('admin.summaryform.edit', compact('old', 'new','name'));
+
+            return view('admin.summaryform.edit', compact('old', 'new','name','tabletwo'));
         } else {
             return view('admin.summaryform.old');
         }
@@ -744,13 +857,20 @@ class SummaryformController extends Controller
 
 
                     $oldtable = DB::table("company")->where('areacode', $areacode)->whereDate('opening_at','<',$dateoldopen)
-                        ->where(function ($query) use ($dateold) {
-                            $query->where('isclosing', '0')
-                                ->orWhere('isclosing', '1')->where('closing_at','>',$dateold);})
+//                        ->where(function ($query) use ($dateold) {
+//                            $query->where('state','<>', '5')
+//                                ->orWhere('state', '1')->where('closing_at','>',$dateold);})
                         ->get();
                     $old->lp_ins_num = $oldtable->count();
                     $old->branch_ins_num = $oldtable->sum('branch_num');
                     $old->all_ins_num = $old->lp_ins_num + $old->branch_ins_num;
+                    $old['state0'] = $oldtable->where('state','0')->count();
+                    $old['state1'] = $oldtable->where('state','1')->count();
+                    $old['state2'] = $oldtable->where('state','2')->count();
+                    $old['state3'] = $oldtable->where('state','3')->count();
+                    $old['state4'] = $oldtable->where('state','4')->count();
+                    $old['state5'] = $oldtable->where('state','5')->count();
+
                     $old['gt500m_num'] = $oldtable->where('reg_capital', '>=', '50000')->count();
                     $old['200mto500m_num'] = $oldtable->where('reg_capital', '<', '50000')->where('reg_capital', '>=', '20000')->count();
                     $old['100mto200m_num'] = $oldtable->where('reg_capital', '<', '20000')->where('reg_capital', '>=', '10000')->count();
@@ -861,13 +981,21 @@ class SummaryformController extends Controller
 
                     $new= summaryform::Find($id);
                     $newtable = DB::table("company")->where('areacode', $areacode)
-                        ->where(function ($query) use ($datenew) {
-                            $query->where('isclosing', '0')
-                                ->orWhere('isclosing', '1')->where('closing_at','>',$datenew);})
+//                        ->where(function ($query) use ($datenew) {
+//                            $query->where('state','<>', '5')
+//                                ->orWhere('isclosing', '5')->where('closing_at','>',$datenew);})
                         ->get();
                     $new->lp_ins_num = $newtable->count();
                     $new->branch_ins_num = $newtable->sum('branch_num');
                     $new->all_ins_num = $new->lp_ins_num + $new->branch_ins_num;
+
+                    $new['state0'] = $newtable->where('state','0')->count();
+                    $new['state1'] = $newtable->where('state','1')->count();
+                    $new['state2'] = $newtable->where('state','2')->count();
+                    $new['state3'] = $newtable->where('state','3')->count();
+                    $new['state4'] = $newtable->where('state','4')->count();
+                    $new['state5'] = $newtable->where('state','5')->count();
+
                     $new['gt500m_num'] = $newtable->where('reg_capital', '>=', '50000')->count();
                     $new['200mto500m_num'] = $newtable->where('reg_capital', '<', '50000')->where('reg_capital', '>=', '20000')->count();
                     $new['100mto200m_num'] = $newtable->where('reg_capital', '<', '20000')->where('reg_capital', '>=', '10000')->count();

@@ -344,11 +344,30 @@
 
                 <div class="form-group">
                     <div class="row">
-                        <div> <label for="profit_income" class="col-lg-4 control-label">企业是否注销：</label></div>
+                        <div> <label for="profit_income" class="col-lg-4 control-label">企业状态：</label></div>
                       <div class="col-sm-4">  <div class="input-group">
                               <div class="form-control" style="border: none">
-                      {{$company["isclosing"]==0?"否":"是"}}
-                        @if($company["isclosing"]==1)
+                        @switch($company["state"])
+                            @case(1)
+                                  正常经营(有放贷业务)
+                                  @break
+                            @case(2)
+                                  暂停经营
+                                  @break
+                            @case(3)
+                                  取消试点经营资格
+                                  @break
+                            @case(4)
+                                  已吊销营业执照
+                                  @break
+                            @case(5)
+                                  已注销营业执照
+                                  @break
+                            @default
+                                  未核实
+                                  @break
+                        @endswitch
+                        @if($company["state"]==5)
                        &nbsp;&nbsp;&nbsp; <b> 注销时间: </b>{{date('Y-m-d',strtotime($company["closing_at"])) }}
                         @endif
                               </div></div>

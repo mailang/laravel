@@ -36,7 +36,8 @@
                       <tr>
                         <th>企业名称</th>
                         <th>信用代码</th>
-                          <th>报表记录时间</th>
+                        <th>企业状态</th>
+                        <th>报表记录时间</th>
                         <th>上传报表时间</th>
                         <th>操作</th>
                       </tr>
@@ -47,6 +48,39 @@
 
                                 <td><a href="{{route('company.show',$report->cid)}}">{{ $report->name}}</a></td>
                                 <td>{{ $report->code }}</td>
+                                <td>
+                                @if($companystatechangeable)
+                                        <select class="form-control" name="cstate[{{$report->cid}}]"  cid="{{$report->cid}}" data="{{$report->state}}" check-type="required number">
+                                            <option value="0">未核实</option>
+                                            <option value="1">正常经营(有放贷业务)</option>
+                                            <option value="2">暂停经营</option>
+                                            <option value="3">取消试点经营资格</option>
+                                            <option value="4">已吊销营业执照</option>
+                                            <option value="5">已注销营业执照</option>
+                                        </select>
+                                @else
+                                    @switch($report->state)
+                                        @case(1)
+                                        正常经营(有放贷业务)
+                                        @break
+                                        @case(2)
+                                        暂停经营
+                                        @break
+                                        @case(3)
+                                        取消试点经营资格
+                                        @break
+                                        @case(4)
+                                        已吊销营业执照
+                                        @break
+                                        @case(5)
+                                        已注销营业执照
+                                        @break
+                                        @default
+                                        未核实
+                                        @break
+                                    @endswitch
+                                @endif
+                                </td>
                                 <td>{{ date('Y-m',strtotime($report->dtime))}}</td>
                                 <td>{{ $report->updated_at }}</td>
                                 <td>
@@ -80,6 +114,39 @@
                                         <td>{{ $user->name}}</td>
                                     @endif
                                     <td>{{ $user->code}}</td>
+                                    <td>
+                                        @if($companystatechangeable)
+                                            <select class="form-control" name="cstate[{{$user->cid}}]" cid="{{$user->cid}}" data="{{$user->state}}"  check-type="required number">
+                                                <option value="0">未核实</option>
+                                                <option value="1">正常经营(有放贷业务)</option>
+                                                <option value="2">暂停经营</option>
+                                                <option value="3">取消试点经营资格</option>
+                                                <option value="4">已吊销营业执照</option>
+                                                <option value="5">已注销营业执照</option>
+                                            </select>
+                                        @else
+                                            @switch($user->state)
+                                                @case(1)
+                                                正常经营(有放贷业务)
+                                                @break
+                                                @case(2)
+                                                暂停经营
+                                                @break
+                                                @case(3)
+                                                取消试点经营资格
+                                                @break
+                                                @case(4)
+                                                已吊销营业执照
+                                                @break
+                                                @case(5)
+                                                已注销营业执照
+                                                @break
+                                                @default
+                                                未核实
+                                                @break
+                                            @endswitch
+                                        @endif
+                                    </td>
                                     <td></td>
                                     <td></td>
                                     <td>
@@ -101,6 +168,7 @@
                   </table>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
+
     <div class="modal fade" id="modal-delete" tabIndex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -128,7 +196,72 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="modal-modify" tabIndex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        ×
+                    </button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="lead">
+
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-danger"  id="statemodifybtn">
+                        <i class="fa fa-times-circle"></i>确认
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
               <script type="text/javascript">
+                  $(document).ready(function () {
+                      $("select[name^='cstate']").each(function () {
+                            $(this).val($(this).attr("data"));
+                      });
+
+                      $("select[name^='cstate']").change(function () {
+                          $(".lead").html("<i class=\"fa fa-question-circle\"></i>状态修改为：" + $(this).find("option:selected").text());
+                          var postdata = {
+                              'cid':$(this).attr("cid"),
+                              'state':$(this).val(),
+                              '_token':"{{csrf_token()}}"
+                          };
+                          $("#statemodifybtn").click(function () {
+                              $.ajax({
+                                  type: "POST",
+                                  url: "companystate",
+                                  data: postdata,
+                                  success: function (data) {
+                                      if(data == "ok"){
+                                          $(".modal-body").text("修改成功");
+                                          $("#myModal").modal();
+                                      }
+                                      else{
+                                          $(".modal-body").text("修改失败");
+                                          $("#myModal").modal();
+                                      }
+                                  },
+                                  error: function () {
+                                      $(".modal-body").text("修改失败");
+                                      $("#myModal").modal();
+                                  }
+                              });
+
+                              $("#modal-modify").modal('hide');
+                          });
+                          $("#modal-modify").modal();
+                      });
+
+                  });
+
                   function uploaded(obj)
                   {
                       $(".notupload").hide();
