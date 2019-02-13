@@ -739,7 +739,7 @@ class SummaryformController extends Controller
     public function historylist($sid)
     {
         //
-
+        $companystatechangeable = false;
         $field = ['reportform.id', 'reportform.updated_at', 'reportform.dtime', 'company.name', 'company.code', 'company.uid','company.id as cid'];
         $url = "";
 
@@ -772,7 +772,7 @@ class SummaryformController extends Controller
                 ->whereNotIn('users.id', array_column($reports->toArray(),"uid" ))
                 ->get(['users.id','company.id as cid','users.name','company.code']);
 
-            return view('admin.report.reportformlist', compact('reports','userlist'));
+            return view('admin.report.reportformlist', compact('reports','userlist','companystatechangeable'));
         }
         else {
             //有子级金融办机构

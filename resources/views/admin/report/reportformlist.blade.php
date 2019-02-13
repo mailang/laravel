@@ -49,7 +49,7 @@
                                 <td><a href="{{route('company.show',$report->cid)}}">{{ $report->name}}</a></td>
                                 <td>{{ $report->code }}</td>
                                 <td>
-                                @if(isset($companystatechangeable))
+                                @if($companystatechangeable)
                                         <select class="form-control" name="cstate[{{$report->cid}}]"  cid="{{$report->cid}}" data="{{$report->state}}" check-type="required number">
                                             <option value="0">未核实</option>
                                             <option value="1">正常经营(有放贷业务)</option>
@@ -115,7 +115,7 @@
                                     @endif
                                     <td>{{ $user->code}}</td>
                                     <td>
-                                        @if(isset($companystatechangeable))
+                                        @if($companystatechangeable)
                                             <select class="form-control" name="cstate[{{$user->cid}}]" cid="{{$user->cid}}" data="{{$user->state}}"  check-type="required number">
                                                 <option value="0">未核实</option>
                                                 <option value="1">正常经营(有放贷业务)</option>
