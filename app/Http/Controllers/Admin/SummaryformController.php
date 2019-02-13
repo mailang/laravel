@@ -772,7 +772,7 @@ class SummaryformController extends Controller
                 ->whereNotIn('users.id', array_column($reports->toArray(),"uid" ))
                 ->get(['users.id','company.id as cid','users.name','company.code','company.state']);
 
-            return view('admin.report.reportformlist', compact('reports','userlist',,'companystatechangeable'));
+            return view('admin.report.reportformlist', compact('reports','userlist','companystatechangeable'));
         }
         else {
             //有子级金融办机构
