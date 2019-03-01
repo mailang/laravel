@@ -149,7 +149,7 @@
                         </td>
                         <td class="et24" colspan="3" width="469"
                             style="font-size: 12pt; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
-                            1.1.2&nbsp;&nbsp;正常经营（有放贷业务）
+                            1.1.2  正常经营
                         </td>
                         <td class="et22" width="132"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[state1]" id="old[state1]" value="{{$old['state1']}}" /></td>
@@ -165,7 +165,7 @@
                         </td>
                         <td class="et24" colspan="3" width="469"
                             style="font-size: 12pt; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
-                            1.1.3  暂停经营
+                            1.1.3  暂停经营（只收不贷）
                         </td>
                         <td class="et22" width="132"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[state2]" id="old[state2]" value="{{$old['state2']}}" /></td>
@@ -181,7 +181,7 @@
                         </td>
                         <td class="et24" colspan="3" width="469"
                             style="font-size: 12pt; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
-                            1.1.4  取消试点经营资格
+                            1.1.4  停止经营（停止正常经营、失去联系等）
                         </td>
                         <td class="et22" width="132"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[state3]" id="old[state3]" value="{{$old['state3']}}" /></td>
@@ -197,7 +197,7 @@
                         </td>
                         <td class="et24" colspan="3" width="469"
                             style="font-size: 12pt; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
-                            1.1.5  已吊销营业执照
+                            1.1.5  已被取消发放小额贷款试点经营资格
                         </td>
                         <td class="et22" width="132"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[state4]" id="old[state4]" value="{{$old['state4']}}" /></td>
@@ -213,7 +213,7 @@
                         </td>
                         <td class="et24" colspan="3" width="469"
                             style="font-size: 12pt; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
-                            1.1.6  已注销营业执照
+                            1.1.6  已吊销营业执照
                         </td>
                         <td class="et22" width="132"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[state5]" id="old[state5]" value="{{$old['state5']}}" /></td>
@@ -221,6 +221,22 @@
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
                         <td class="et47" width="131"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt 1.2pt 1.2pt 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text" class="text-center" name="new[state5]" id="new[state5]" value="{{$new['state5']}}" /></td>
+                    </tr>
+                    <tr>
+                        <td class="et20" width="91"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-left-width: 1.2pt; border-left-color: rgb(0, 0, 0); border-right-width: 1.2pt; border-right-color: rgb(0, 0, 0); border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 27pt; width: 68.25pt;">
+                            4
+                        </td>
+                        <td class="et24" colspan="3" width="469"
+                            style="font-size: 12pt; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 351.75pt;">
+                            1.1.7  已注销营业执照
+                        </td>
+                        <td class="et22" width="132"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 99pt;"><input type="text" class="text-center" name="old[state6]" id="old[state6]" value="{{$old['state6']}}" /></td>
+                        <td class="et22" width="130"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 97.5pt;"></td>
+                        <td class="et47" width="131"
+                            style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt 1.2pt 1.2pt 1.2pt; border-color: rgb(0, 0, 0); height: 27pt; width: 98.25pt;"><input type="text" class="text-center" name="new[state6]" id="new[state6]" value="{{$new['state6']}}" /></td>
                     </tr>
                     <tr>
                         <td class="et20" width="91"
@@ -1796,25 +1812,31 @@
                                 <td>{{$table['state2']}}</td>
                             @endforeach                    </tr>
                         <tr>
-                            <td>1.5 取消试点营业资格数量</td>
+                            <td>1.5 停止经营数量</td>
                             @foreach($tabletwo as $table)
                                 <td>{{$table['state3']}}</td>
                             @endforeach
                         </tr>
                         <tr>
-                            <td>1.6 已吊销营业执照数量</td>
+                            <td>1.6 已被取消发放小额贷款试点经营资格</td>
                             @foreach($tabletwo as $table)
                                 <td>{{$table['state4']}}</td>
                             @endforeach
                         </tr>
                         <tr>
-                            <td>1.7 已注销营业执照数量</td>
+                            <td>1.7 已吊销营业执照</td>
                             @foreach($tabletwo as $table)
                                 <td>{{$table['state5']}}</td>
                             @endforeach
                         </tr>
                         <tr>
-                            <td>1.8 本期上报报表公司数量</td>
+                            <td>1.8 已注销营业执照数量</td>
+                            @foreach($tabletwo as $table)
+                                <td>{{$table['state6']}}</td>
+                            @endforeach
+                        </tr>
+                        <tr>
+                            <td>1.9 本期上报报表公司数量</td>
                             @foreach($tabletwo as $table)
                                 <td>{{$table['upload_num']}}</td>
                             @endforeach

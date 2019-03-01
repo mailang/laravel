@@ -348,24 +348,27 @@
                       <div class="col-sm-4">  <div class="input-group">
                               <div class="form-control" style="border: none">
                         @switch($company["state"])
-                            @case(1)
-                                  正常经营(有放贷业务)
-                                  @break
-                            @case(2)
-                                  暂停经营
-                                  @break
-                            @case(3)
-                                  取消试点经营资格
-                                  @break
-                            @case(4)
-                                  已吊销营业执照
-                                  @break
-                            @case(5)
-                                  已注销营业执照
-                                  @break
-                            @default
-                                  未核实
-                                  @break
+                                      @case(1)
+                                      正常经营
+                                      @break
+                                      @case(2)
+                                      暂停经营（只收不贷）
+                                      @break
+                                      @case(3)
+                                      停止经营（停止正常经营、失去联系等）
+                                      @break
+                                      @case(4)
+                                      已被取消发放小额贷款试点经营资格
+                                      @break
+                                      @case(5)
+                                      已吊销营业执照
+                                      @break
+                                      @case(6)
+                                      已注销营业执照
+                                      @break
+                                      @default
+                                      未核实
+                                      @break
                         @endswitch
                         @if($company["state"]==5)
                        &nbsp;&nbsp;&nbsp; <b> 注销时间: </b>{{date('Y-m-d',strtotime($company["closing_at"])) }}

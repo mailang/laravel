@@ -49,11 +49,12 @@
                         <div class=" col-sm-4">
                             <select class="form-control" name="type" id="cstate" check-type="required number">
                                 <option value="0">未核实</option>
-                                <option value="1">正常经营(有放贷业务)</option>
-                                <option value="2">暂停经营</option>
-                                <option value="3">取消试点经营资格</option>
-                                <option value="4">已吊销营业执照</option>
-                                <option value="5">已注销营业执照</option>
+                                <option value="1">正常经营</option>
+                                <option value="2">暂停经营（只收不贷）</option>
+                                <option value="3">停止经营（停止正常经营、失去联系等）</option>
+                                <option value="4">已被取消发放小额贷款试点经营资格</option>
+                                <option value="5">已吊销营业执照</option>
+                                <option value="6">已注销营业执照</option>
                             </select>
                         </div>
                     </div>

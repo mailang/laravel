@@ -52,31 +52,35 @@
                                 @if($companystatechangeable)
                                         <select class="form-control" name="cstate[{{$report->cid}}]"  cid="{{$report->cid}}" data="{{$report->state}}" check-type="required number">
                                             <option value="0">未核实</option>
-                                            <option value="1">正常经营(有放贷业务)</option>
-                                            <option value="2">暂停经营</option>
-                                            <option value="3">取消试点经营资格</option>
-                                            <option value="4">已吊销营业执照</option>
-                                            <option value="5">已注销营业执照</option>
+                                            <option value="1">正常经营</option>
+                                            <option value="2">暂停经营（只收不贷）</option>
+                                            <option value="3">停止经营（停止正常经营、失去联系等）</option>
+                                            <option value="4">已被取消发放小额贷款试点经营资格</option>
+                                            <option value="5">已吊销营业执照</option>
+                                            <option value="6">已注销营业执照</option>
                                         </select>
                                 @else
                                     @switch($report->state)
                                         @case(1)
-                                        正常经营(有放贷业务)
+                                            正常经营
                                         @break
                                         @case(2)
-                                        暂停经营
+                                            暂停经营（只收不贷）
                                         @break
                                         @case(3)
-                                        取消试点经营资格
+                                            停止经营（停止正常经营、失去联系等）
                                         @break
                                         @case(4)
-                                        已吊销营业执照
+                                            已被取消发放小额贷款试点经营资格
                                         @break
                                         @case(5)
-                                        已注销营业执照
+                                            已吊销营业执照
+                                        @break
+                                        @case(6)
+                                            已注销营业执照
                                         @break
                                         @default
-                                        未核实
+                                            未核实
                                         @break
                                     @endswitch
                                 @endif
@@ -118,31 +122,35 @@
                                         @if($companystatechangeable)
                                             <select class="form-control" name="cstate[{{$user->cid}}]" cid="{{$user->cid}}" data="{{$user->state}}"  check-type="required number">
                                                 <option value="0">未核实</option>
-                                                <option value="1">正常经营(有放贷业务)</option>
-                                                <option value="2">暂停经营</option>
-                                                <option value="3">取消试点经营资格</option>
-                                                <option value="4">已吊销营业执照</option>
-                                                <option value="5">已注销营业执照</option>
+                                                <option value="1">正常经营</option>
+                                                <option value="2">暂停经营（只收不贷）</option>
+                                                <option value="3">停止经营（停止正常经营、失去联系等）</option>
+                                                <option value="4">已被取消发放小额贷款试点经营资格</option>
+                                                <option value="5">已吊销营业执照</option>
+                                                <option value="6">已注销营业执照</option>
                                             </select>
                                         @else
                                             @switch($user->state)
                                                 @case(1)
-                                                正常经营(有放贷业务)
+                                                    正常经营
                                                 @break
                                                 @case(2)
-                                                暂停经营
+                                                    暂停经营（只收不贷）
                                                 @break
                                                 @case(3)
-                                                取消试点经营资格
+                                                    停止经营（停止正常经营、失去联系等）
                                                 @break
                                                 @case(4)
-                                                已吊销营业执照
+                                                    已被取消发放小额贷款试点经营资格
                                                 @break
                                                 @case(5)
-                                                已注销营业执照
+                                                    已吊销营业执照
+                                                @break
+                                                @case(6)
+                                                    已注销营业执照
                                                 @break
                                                 @default
-                                                未核实
+                                                    未核实
                                                 @break
                                             @endswitch
                                         @endif

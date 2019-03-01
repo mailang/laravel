@@ -182,6 +182,8 @@ class SummaryformController extends Controller
                 $old['state3'] = $table->where('state','3')->count();
                 $old['state4'] = $table->where('state','4')->count();
                 $old['state5'] = $table->where('state','5')->count();
+                $old['state6'] = $table->where('state','6')->count();
+
                 $old['gt500m_num'] = $table->where('reg_capital', '>=', '50000')->count();
                 $old['200mto500m_num'] = $table->where('reg_capital', '<', '50000')->where('reg_capital', '>=', '20000')->count();
                 $old['100mto200m_num'] = $table->where('reg_capital', '<', '20000')->where('reg_capital', '>=', '10000')->count();
@@ -353,6 +355,8 @@ class SummaryformController extends Controller
             $new['state3'] = $table->where('state','3')->count();
             $new['state4'] = $table->where('state','4')->count();
             $new['state5'] = $table->where('state','5')->count();
+            $new['state6'] = $table->where('state','6')->count();
+
             $new['gt500m_num'] = $table->where('reg_capital', '>=', '50000')->count();
             $new['200mto500m_num'] = $table->where('reg_capital', '<', '50000')->where('reg_capital', '>=', '20000')->count();
             $new['100mto200m_num'] = $table->where('reg_capital', '<', '20000')->where('reg_capital', '>=', '10000')->count();
@@ -525,6 +529,7 @@ class SummaryformController extends Controller
                $tabletwo[$i]["state3"] = "未上传";
                $tabletwo[$i]["state4"] = "未上传";
                $tabletwo[$i]["state5"] = "未上传";
+               $tabletwo[$i]["state6"] = "未上传";
                $tabletwo[$i]["upload_num"] = "未上传";
                $tabletwo[$i]["loan_remainder"] = "未上传";
                $tabletwo[$i]["income"] = "未上传";
@@ -539,7 +544,7 @@ class SummaryformController extends Controller
                $tabletwo[$i]["state3"] = $summary->state3;
                $tabletwo[$i]["state4"] = $summary->state4;
                $tabletwo[$i]["state5"] = $summary->state5;
-
+               $tabletwo[$i]["state6"] = $summary->state6;
 
                $uploadnum = reportform::where('areacode','like',rtrim($areacode).'%')->whereDate('dtime',$date)->get()->count();
 
@@ -643,6 +648,7 @@ class SummaryformController extends Controller
                 $tabletwo[$i]["state3"] = "未上传";
                 $tabletwo[$i]["state4"] = "未上传";
                 $tabletwo[$i]["state5"] = "未上传";
+                $tabletwo[$i]["state6"] = "未上传";
                 $tabletwo[$i]["upload_num"] = "未上传";
                 $tabletwo[$i]["loan_remainder"] = "未上传";
                 $tabletwo[$i]["income"] = "未上传";
@@ -657,6 +663,7 @@ class SummaryformController extends Controller
                 $tabletwo[$i]["state3"] = $summary->state3;
                 $tabletwo[$i]["state4"] = $summary->state4;
                 $tabletwo[$i]["state5"] = $summary->state5;
+                $tabletwo[$i]["state6"] = $summary->state6;
 
 
                 $uploadnum = reportform::where('areacode','like',rtrim($areacode).'%')->whereDate('dtime',$date)->get()->count();
@@ -870,6 +877,7 @@ class SummaryformController extends Controller
                     $old['state3'] = $oldtable->where('state','3')->count();
                     $old['state4'] = $oldtable->where('state','4')->count();
                     $old['state5'] = $oldtable->where('state','5')->count();
+                    $old['state6'] = $oldtable->where('state','6')->count();
 
                     $old['gt500m_num'] = $oldtable->where('reg_capital', '>=', '50000')->count();
                     $old['200mto500m_num'] = $oldtable->where('reg_capital', '<', '50000')->where('reg_capital', '>=', '20000')->count();
@@ -995,6 +1003,7 @@ class SummaryformController extends Controller
                     $new['state3'] = $newtable->where('state','3')->count();
                     $new['state4'] = $newtable->where('state','4')->count();
                     $new['state5'] = $newtable->where('state','5')->count();
+                    $new['state6'] = $newtable->where('state','6')->count();
 
                     $new['gt500m_num'] = $newtable->where('reg_capital', '>=', '50000')->count();
                     $new['200mto500m_num'] = $newtable->where('reg_capital', '<', '50000')->where('reg_capital', '>=', '20000')->count();
