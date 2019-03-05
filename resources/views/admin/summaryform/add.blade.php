@@ -131,7 +131,7 @@
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-left-width: 1.2pt; border-left-color: rgb(0, 0, 0); border-right-width: 1.2pt; border-right-color: rgb(0, 0, 0); border-bottom-width: 1.2pt; border-bottom-color: rgb(0, 0, 0); height: 27pt; width: 68.25pt;">
                             3
                         </td>
-                        <td class="et22" colspan="2" rowspan="6" width="136"
+                        <td class="et22" colspan="2" rowspan="7" width="136"
                             style="font-size: 12pt; text-align: center; vertical-align: middle; border-width: 1.2pt; border-color: rgb(0, 0, 0); height: 135pt; width: 102pt;">
                             按企业经营状况划分
                         </td>
