@@ -42,7 +42,7 @@ class BackupDatabases extends Command
 
             config('database.connections.mysql.database'),
 
-            storage_path('storage/backups/'.date("Ymd").'.sql')
+            storage_path('backups/'.date("Ymd").'.sql')
 
         ));
 
